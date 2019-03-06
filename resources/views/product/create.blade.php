@@ -37,10 +37,10 @@
                                     {!! session('success') !!}
                                 @endalert
                             @endif
-                            <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('product.store') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="">product</label>
+                                    <label for="">Code</label>
                                     <input type="text" name="code" required 
                                         maxlength="10"
                                         class="form-control {{ $errors->has('code') ? 'is-invalid':'' }}">
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="">Brand</label>
                                     <select name="brand_id" id="brand_id" 
-                                        required class="form-control {{ $errors->has('price') ? 'is-invalid':'' }}">
+                                        required class="form-control {{ $errors->has('brand') ? 'is-invalid':'' }}">
                                         <option value="">Pilih</option>
                                         @foreach ($brand as $row)
                                             <option value="{{ $row->brand_id }}">{{ ucfirst($row->brand_name) }}</option>
@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label for="">Category</label>
                                     <select name="category_id" id="category_id" 
-                                        required class="form-control {{ $errors->has('price') ? 'is-invalid':'' }}">
+                                        required class="form-control {{ $errors->has('category') ? 'is-invalid':'' }}">
                                         <option value="">Pilih</option>
                                         @foreach ($category as $row)
                                             <option value="{{ $row->category_id }}">{{ ucfirst($row->category_name) }}</option>
