@@ -21,4 +21,11 @@ Route::resource('/brand', 'BrandController')->except([
     'create', 'show'
 ]);
 
-Route::resource('/product', 'ProductController');
+// Route::resource('/product', 'ProductController')->except([
+//     'create', 'show']);
+Route::group(['prefix' => 'product'], function()
+{
+	Route::get('/','ProductController@index')->name('product.index');
+	Route::get('/create','ProductController@create')->name('product.create');
+	Route::post('/','ProductController@store')->name('product.store');;
+});
