@@ -50,20 +50,42 @@
                                             <th>Category</th>
                                             <th>Brand</th>
                                             <th>Stock</th>
+                                            <th>Description</th>
                                             <th>Last Update</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @php $no = 1; @endphp
+                                    @forelse($product as $row)
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{$no++}}</td>
+                                            <td>{{$row->product_code}}</td>
+                                            <td>{{$row->product_name}}</td>
+                                            <td>{{$row->category->category_name}}</td>
+                                            <td>{{$row->brand->brand_name}}</td>
+                                            <td>{{$row->stocks}}</td>
+                                            <td>{{$row->description}}</td>
+                                            <td>{{$row->created_at}}</td>
+                                            <td>
+                                                <form action="{{ route('product.destroy', $row->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <a href="{{ route('product.edit', $row->id) }}" 
+                                                        class="btn btn-warning btn-sm">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <button class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center">DATA EMPTY</td>                                           </td>
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

@@ -11,7 +11,10 @@ class ProductController extends Controller
 {
     public function index()
     {
-    	return view('product.index');
+        $productrepo =new ProductRepository;
+        $product = $productrepo->getProduct();
+        // print_r($product);exit();
+        return view('product.index', compact('product'));
     }
 
     public function create()
@@ -29,21 +32,37 @@ class ProductController extends Controller
     public function store(Request $Request)
     {
         $this->validate($Request, [
-            'product_name'  => 'required|max:100',
+            'name'  => 'required|max:100',
             'brand_id' => 'required|integer',
             'category_id' => 'required|integer',
-            'stocks' => 'required|max:30',
+            'stock' => 'required|max:30',
             'description' => 'nullable|string|max:255',
-            'product_code' => 'required|string|max:11|unique:product',
-        ]);
+            'code' => 'required|string|max:11',
+        ]);        
+        $name = $Request['name'];
+        $code = $Request['code'];
+        $brand = $Request['brand_id'];
+        $category = $Request['category_id'];
+        $description = $Request['description'];
+        $stock = $Request['stock'];
+        // print_r($datane);exit();
         try{
             $productrepo =new ProductRepository;
-            $product = $productrepo->create_product($Request);
-             return redirect(route('product.index'))
-            ->with(['success' => '<strong>' . $product->name . '</strong> Ditambahkan']);
+            $product = $productrepo->create_product($name,$code,$brand,$category,$description,$stock);
+             return redirect(route('product.index'))->with(['success' => '<strong>' . $product->name . '</strong> Ditambahkan']);
         }catch(\Exception $e)
         {
-            return redirect()->back()->with(['error'=>$e->getmessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
+    }
+
+    public function destroy()
+    {
+
+    }
+
+    public function edit()
+    {
+        
     }
 }
