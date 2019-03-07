@@ -1,20 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\Products;
+use App\Model\category;
+use App\Model\brand;
 
 class Products extends Model
 {
-	protected $guarded = [];
+    protected $fillable = ['product_id','stocks','description','product_code'];
+    protected $table = 'product';
 	
     public function category()
     { 
-    	return $this->belongsTo(category::class);
+    	return $this->hasOne(category::class, 'id','category_id');
     }
 
     public function brand()
     {
-    	return $this->belongsTo(brand::class);
+    	return $this->hasOne(brand::class, 'id','brand_id');
     }
 }

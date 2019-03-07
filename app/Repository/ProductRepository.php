@@ -31,15 +31,21 @@ class ProductRepository{
 	      // 	return $kodejadi;  
 	}
 
-	function create_product($Request)
+	function create_product($name,$code,$brand,$category,$description,$stock)
 	{
-		return product::create(['product_name'=> $Request->name,
-								'product_code'=> $Request->code,
-								'brand_id'=> $Request->brand_id,
-								'category_id' => $Request->category_id,
-								'stocks' => $Request->stock,
-								'description'=> $Request->description]);
+		return products::create(['product_name'=>$name,
+								'product_code' =>$code,
+								'brand_id' =>$brand,
+								'category_id' =>$category,
+								'stocks' =>$stock,
+								'description' =>$description]);
 
 		
+	}
+
+	function getProduct()
+	{
+		// return transaction_detail::with('category')->with('category.kategoris')->with('transaction.transaction_status')
+		return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
 	}
 }
