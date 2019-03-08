@@ -23,9 +23,9 @@ class ProductController extends Controller
 	    $brand = $brandrepo->Getbrand();
     	$categoryrepo=new CategoryRepository;
 	    $category = $categoryrepo->GetCategory();
-        $productrepo=new ProductRepository;
-        $code = $productrepo->GenerateCode();
-    	return view('product.create', compact('category','brand','code'));
+        // $productrepo=new ProductRepository;
+        // $code = $productrepo->GenerateCode();
+    	return view('product.create', compact('category','brand'));
 
     }
 
@@ -38,14 +38,13 @@ class ProductController extends Controller
             'stock' => 'required|max:30',
             'description' => 'nullable|string|max:255',
             'code' => 'required|string|max:11',
-        ]);        
+        ]);  
         $name = $Request['name'];
         $code = $Request['code'];
         $brand = $Request['brand_id'];
         $category = $Request['category_id'];
         $description = $Request['description'];
         $stock = $Request['stock'];
-        // print_r($datane);exit();
         try{
             $productrepo =new ProductRepository;
             $product = $productrepo->create_product($name,$code,$brand,$category,$description,$stock);
@@ -56,13 +55,24 @@ class ProductController extends Controller
         }
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-
+        $productrepo =new ProductRepository;
+        $product = $productrepo->delete($id);
+        return redirect()->back()->with(['success'=>'<strong>'.''.'</strong> Delete Success']);
     }
 
     public function edit()
     {
+        $productrepo =new ProductRepository;
+        $product = $productrepo->getproductid($id);
+
+        $brandrepo=new BrandRepository;
+        $brand = $brandrepo->Getbrand();
+
+        $categoryrepo=new CategoryRepository;
+        $category = $categoryrepo->GetCategory();
         
+        return view('product.edit', compact('product','brand','category'));
     }
 }

@@ -79,10 +79,10 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $row->brand_name }}</td>
                                             <td>
-                                                <form action="{{ route('brand.destroy', $row->brand_id) }}" method="POST">
+                                                <form action="{{ route('brand.destroy', $row->id) }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ route('brand.edit', $row->brand_id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{ route('brand.edit', $row->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                     <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                 </form>
                                             </td>

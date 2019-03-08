@@ -17,17 +17,17 @@ class CategoryRepository{
 
 	public function delete($id)
 	{
-		return category::where('category_id', $id)->delete();		
+		return category::where('id', $id)->delete();		
 	}
 
 	public function getidcat($id)
 	{
-		return category::where('category_id', $id)->first();
+		return category::where('id', $id)->first();
 	}
 
 	public function update_category($request, $id)
 	{
-		return category::Where('category_id', $id)->update(['category_name'=>$request]);
+		return category::Where('id', $id)->update(['category_name'=>$request]);
 	}
 
 }

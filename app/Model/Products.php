@@ -9,16 +9,17 @@ use App\Model\brand;
 
 class Products extends Model
 {
-    protected $fillable = ['product_id','stocks','description','product_code'];
+    // protected $fillable = ['id','stocks','description','product_code','product_name'];
+    protected $guarded = [];
     protected $table = 'product';
 	
     public function category()
     { 
-    	return $this->hasOne(category::class, 'id','category_id');
+    	return $this->belongsTo(Category::class);
     }
 
     public function brand()
     {
-    	return $this->hasOne(brand::class, 'id','brand_id');
+    	return $this->belongsTo(brand::class);
     }
 }
