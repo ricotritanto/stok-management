@@ -35,10 +35,11 @@
                                     {!! session('success') !!}
                                 @endalert
                             @endif
-                            @if (session('error'))
-                            @alert(['type' => 'error'])
-                                    {!! session('error') !!}
-                            @endif
+                             @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                             <form action="{{ route('product.store') }}" method="post">
                                 @csrf
                                 <div class="form-group">
@@ -60,7 +61,7 @@
                                         required class="form-control {{ $errors->has('brand_id') ? 'is-invalid':'' }}">
                                         <option value="">Pilih</option>
                                         @foreach ($brand as $row)
-                                            <option value="{{ $row->brand_id }}">{{ ucfirst($row->brand_name) }}</option>
+                                            <option value="{{ $row->id }}">{{ ucfirst($row->brand_name) }}</option>
                                         @endforeach
                                     </select>
                                     <p class="text-danger">{{ $errors->first('brand_id') }}</p>
@@ -68,10 +69,10 @@
                                 <div class="form-group">
                                     <label for="">Category</label>
                                     <select name="category_id" id="category_id" 
-                                        required class="form-control {{ $errors->has('category_id') ? 'is-invalid':'' }}">
+                                        required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
                                         <option value="">Pilih</option>
                                         @foreach ($category as $row)
-                                            <option value="{{ $row->category_id }}">{{ ucfirst($row->category_name) }}</option>
+                                            <option value="{{ $row->id }}">{{ ucfirst($row->category_name) }}</option>
                                         @endforeach
                                     </select>
                                     <p class="text-danger">{{ $errors->first('category_id') }}</p>

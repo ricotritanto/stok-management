@@ -38,14 +38,27 @@ class ProductRepository{
 								'brand_id' =>$brand,
 								'category_id' =>$category,
 								'stocks' =>$stock,
-								'description' =>$description]);
-
-		
+								'description' =>$description]);		
 	}
 
 	function getProduct()
 	{
 		// return transaction_detail::with('category')->with('category.kategoris')->with('transaction.transaction_status')
 		return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
+	}
+
+	function delete($id)
+	{
+		return products::where('id', $id)->delete();
+	}
+
+	function getproductid($id)
+	{
+		return products::where('id', $id)->first();
+	}
+
+	function update_product()
+	{
+		// return category::Where('id', $id)->update(['category_name'=>$request]);
 	}
 }
