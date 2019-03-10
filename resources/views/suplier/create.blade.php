@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <label for="">Code</label>
                                     <input type="text" name="code" required 
-                                        maxlength="10"
+                                        maxlength="10" value={{$code}} readonly
                                         class="form-control {{ $errors->has('code') ? 'is-invalid':'' }}">
                                     <p class="text-danger">{{ $errors->first('code') }}</p>
                                 </div>
