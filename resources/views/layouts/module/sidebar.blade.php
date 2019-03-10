@@ -57,6 +57,48 @@
                             </a>
                         </li>
                     </ul>
+                    <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>
+                            Manajemen Suplier
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('suplier.index')}}" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>Suplier</p>
+                            </a>
+                        </li>
+                    </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-shopping-bag"></i>
+                        <p>
+                            Manajemen Order
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>Purchase</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>Issuing</p>
+                            </a>
+                        </li>
+                    </ul>
+                    </li>
                 </li>
             </ul>
         </nav>

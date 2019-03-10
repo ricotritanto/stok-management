@@ -57,8 +57,13 @@ class ProductRepository{
 		return products::where('id', $id)->first();
 	}
 
-	function update_product()
+	function update_product($id,$name,$code,$brand,$category,$description,$stock)
 	{
-		// return category::Where('id', $id)->update(['category_name'=>$request]);
+		return products::Where('id', $id)->update(['product_name'=>$name,
+												   'product_code' =>$code,
+												   'brand_id' =>$brand,
+												   'category_id' =>$category,
+												   'stocks' =>$stock,
+												   'description' =>$description]);	
 	}
 }

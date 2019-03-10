@@ -48,7 +48,7 @@ class ProductController extends Controller
         try{
             $productrepo =new ProductRepository;
             $product = $productrepo->create_product($name,$code,$brand,$category,$description,$stock);
-             return redirect(route('product.index'))->with(['success' => '<strong>' . $product->name . '</strong> Ditambahkan']);
+             return redirect(route('product.index'))->with(['success' => '<strong>' . $name . '</strong> added successfully']);
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
@@ -62,7 +62,7 @@ class ProductController extends Controller
         return redirect()->back()->with(['success'=>'<strong>'.''.'</strong> Delete Success']);
     }
 
-    public function edit()
+    public function edit($id)
     {
         $productrepo =new ProductRepository;
         $product = $productrepo->getproductid($id);
@@ -74,5 +74,34 @@ class ProductController extends Controller
         $category = $categoryrepo->GetCategory();
         
         return view('product.edit', compact('product','brand','category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name'  => 'required|max:100',
+            'brand_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'stock' => 'required|max:30',
+            'description' => 'nullable|string|max:255',
+            'code' => 'required|string|max:11',
+        ]);
+        // $aa = $Request->all();
+        // print_r($aa);exit();
+        $name = $request['name'];
+        $code = $request['code'];
+        $brand = $request['brand_id'];
+        $category = $request['category_id'];
+        $description = $request['description'];
+        $stock = $request['stock'];
+
+        try{
+            $productrepo =new ProductRepository;
+            $product = $productrepo->update_product($id,$name,$code,$brand,$category,$description,$stock);
+             return redirect(route('product.index'))->with(['success' => '<strong>' . $name . '</strong> Update successfully']);
+        }catch(\Exception $e)
+        {
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }
     }
 }
