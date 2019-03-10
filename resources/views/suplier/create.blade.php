@@ -1,7 +1,7 @@
 @extends('layouts.master')
 ​
 @section('title')
-    <title>Input Product</title>
+    <title>Input Suplier</title>
 @endsection
 ​
 @section('content')
@@ -15,7 +15,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('product.index') }}">Product</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('suplier.index') }}">Suplier</a></li>
                             <li class="breadcrumb-item active">Add</li>
                         </ol>
                     </div>
@@ -40,7 +40,7 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-                            <form action="{{ route('product.store') }}" method="post">
+                            <form action="{{ route('suplier.store') }}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label for="">Code</label>
@@ -50,46 +50,30 @@
                                     <p class="text-danger">{{ $errors->first('code') }}</p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Product Name</label>
+                                    <label for="">Suplier Name</label>
                                     <input type="text" name="name" id="name" required 
-                                        class="form-control {{ $errors->has('product_name') ? 'is-invalid':'' }}">
-                                        <p class="text-danger">{{ $errors->first('product_name') }}</p>
-                                </div>
+                                        class="form-control {{ $errors->has('suplier_name') ? 'is-invalid':'' }}">
+                                        <p class="text-danger">{{ $errors->first('suplier_name') }}</p>
+                                </div>  
                                 <div class="form-group">
-                                    <label for="">Brand</label>
-                                    <select name="brand_id" id="brand_id" 
-                                        required class="form-control {{ $errors->has('brand_id') ? 'is-invalid':'' }}">
-                                        <option value="">Pilih</option>
-                                        @foreach ($brand as $row)
-                                            <option value="{{ $row->id }}">{{ ucfirst($row->brand_name) }}</option>
-                                        @endforeach
-                                    </select>
-                                    <p class="text-danger">{{ $errors->first('brand_id') }}</p>
-                                </div>
+                                    <label for="">Email</label>
+                                    <input type="email" name="email" id="email" required 
+                                        class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}">
+                                        <p class="text-danger">{{ $errors->first('email') }}</p>
+                                </div>  
                                 <div class="form-group">
-                                    <label for="">Category</label>
-                                    <select name="category_id" id="category_id" 
-                                        required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
-                                        <option value="">Pilih</option>
-                                        @foreach ($category as $row)
-                                            <option value="{{ $row->id }}">{{ ucfirst($row->category_name) }}</option>
-                                        @endforeach
-                                    </select>
-                                    <p class="text-danger">{{ $errors->first('category_id') }}</p>
-                                </div>
+                                    <label for="">Phone</label>
+                                    <input type="text" name="phone" id="phone" required 
+                                        class="form-control {{ $errors->has('phone') ? 'is-invalid':'' }}">
+                                        <p class="text-danger">{{ $errors->first('phone') }}</p>
+                                </div>                                
                                 <div class="form-group">
-                                    <label for="">Deskripsi</label>
-                                    <textarea name="description" id="description" 
+                                    <label for="">Address</label>
+                                    <textarea name="address" id="address" 
                                         cols="5" rows="5" 
-                                        class="form-control {{ $errors->has('description') ? 'is-invalid':'' }}"></textarea>
-                                    <p class="text-danger">{{ $errors->first('description') }}</p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Stok</label>
-                                    <input type="number" name="stock" required 
-                                        class="form-control {{ $errors->has('stock') ? 'is-invalid':'' }}">
-                                    <p class="text-danger">{{ $errors->first('stock') }}</p>
-                                </div>                               
+                                        class="form-control {{ $errors->has('address') ? 'is-invalid':'' }}"></textarea>
+                                    <p class="text-danger">{{ $errors->first('address') }}</p>
+                                </div>                                                        
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-sm">
                                         <i class="fa fa-send"></i> Insert

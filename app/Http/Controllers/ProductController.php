@@ -11,7 +11,10 @@ class ProductController extends Controller
 {
     public function index()
     {
-    	return view('product.index');
+        $productrepo =new ProductRepository;
+        $product = $productrepo->getProduct();
+        // print_r($product);exit();
+        return view('product.index', compact('product'));
     }
 
     public function create()
@@ -20,30 +23,85 @@ class ProductController extends Controller
 	    $brand = $brandrepo->Getbrand();
     	$categoryrepo=new CategoryRepository;
 	    $category = $categoryrepo->GetCategory();
-        $productrepo=new ProductRepository;
-        $code = $productrepo->GenerateCode();
-    	return view('product.create', compact('category','brand','code'));
+        // $productrepo=new ProductRepository;
+        // $code = $productrepo->GenerateCode();
+    	return view('product.create', compact('category','brand'));
 
     }
 
     public function store(Request $Request)
     {
         $this->validate($Request, [
-            'product_name'  => 'required|max:100',
+            'name'  => 'required|max:100',
             'brand_id' => 'required|integer',
             'category_id' => 'required|integer',
-            'stocks' => 'required|max:30',
+            'stock' => 'required|max:30',
             'description' => 'nullable|string|max:255',
-            'product_code' => 'required|string|max:11|unique:product',
-        ]);
+            'code' => 'required|string|max:11',
+        ]);  
+        $name = $Request['name'];
+        $code = $Request['code'];
+        $brand = $Request['brand_id'];
+        $category = $Request['category_id'];
+        $description = $Request['description'];
+        $stock = $Request['stock'];
         try{
             $productrepo =new ProductRepository;
-            $product = $productrepo->create_product($Request);
-             return redirect(route('product.index'))
-            ->with(['success' => '<strong>' . $product->name . '</strong> Ditambahkan']);
+            $product = $productrepo->create_product($name,$code,$brand,$category,$description,$stock);
+             return redirect(route('product.index'))->with(['success' => '<strong>' . $name . '</strong> added successfully']);
         }catch(\Exception $e)
         {
-            return redirect()->back()->with(['error'=>$e->getmessage()]);
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $productrepo =new ProductRepository;
+        $product = $productrepo->delete($id);
+        return redirect()->back()->with(['success'=>'<strong>'.''.'</strong> Delete Success']);
+    }
+
+    public function edit($id)
+    {
+        $productrepo =new ProductRepository;
+        $product = $productrepo->getproductid($id);
+
+        $brandrepo=new BrandRepository;
+        $brand = $brandrepo->Getbrand();
+
+        $categoryrepo=new CategoryRepository;
+        $category = $categoryrepo->GetCategory();
+        
+        return view('product.edit', compact('product','brand','category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name'  => 'required|max:100',
+            'brand_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'stock' => 'required|max:30',
+            'description' => 'nullable|string|max:255',
+            'code' => 'required|string|max:11',
+        ]);
+        // $aa = $Request->all();
+        // print_r($aa);exit();
+        $name = $request['name'];
+        $code = $request['code'];
+        $brand = $request['brand_id'];
+        $category = $request['category_id'];
+        $description = $request['description'];
+        $stock = $request['stock'];
+
+        try{
+            $productrepo =new ProductRepository;
+            $product = $productrepo->update_product($id,$name,$code,$brand,$category,$description,$stock);
+             return redirect(route('product.index'))->with(['success' => '<strong>' . $name . '</strong> Update successfully']);
+        }catch(\Exception $e)
+        {
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
 }

@@ -17,17 +17,17 @@ class BrandRepository{
 
 	public function delete($id)
 	{
-		return brand::where('brand_id', $id)->delete();		
+		return brand::where('id', $id)->delete();		
 	}
 
 	public function getid($id)
 	{
-		return brand::where('brand_id', $id)->first();
+		return brand::where('id', $id)->first();
 	}
 
 	public function update_brand($request, $id)
 	{
-		return brand::Where('brand_id', $id)->update(['brand_name'=>$request]);
+		return brand::Where('id', $id)->update(['brand_name'=>$request]);
 	}
 
 }
