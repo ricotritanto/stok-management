@@ -44,3 +44,6 @@ Route::group(['prefix' => 'suplier'], function()
     Route::get('/{$id}/edit','SuplierController@edit')->name('suplier.edit');
     Route::Put('/{$id}','SuplierController@update')->name('suplier.update');
 });
+
+Route::resource('/purchase', 'PurchaseController')->except([
+    'create', 'show']);
