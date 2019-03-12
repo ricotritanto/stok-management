@@ -16,7 +16,9 @@ class SuplierController extends Controller
 
     public function create()
     {
-        return view('suplier.create');
+        $suplierrepo =  new SuplierRepository();
+        $code = $suplierrepo->getcode();
+        return view('suplier.create', compact('code'));
     }
 
     public function store(Request $request)

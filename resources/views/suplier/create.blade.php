@@ -43,27 +43,36 @@
                             <form action="{{ route('suplier.store') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="">Code</label>
+                                    <label for="">Code :</label>
                                     <input type="text" name="code" required 
-                                        maxlength="10"
+                                        maxlength="10" value={{$code}} readonly
                                         class="form-control {{ $errors->has('code') ? 'is-invalid':'' }}">
                                     <p class="text-danger">{{ $errors->first('code') }}</p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Suplier Name</label>
+                                    <label for="">Suplier Name :</label>
                                     <input type="text" name="name" id="name" required 
                                         class="form-control {{ $errors->has('suplier_name') ? 'is-invalid':'' }}">
                                         <p class="text-danger">{{ $errors->first('suplier_name') }}</p>
                                 </div>  
                                 <div class="form-group">
-                                    <label for="">Email</label>
-                                    <input type="email" name="email" id="email" required 
-                                        class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}">
-                                        <p class="text-danger">{{ $errors->first('email') }}</p>
-                                </div>  
+                                    <label for="">Email : </label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                        </div>
+                                        <input type="email" name="email" id="email" required placeholder="Email"
+                                            class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}">
+                                            <p class="text-danger">{{ $errors->first('email') }}</p>
+                                    </div> 
+                                </div> 
                                 <div class="form-group">
-                                    <label for="">Phone</label>
-                                    <input type="text" name="phone" id="phone" required 
+                                    <label>Phone:</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                    </div>
+                                        <input type="text" name="phone" id="phone" required 
                                         class="form-control {{ $errors->has('phone') ? 'is-invalid':'' }}">
                                         <p class="text-danger">{{ $errors->first('phone') }}</p>
                                 </div>                                

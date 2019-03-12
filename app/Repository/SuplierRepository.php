@@ -39,4 +39,19 @@ class SuplierRepository{
                                                 'address' =>$address]);	
     }
 
+    function getcode()
+    {
+        $cek =  suplier::max('suplier_code');
+        $data =substr($cek, 4);  
+        $kd ="SP";
+        $no = 1;
+        if($data)
+        {
+            $sum = $data +1 ;
+            $a = $kd.sprintf("%03d",$sum);
+        }else{
+            $a = $kd.sprintf("%03d",$no);
+        }      
+        return $a;
+    }
 }
