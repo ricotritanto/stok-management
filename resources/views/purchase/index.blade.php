@@ -26,47 +26,27 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                
-                                <div class="form-group">
-                                    <label for="name">No Facture</label>
-                                    <input type="text" name="facture" class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}" id="facture" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Date:</label>
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control pull-right" id="datepicker">
-                                        </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">Suplier</label>
-                                    <input type="text" name="suplier" class="form-control {{ $errors->has('suplier') ? 'is-invalid':'' }}" id="suplier" required>
-                                </div>
-
-                            @slot('footer')
-                               
+                        @card
+                            @slot('title')
                             @endslot
-                        @endcard
-                    </div>
-                </div>
-            </div>
-        </section>
-                    <div class="col-md-12">
-                            <form role="form" action="{{ route('purchase.store') }}" method="POST">
-                                @csrf
+                            
+                            @if (session('error'))
+                                @alert(['type' => 'danger'])
+                                    {!! session('error') !!}
+                                @endalert
+                            @endif
+
                                 <div class="form-group">
                                     <label for="name">No Facture</label>
                                     <input type="text" name="facture" value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Date</label>
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
+                                    <div class="input-group" >
+                                        <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
-                                    <input type="text" name="datepicker" class="form-control {{ $errors->has('date') ? 'is-invalid':'' }}" id="datepicker" required>
+                                        <input type="text" name="datepicker" class="form-control" id='date'>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -79,59 +59,134 @@
                                             @endforeach                                        
                                     </select>
                                     <p class="text-danger">{{ $errors->first('suplier_id') }}</p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">Product Code</label>
-                                    <input type="text" name="code" class="form-control {{ $errors->has('code') ? 'is-invalid':'' }}" id="code" required>
-                                </div>
+                                </div>                               
                             @slot('footer')                                
                             </form>
                             @endslot
                         @endcard
                     </div>
-                    <div class="col-md-8">
-                                <div class="box-body">
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <td>#</td>
-                                                <td>Product Code</td>
-                                                <td>Product Name</td>
-                                                <td>Qty In</td>
-                                                <td>Action</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                         
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                           
-                                            <tr>
-                                                <!-- <td colspan="4" class="text-center">Tidak ada data</td> -->
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-primary">Save</button>
-                                </div>
-                            @slot('footer')
-    ​
+                    <div class="col-md-6">
+                        @card
+                            @slot('title')                            
+                            @endslot                            
+                            @if (session('success'))
+                                @alert(['type' => 'success'])
+                                    {!! session('success') !!}
+                                @endalert
+                            @endif
+
+                    <form id="formcari" action="{{route ('purchase.product')}}" method="post">    
+                    @csrf     
+                        <div class="form-group">
+                            <label for="name">Product Code</label>
+                            <input type="text" name="code" id="code" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-warning btn-sm">Search</button>
+                        </div>
+                    </form>
+                    <div id="detailpro">
+
+                    </div>
+                         @slot('footer')​
                             @endslot
                         @endcard
                     </div>
-    </div>      
+                    </div>
+                    <div class="col-md-12">
+                        @card
+                            @slot('title')
+                            List Purchase
+                            @endslot
+                            
+                            @if (session('success'))
+                                @alert(['type' => 'success'])
+                                    {!! session('success') !!}
+                                @endalert
+                            @endif
+                             
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Product Code</td>
+                                            <td>Product Name</td>
+                                            <td>Qty</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center">Tidak ada data</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                            @slot('footer')
+​
+                            @endslot
+                        @endcard
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 @endsection
-   
-<script type="text/javascript">
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
+<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+<script>
   $(function () {
-    $('#datepicker').datepicker({
-      autoclose: true
-    })    
+   $( "#date" ).datepicker({
+    format: "dd/mm/yyyy",
+    weekStart: 0,
+    calendarWeeks: true,
+    autoclose: true,
+    todayHighlight: true,
+    rtl: true,
+    orientation: "auto"
+    });
   })
+  </script>
+
+
+<script>
+    $(document).ready(function(){ //function search kode item
+    $('#formcari').submit(function (e) {
+        e.preventDefault();
+        var data = new FormData($(this)[0]);
+        $.ajax({
+            url: $('#formcari').attr('action'),
+            type: $('#formcari').attr('method'),
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(jancok, textStatus, jqXHR){ 
+                    if (jancok.code === undefined) {
+                    alert('Maaf kode Tidak Ada')
+                    }else{
+                    $("#detailpro").empty();
+                    $("#detailpro").append("<tr><td  class='idpro' name='idpro'><label>produk</label><input type='hidden' name='idpro' id='idpro' class='form-control' readonly value='"+jancok.id+"'><input type='text' name='produk' id='name' class='form-control' readonly value='"+jancok.product_name+"'></td><td><label>Qty </label> <input type='text' class='form-control' name='qty' id='qty'></td></tr>")
+                }
+            },error: function (jqXHR, textStatus, errorThrown){
+                console.log("error: "+errorThrown);
+            }
+        });
+    });
+   })
 </script>

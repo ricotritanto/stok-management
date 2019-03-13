@@ -2,18 +2,14 @@
 namespace App\Repository;
 
 // use Illuminate\Support\Facades\DB;
-
 use App\Model\Category;
 use App\Model\Brand;
 use App\Model\Products;
 use App\Model\Suplier;
 use App\Model\Purchase;
 
-class PurchaseRepository{
-	public function getdata()
-	{
 
-	}
+class PurchaseRepository{
 
     Public function getfacture()
     {
