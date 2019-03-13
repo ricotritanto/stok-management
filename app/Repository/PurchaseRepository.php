@@ -9,7 +9,6 @@ use App\Model\Suplier;
 use App\Model\Purchase;
 
 class PurchaseRepository{
-
 	public function getdata()
 	{
 
@@ -20,6 +19,13 @@ class PurchaseRepository{
 		$cek =  purchase::max('purchase_code');
         $data =substr($cek, 4);    
         $kd ="PU";
+    Public function getfacture()
+    {
+        $cek =  purchase::max('purchase_facture');
+        $data =substr($cek, 6); 
+        $bulan = date('m');
+        $tahun = date('Y'); 
+        $kd ="PF";
         $no = 1;
         if($data)
         {
@@ -46,4 +52,10 @@ class PurchaseRepository{
         }       
         return $a;
 	}
+            $a = $kd.sprintf("%05d",$sum)."/".$bulan."/".$tahun;
+        }else{
+            $a = $kd.sprintf("%05d",$no)."/".$bulan."/".$tahun;
+        }      
+        return $a;
+    }
 }

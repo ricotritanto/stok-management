@@ -42,10 +42,7 @@ class SuplierRepository{
     function getcode()
     {
         $cek =  suplier::max('suplier_code');
-        // $cek = suplier::Raw('(select max(right(suplier_code, 4) as kd_max))');
-        $data =substr($cek, 4);
-        // $cek = suplier::raw('count(*) as suplier_code');   
-        // print_r($data);exit();    
+        $data =substr($cek, 4);  
         $kd ="SP";
         $no = 1;
         if($data)
@@ -54,18 +51,7 @@ class SuplierRepository{
             $a = $kd.sprintf("%03d",$sum);
         }else{
             $a = $kd.sprintf("%03d",$no);
-        }
-        // if($data->count()>0)
-        // {
-        //     foreach($data->get() as $k)
-        //     {
-        //         $tmp = ((int)$k->kd_max)+1;
-        //         $a = $kd.sprintf("%03d", $tmp);
-        //         print_r($a);exit();
-        //     }              
-        // }else{
-        //     $a = $kd."001";
-        // }
+        }      
         return $a;
     }
 }
