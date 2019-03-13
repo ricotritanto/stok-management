@@ -13,9 +13,6 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-    	   // $purchaserepo= new PurchaseRepository();
-    	   // $purchase= $purchaserepo->getdata();
-    	return view('purchase.index');
         $suplierrepo =  new SuplierRepository();
         $suplier = $suplierrepo->getsuplier();
         $purchaserepo =  new PurchaseRepository();

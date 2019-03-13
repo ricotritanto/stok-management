@@ -24,18 +24,9 @@
 ​
         <section class="content">
             <div class="container-fluid">
-                <div class="row">\
-                    <div class="col-md-12">\
-                    <div class="col-md-4">\
-                        @card
-                            @slot('title')
-                            @endslot
-                            
-                            @if (session('error'))
-                                @alert(['type' => 'danger'])
-                                    {!! session('error') !!}
-                                @endalert
-                            @endif
+                <div class="row">
+                    <div class="col-md-4">
+                
                                 <div class="form-group">
                                     <label for="name">No Facture</label>
                                     <input type="text" name="facture" class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}" id="facture" required>
@@ -144,58 +135,3 @@
     })    
   })
 </script>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>Product Code</td>
-                                            <td>Product Name</td>
-                                            <td>Qty</td>
-                                            <td>Action</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" class="text-center">Tidak ada data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="card-footer">
-                                    <button class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                            @slot('footer')
-​
-                            @endslot
-                        @endcard
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-@endsection
-<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
-<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-<!-- bootstrap datepicker -->
-<script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
-<script>
-  $(function () {
-    //Timepicker
-    $('.datepicker').datepicker({
-      timePicker         : true,
-      showInputs: false,
-      format             : 'DD/MM/YYYY'
-    })
-  })
-  </script>
