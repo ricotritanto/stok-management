@@ -15,8 +15,22 @@ class PurchaseController extends Controller
     {
         $suplierrepo =  new SuplierRepository();
         $suplier = $suplierrepo->getsuplier();
+
         $purchaserepo =  new PurchaseRepository();
         $code = $purchaserepo->getfacture();
         return view('purchase.index', compact('code','suplier'));
+    }
+
+    public function getproduct(Request $request)
+    {
+        $this->validate($request, [
+            'code' => 'required|string|max:10'
+        ]);
+
+        $productrepo = new ProductRepository;
+        $product = $productrepo->getprocod($request);
+        return response()->json($product);
+        // print_r($product);exit();
+        // return view('purchas.detail', compact('product'));
     }
 }
