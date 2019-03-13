@@ -66,4 +66,9 @@ class ProductRepository{
 												   'stocks' =>$stock,
 												   'description' =>$description]);	
 	}
+
+	public function getprocod($request)
+	{
+		 return product::Where('product_code', $request['code'])->first();
+	}
 }
