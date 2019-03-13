@@ -26,16 +26,34 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        @card
-                            @slot('title')
+                
+                                <div class="form-group">
+                                    <label for="name">No Facture</label>
+                                    <input type="text" name="facture" class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}" id="facture" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date:</label>
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" id="datepicker">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Suplier</label>
+                                    <input type="text" name="suplier" class="form-control {{ $errors->has('suplier') ? 'is-invalid':'' }}" id="suplier" required>
+                                </div>
+
+                            @slot('footer')
+                               
                             @endslot
-                            
-                            @if (session('error'))
-                                @alert(['type' => 'danger'])
-                                    {!! session('error') !!}
-                                @endalert
-                            @endif
-​
+                        @endcard
+                    </div>
+                </div>
+            </div>
+        </section>
+                    <div class="col-md-12">
                             <form role="form" action="{{ route('purchase.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
@@ -72,69 +90,48 @@
                         @endcard
                     </div>
                     <div class="col-md-8">
-                        @card
-                            @slot('title')
-                            List Purchase
-                            @endslot
-                            
-                            @if (session('success'))
-                                @alert(['type' => 'success'])
-                                    {!! session('success') !!}
-                                @endalert
-                            @endif
-                            
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>Product Code</td>
-                                            <td>Product Name</td>
-                                            <td>Qty</td>
-                                            <td>Action</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" class="text-center">Tidak ada data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="box-body">
+                                    <table id="example2" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <td>Product Code</td>
+                                                <td>Product Name</td>
+                                                <td>Qty In</td>
+                                                <td>Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                           
+                                            <tr>
+                                                <!-- <td colspan="4" class="text-center">Tidak ada data</td> -->
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div class="card-footer">
                                     <button class="btn btn-primary">Save</button>
                                 </div>
-                            </div>
                             @slot('footer')
-​
+    ​
                             @endslot
                         @endcard
                     </div>
-                </div>
-            </div>
-        </section>
-    </div>
+    </div>      
 @endsection
-<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
-<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-<!-- bootstrap datepicker -->
-<script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
-<script>
+   
+<script type="text/javascript">
   $(function () {
-    //Timepicker
-    $('.datepicker').datepicker({
-      timePicker         : true,
-      showInputs: false,
-      format             : 'DD/MM/YYYY'
-    })
+    $('#datepicker').datepicker({
+      autoclose: true
+    })    
   })
-  </script>
+</script>

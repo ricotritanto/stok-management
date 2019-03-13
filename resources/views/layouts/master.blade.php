@@ -13,8 +13,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/iCheck/flat/blue.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/morris/morris.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">       
+    <link rel="stylesheet" href="{{ asset('plugins/datepicker/bootstrap-datepicker.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -98,6 +102,8 @@
     <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
     <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
     <script src="{{ asset('plugins/knob/jquery.knob.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('plugins/jQuery/moment.min.js') }}"></script>
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
@@ -107,5 +113,10 @@
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script src="{{ asset('dist/js/demo.js') }}"></script>
+
+    <script src="{{asset('plugins/select2/dist/js/select2.full.min.js')}}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.js')}}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
 </body>
 </html>

@@ -15,7 +15,6 @@ class PurchaseController extends Controller
     {
         $suplierrepo =  new SuplierRepository();
         $suplier = $suplierrepo->getsuplier();
-
         $purchaserepo =  new PurchaseRepository();
         $code = $purchaserepo->getfacture();
         return view('purchase.index', compact('code','suplier'));
