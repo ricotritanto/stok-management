@@ -35,7 +35,7 @@
                                     {!! session('error') !!}
                                 @endalert
                             @endif
-
+                            <form action="" method="post">
                                 <div class="form-group">
                                     <label for="name">No Facture</label>
                                     <input type="text" name="facture" value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
@@ -60,12 +60,11 @@
                                     </select>
                                     <p class="text-danger">{{ $errors->first('suplier_id') }}</p>
                                 </div>                               
-                            @slot('footer')                                
-                            </form>
+                            @slot('footer')  
                             @endslot
                         @endcard
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         @card
                             @slot('title')                            
                             @endslot                            
@@ -75,19 +74,14 @@
                                 @endalert
                             @endif
 
-                    <form id="formcari" action="{{route ('purchase.product')}}" method="post">    
-                    @csrf     
                         <div class="form-group">
-                            <label for="name">Product Code</label>
-                            <input type="text" name="code" id="code" class="form-control">
+                            <label for="name">Product Name</label>
+                            <input type="text" name="code" id="code" class="form-control input-sm">
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-warning btn-sm">Search</button>
-                        </div>
-                    </form>
-                    <div id="detailpro">
+                        <div class="form-group" id="detailpro">
 
-                    </div>
+                        </div>
+                        </form>    
                          @slot('footer')​
                             @endslot
                         @endcard
@@ -145,6 +139,7 @@
     </div>
 @endsection
 <script src="{{ asset('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -164,29 +159,33 @@
   </script>
 
 
-<script>
-    $(document).ready(function(){ //function search kode item
-    $('#formcari').submit(function (e) {
-        e.preventDefault();
-        var data = new FormData($(this)[0]);
-        $.ajax({
-            url: $('#formcari').attr('action'),
-            type: $('#formcari').attr('method'),
-            data: data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(jancok, textStatus, jqXHR){ 
-                    if (jancok.code === undefined) {
-                    alert('Maaf kode Tidak Ada')
-                    }else{
-                    $("#detailpro").empty();
-                    $("#detailpro").append("<tr><td  class='idpro' name='idpro'><label>produk</label><input type='hidden' name='idpro' id='idpro' class='form-control' readonly value='"+jancok.id+"'><input type='text' name='produk' id='name' class='form-control' readonly value='"+jancok.product_name+"'></td><td><label>Qty </label> <input type='text' class='form-control' name='qty' id='qty'></td></tr>")
-                }
-            },error: function (jqXHR, textStatus, errorThrown){
-                console.log("error: "+errorThrown);
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        $("#code").focus();
+        $("#code").keyup(function(){
+
+        var data = {code:$(this).val()};
+            $.ajax({
+               headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+},
+                   url : "{{route('purchase.product')}}",
+                   type: "POST",
+                   data: data,
+                   success: function(msg){
+                   $('#detailpro').html(msg);
+                   }
+                });
+            }); 
+
+        $("#code").keypress(function(e){
+            if(e.which==13){
+                $("#qty").focus();
             }
         });
     });
-   })
+</script>
+<script type="text/javascript">
+$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 </script>

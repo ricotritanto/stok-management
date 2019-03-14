@@ -29,8 +29,9 @@ class PurchaseController extends Controller
 
         $productrepo = new ProductRepository;
         $product = $productrepo->getprocod($request);
-        return response()->json($product);
+        // return response()->json($product);
+        // echo json_encode($product);
         // print_r($product);exit();
-        // return view('purchas.detail', compact('product'));
+        return view('purchase.detail', compact('product'));
     }
 }
