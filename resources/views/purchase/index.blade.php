@@ -177,35 +177,6 @@
     });
 </script>
 
-<!-- <script type="text/javascript">    
-    $(document).ready(function(){
-      $('#btn').click(function (e) {
-        e.preventDefault();
-        
-        var count = 0;
-        var code = $("#code").val();             
-        var name = $("#proname").val();
-        var qty = $("#qty").val();
-        var facture = $("#facture").val();
-        var date = $("#date").val();
-        var suplier = $("#suplier").val();
-        // var qty = $("#qty").val();
-        count = count + 1;
-        output = '<tr class="records" id="row_'+count+'">';
-        output += '<input type="hidden" name="facture[]" id="facture'+count+'"" value="'+facture+'"/>';
-        output += '<input type="hidden" name="date[]" id="date'+count+'"" value="'+date+'"/>';
-        output += '<input type="text" name="suplier[]" id="suplier'+count+'" value="'+suplier+'"/></td>';
-        output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+code+'" class="form-control input-sm" readonly /></td>';
-        output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+name+'" class="form-control input-sm" readonly /></td>';
-        output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+qty+'" class="form-control input-sm" readonly /></td>';
-        output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
-       
-        output += '</tr>';
-
-        $("#tampilane").append(output);
-    });
-}) -->
-<!-- </script> -->
 <script>
     var tampung = [];
     $(document).ready(function(){
@@ -213,29 +184,31 @@
         e.preventDefault();
         
         // var count = 0;
+        var idpro = $("#idpro").val();  
         var code = $("#code").val();             
         var name = $("#proname").val();
         var qty = $("#qty").val();
         var facture = $("#facture").val();
         var date = $("#date").val();
         var suplier = $("#suplier").val();
-        addToCart(code, name, qty, facture, date, suplier);
+        addToCart(code, name, qty, facture, date, suplier, idpro);
     })
 
-    function addToCart(code, name, qty, facture, date, suplier){
+    function addToCart(code, name, qty, facture, date, suplier, idpro){
         if(qty=="")
         {
             alert('QTY Empty')
         }else
         {
             for (var i in tampung)
-            {
-                tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
-                showCart();
-                return;
-            }
+                if(tampung[i].Id ==idpro)
+                {
+                    tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
+                    showCart();
+                    return;
+                }
         }
-        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier}; 
+        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier, Id:idpro}; 
           tampung.push(item);
           showCart();
     }
@@ -247,7 +220,7 @@
             var item = tampung[i];
             // var count = 0;
             
-            var row = '<tr><td>'+item.name+'<td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td><td><input type="button" class="a" name="xy" value="Update" onclick="upd(this)" /></td><td><input type="button" class="sifucker" name="x" value="Delete" onclick="hapuse(this)" /></td></tr>';      
+            var row = '<tr><td>'+item.code+'</td><td>'+item.name+'<input type="hidden" name="produk[]" id="produk" class="produk" value="'+item.Id+'" /><td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td><td><input type="button" class="a" name="xy" value="Update" onclick="upd(this)" /></td><td><input type="button" class="sifucker" name="x" value="Delete" onclick="hapuse(this)" /></td></tr>';      
             $("#tampilane").append(row); 
             
             // count = count + 1;
