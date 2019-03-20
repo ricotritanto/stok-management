@@ -35,16 +35,16 @@ class PurchaseController extends Controller
         return view('purchase.detail', compact('product'));
     }
 
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $a = $request->all();
         $data = $a['facture'];
         $data = $a['code'];
-        $data = $a['proname'];
+        $data = $a['name'];
         $data = $a['qty'];
-        $data = $a['datepicker'];
+        $data = $a['date'];
         $data = $a['suplier'];
-
+        print_r($a);exit();
         return view('purchase.index', compact('data'));
     }
 }

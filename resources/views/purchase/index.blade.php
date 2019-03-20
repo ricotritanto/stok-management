@@ -35,7 +35,7 @@
                                     {!! session('error') !!}
                                 @endalert
                             @endif                            
-                            <form action="" method="post">
+                            
                             @csrf
                             <div class="form-group">
                                 <label for="name">No Facture</label>
@@ -83,7 +83,7 @@
                         </div>      
                         
                          <td><button type="submit" id="btn" class="btn btn-sm btn-primary">Insert</button></td>
-                        </form>    
+                           
                          @slot('footer')​
                             @endslot
                         @endcard
@@ -95,11 +95,11 @@
                             List Purchase
                             @endslot
                            
-                            <form action="" method="post">        
+                            <form action="{{ route('purchase.store')}}" method="post">        
                             @csrf                        
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead id="tampilane">
+                                    <thead>
                                         <tr>
                                             <!-- <td>#</td> -->
                                             <td>Product Code</td>
@@ -177,7 +177,7 @@
     });
 </script>
 
-<script type="text/javascript">    
+<!-- <script type="text/javascript">    
     $(document).ready(function(){
       $('#btn').click(function (e) {
         e.preventDefault();
@@ -192,15 +192,78 @@
         // var qty = $("#qty").val();
         count = count + 1;
         output = '<tr class="records" id="row_'+count+'">';
-        output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+code+'" /></td>';
-        output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+name+'" /></td>';
-        output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+qty+'" /></td>';
-        output += '<td><input type="text" name="suplier[]" id="suplier'+count+'" value="'+suplier+'" /></td>';
-        output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)" /></td>';
+        output += '<input type="hidden" name="facture[]" id="facture'+count+'"" value="'+facture+'"/>';
+        output += '<input type="hidden" name="date[]" id="date'+count+'"" value="'+date+'"/>';
+        output += '<input type="text" name="suplier[]" id="suplier'+count+'" value="'+suplier+'"/></td>';
+        output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+code+'" class="form-control input-sm" readonly /></td>';
+        output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+name+'" class="form-control input-sm" readonly /></td>';
+        output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+qty+'" class="form-control input-sm" readonly /></td>';
+        output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
        
         output += '</tr>';
 
         $("#tampilane").append(output);
     });
-})
+}) -->
+<!-- </script> -->
+<script>
+    var tampung = [];
+    $(document).ready(function(){
+        $('#btn').click(function (e) {
+        e.preventDefault();
+        
+        // var count = 0;
+        var code = $("#code").val();             
+        var name = $("#proname").val();
+        var qty = $("#qty").val();
+        var facture = $("#facture").val();
+        var date = $("#date").val();
+        var suplier = $("#suplier").val();
+        addToCart(code, name, qty, facture, date, suplier);
+    })
+
+    function addToCart(code, name, qty, facture, date, suplier){
+        if(qty=="")
+        {
+            alert('QTY Empty')
+        }else
+        {
+            for (var i in tampung)
+            {
+                tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
+                showCart();
+                return;
+            }
+        }
+        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier}; 
+          tampung.push(item);
+          showCart();
+    }
+
+    function showCart(){
+        $("#tampilane").empty();
+          for (var i in tampung) 
+          { 
+            var item = tampung[i];
+            // var count = 0;
+            
+            var row = '<tr><td>'+item.name+'<td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td><td><input type="button" class="a" name="xy" value="Update" onclick="upd(this)" /></td><td><input type="button" class="sifucker" name="x" value="Delete" onclick="hapuse(this)" /></td></tr>';      
+            $("#tampilane").append(row); 
+            
+            // count = count + 1;
+            // output = '<tr class="records" id="row_'+count+'">';
+            // output += '<input type="hidden" name="facture[]" id="facture'+count+'"" value="'+item.facture+'"/>';
+            // output += '<input type="hidden" name="date[]" id="date'+count+'"" value="'+item.date+'"/>';
+            // output += '<input type="hidden" name="suplier[]" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
+            // output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly /></td>';
+            // output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly /></td>';
+            // output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly /></td>';
+            // output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
+        
+            // output += '</tr>';
+            // $("#tampilane").append(row); 
+          }
+        }     
+   })   
+
 </script>

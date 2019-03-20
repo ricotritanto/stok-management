@@ -54,7 +54,6 @@ Route::group(['prefix' => 'purchase'], function()
     Route::delete('/{$id}','PurchaseController@destroy')->name('purchase.destroy');
     Route::get('/{$id}/edit','PurchaseController@edit')->name('purchase.edit');
     Route::post('/getpro','PurchaseController@getproduct')->name('purchase.product');
-    Route::post('/add','PurchaseController@add')->name('purchase.add');
     Route::Put('/{$id}','PurchaseController@update')->name('purchase.update');
 
 });
