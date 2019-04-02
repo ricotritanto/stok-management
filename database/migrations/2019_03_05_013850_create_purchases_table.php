@@ -13,8 +13,11 @@ class CreatePurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchases', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('purchase', function (Blueprint $table) {
+            $table->increments('id');
+            $table->String('purchase_facture');
+            $table->String('date');
+            $table->unsignedInteger('suplier_id');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreatePurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('purchase');
     }
 }

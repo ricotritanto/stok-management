@@ -5,6 +5,7 @@
 @endsection
 ​
 @section('content')
+<?PHP $tanggal= date('d-m-Y');?>
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -39,7 +40,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="name">No Facture</label>
-                                <input type="text" name="facture" value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
+                                <input type="text" name="facture" id="facture" value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
                             </div>
                             <div class="form-group">
                                 <label for="name">Product Code</label>
@@ -68,7 +69,7 @@
                                 <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
-                                <input type="text" name="datepicker" class="form-control" id='date' required>
+                                <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -137,7 +138,7 @@
 <script>
   $(function () {
    $( "#date" ).datepicker({
-    format: "dd/mm/yyyy",
+    format: "dd-mm-yyyy",
     weekStart: 0,
     calendarWeeks: true,
     autoclose: true,
@@ -218,23 +219,30 @@
           for (var i in tampung) 
           { 
             var item = tampung[i];
-            // var count = 0;
+            var count = 0;
             
-            var row = '<tr><td>'+item.code+'</td><td>'+item.name+'<input type="hidden" name="produk[]" id="produk" class="produk" value="'+item.Id+'" /><td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td><td><input type="button" class="a" name="xy" value="Update" onclick="upd(this)" /></td><td><input type="button" class="sifucker" name="x" value="Delete" onclick="hapuse(this)" /></td></tr>';      
-            $("#tampilane").append(row); 
+            // var row = '<tr><td>'+item.code+'</td><td>'+item.name+'<input type="hidden" name="produk[]" id="produk" class="produk" value="'+item.Id+'" /><td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td><td><input type="button" class="a" name="xy" value="Update" onclick="upd(this)" /></td><td><input type="button" class="sifucker" name="x" value="Delete" onclick="hapuse(this)" /></td></tr>';      
+            // var row = '<tr>';
+            // var row = '<td>'+item.code+'</td>';
+            // var row = '<td>'+item.name+'<input type="hidden" name="produk[]" id="produk" class="produk" value="'+item.Id+'" /></td>';
+            // var row = '<td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td>';
             
-            // count = count + 1;
-            // output = '<tr class="records" id="row_'+count+'">';
-            // output += '<input type="hidden" name="facture[]" id="facture'+count+'"" value="'+item.facture+'"/>';
-            // output += '<input type="hidden" name="date[]" id="date'+count+'"" value="'+item.date+'"/>';
-            // output += '<input type="hidden" name="suplier[]" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
-            // output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly /></td>';
-            // output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly /></td>';
-            // output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly /></td>';
-            // output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
-        
-            // output += '</tr>';
+            // var row = '</tr>';
             // $("#tampilane").append(row); 
+            
+            count = count + 1;
+            output = '<tr class="records" id="row_'+count+'">';
+            output += '<input type="hidden" name="product[]" id="product" value="'+item.Id+'"/>';
+            output += '<input type="hidden" name="facture[]" id="facture'+count+'"" value="'+item.facture+'"/>';
+            output += '<input type="hidden" name="date[]" id="date'+count+'"" value="'+item.date+'"/>';
+            output += '<input type="hidden" name="suplier[]" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
+            output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly /></td>';
+            output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly /></td>';
+            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly /></td>';
+            output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
+        
+            output += '</tr>';
+            $("#tampilane").append(output); 
           }
         }     
    })   

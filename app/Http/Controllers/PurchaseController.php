@@ -38,13 +38,43 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         $a = $request->all();
-        $data = $a['facture'];
-        $data = $a['code'];
-        $data = $a['name'];
-        $data = $a['qty'];
-        $data = $a['date'];
-        $data = $a['suplier'];
-        print_r($a);exit();
-        return view('purchase.index', compact('data'));
+        $idpro = $a['product'];
+        $facture = $a['facture'];
+        // $code = $a['code'];
+        // $product = $a['name'];
+        $qty = $a['qty'];
+        $date = $a['date'];
+        $suplier = $a['suplier'];
+        $data =array();
+
+        $index=0;
+        foreach ($idpro as $key ) 
+        {
+            array_push($data, array(
+                        // 'purchase_facture'=>$facture[$index],
+                        // 'suplier'=>$suplier[$index],
+                        // 'date'=>$date[$index],
+                        'product_id'=>$idpro[$index],
+                        'qty'=>$qty[$index],  // Ambil dan set data nama sesuai index array dari $index
+                      ));
+      
+                $index++;
+        }
+
+
+        $purchaserepo = new PurchaseRepository;
+        $purchase = $purchaserepo->insertpurchasedetail($facture,$date,$suplier);
+        // $purchase = $purchaserepo->insertpurchasedetail($facture,$code,$product,$qty,$date,$suplier);
+        return redirect('purchase');
+
+        // try{
+        //     $purchaserepo = new purchaserepository;
+        //     $purchase = $purchaserepo->insertpurchasedetail($facture,$code,$product,$qty,$date,$suplier);
+        //      return redirect(route('purchase.index'))->with(['success' => '<strong>' . $product . '</strong> added successfully']);
+        // }catch(\Exception $e)
+        // {
+        //     return redirect()->back()->with(['error'=>$e->getMessage()]);
+        // }
+
     }
 }

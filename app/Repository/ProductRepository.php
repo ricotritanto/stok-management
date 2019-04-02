@@ -34,7 +34,7 @@ class ProductRepository{
 	function create_product($name,$code,$brand,$category,$description,$stock)
 	{
 		return products::create(['product_name'=>$name,
-								'product_code' =>$code,
+								'product_kode' =>$code,
 								'brand_id' =>$brand,
 								'category_id' =>$category,
 								'stocks' =>$stock,
@@ -69,6 +69,6 @@ class ProductRepository{
 
 	public function getprocod($request)
 	{
-		 return products::Where('product_code', $request['code'])->first();
+		 return products::Where('product_kode', $request['code'])->first();
 	}
 }
