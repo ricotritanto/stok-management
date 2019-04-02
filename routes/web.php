@@ -44,6 +44,16 @@ Route::group(['prefix' => 'suplier'], function()
     Route::get('/{$id}/edit','SuplierController@edit')->name('suplier.edit');
     Route::Put('/{$id}','SuplierController@update')->name('suplier.update');
 });
-
 Route::resource('/purchase', 'PurchaseController')->except([
     'create', 'show']);
+Route::group(['prefix' => 'purchase'], function()
+{
+    Route::get('/','PurchaseController@index')->name('purchase.index');
+    Route::get('/create','PurchaseController@create')->name('purchase.create');
+    Route::post('/store','PurchaseController@store')->name('purchase.store');
+    Route::delete('/{$id}','PurchaseController@destroy')->name('purchase.destroy');
+    Route::get('/{$id}/edit','PurchaseController@edit')->name('purchase.edit');
+    Route::post('/getpro','PurchaseController@getproduct')->name('purchase.product');
+    Route::Put('/{$id}','PurchaseController@update')->name('purchase.update');
+
+});

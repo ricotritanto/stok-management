@@ -13,8 +13,11 @@ class CreatePurchaseDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('purchase_detail', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('purchase_id');
+            $table->string('qty');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreatePurchaseDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_details');
+        Schema::dropIfExists('purchase_detail');
     }
 }
