@@ -10,11 +10,11 @@ use App\Model\Purchase;
 use App\Model\Purchase_detail;
 
 
-class PurchaseRepository{
+class IssuingRepository{
 
     Public function getfacture()
     {
-        $cek =  purchase::max('purchase_facture');
+        $cek =  purchase::max('issuing_facture');
         $fak = (int) substr($cek, 6);
         $bulan = date('m');
         $tahun = date('Y'); 
@@ -30,7 +30,7 @@ class PurchaseRepository{
         return $a;
     }
 
-     public function purchase($data)
+     public function issuing($data)
      {
        
         foreach ($data as $key) 

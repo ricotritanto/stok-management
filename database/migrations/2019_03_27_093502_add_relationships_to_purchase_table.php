@@ -14,7 +14,7 @@ class AddRelationshipsToPurchaseTable extends Migration
     public function up()
     {
         Schema::table('purchase', function (Blueprint $table) {
-            $table->foreign('suplier_id')->references('id')->on('suplier')
+            $table->foreign('suplier_id')->references('id')->on('supliers')
             ->onUpdate('cascade')
             ->onDelete('cascade');
         });

@@ -31,14 +31,18 @@ class ProductRepository{
 	      // 	return $kodejadi;  
 	}
 
-	function create_product($name,$code,$brand,$category,$description,$stock)
+	function create_product($name,$code,$serial,$brand,$category,$description,$stock,$price,$sell)
 	{
 		return products::create(['product_name'=>$name,
 								'product_kode' =>$code,
+								'serial' =>$serial,
 								'brand_id' =>$brand,
 								'category_id' =>$category,
+								'purchase_price' =>$price,
+								'sell_price' =>$sell,
 								'stocks' =>$stock,
-								'description' =>$description]);		
+								'description' =>$description]);
+									
 	}
 
 	function getProduct()
@@ -57,12 +61,15 @@ class ProductRepository{
 		return products::where('id', $id)->first();
 	}
 
-	function update_product($id,$name,$code,$brand,$category,$description,$stock)
+	function update_product($id,$name,$code,$serial,$brand,$category,$description,$stock,$price,$sell)
 	{
 		return products::Where('id', $id)->update(['product_name'=>$name,
-												   'product_code' =>$code,
+												   'product_kode' =>$code,
+												   'serial' =>$serial,
 												   'brand_id' =>$brand,
 												   'category_id' =>$category,
+												   'purchase_price' =>$price,
+												   'sell_price' =>$sell,
 												   'stocks' =>$stock,
 												   'description' =>$description]);	
 	}

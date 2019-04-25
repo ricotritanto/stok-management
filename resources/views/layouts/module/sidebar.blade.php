@@ -40,19 +40,19 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('category.index') }}" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
+                                <i class="fa fa-check-circle-o nav-icon"></i>
                                 <p>Category</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('brand.index') }}" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
+                                <i class="fa fa-check-circle-o nav-icon"></i>
                                 <p>Brand</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('product.index')}}" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
+                                <i class="fa fa-check-circle-o nav-icon"></i>
                                 <p>Product</p>
                             </a>
                         </li>
@@ -61,22 +61,31 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
-                            Manajemen Suplier
+                            Manajemen Contact
                             <i class="right fa fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('suplier.index')}}" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
+                                <i class="fa fa-plus-circle nav-icon"></i>
                                 <p>Suplier</p>
                             </a>
                         </li>
                     </ul>
-                    </li>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('customer.index')}}" class="nav-link">
+                                <i class="fa fa-user-plus nav-icon"></i>
+                                <p>Customers</p>
+                            </a>
+                        </li>
+                    </ul>
+                    </li>                   
+
                     <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-shopping-bag"></i>
+                        <i class="nav-icon fa fa-reorder"></i>
                         <p>
                             Manajemen Order
                             <i class="right fa fa-angle-left"></i>
@@ -85,16 +94,41 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('purchase.index')}}" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
+                                <i class="fa fa-shopping-cart nav-icon"></i>
                                 <p>Purchase</p>
                             </a>
                         </li>
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
+                            <a href="{{ route('issuing.index')}}" class="nav-link">
+                                <i class="fa fa-buysellads nav-icon"></i>
                                 <p>Issuing</p>
+                            </a>
+                        </li>
+                    </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-print"></i>
+                        <p>
+                            REPORT
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('purchase.index')}}" class="nav-link">
+                                <i class="fa fa-shopping-cart nav-icon"></i>
+                                <p>Report Purchase</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="fa fa-buysellads nav-icon"></i>
+                                <p>Report Issuing</p>
                             </a>
                         </li>
                     </ul>
