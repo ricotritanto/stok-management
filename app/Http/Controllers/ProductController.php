@@ -35,19 +35,28 @@ class ProductController extends Controller
             'name'  => 'required|max:100',
             'brand_id' => 'required|integer',
             'category_id' => 'required|integer',
+            'pprice' => 'required',
+            'sprice'=> 'required',
             'stock' => 'required|max:30',
             'description' => 'nullable|string|max:255',
             'code' => 'required|string|max:11',
-        ]);  
+            'serial' => 'required|string|max:11',
+        ]);
+        $pprice=$Request['pprice'];
+        $sprice=$Request['sprice'];
+        // konversi dari bilangan rupiah ke bilangan biasa
+        $price = str_replace(".", "", $pprice);
+        $sell = str_replace(".", "", $sprice);
         $name = $Request['name'];
         $code = $Request['code'];
+        $serial = $Request['serial'];
         $brand = $Request['brand_id'];
         $category = $Request['category_id'];
         $description = $Request['description'];
         $stock = $Request['stock'];
         try{
             $productrepo =new ProductRepository;
-            $product = $productrepo->create_product($name,$code,$brand,$category,$description,$stock);
+            $product = $productrepo->create_product($name,$code,$serial,$brand,$category,$description,$stock,$price,$sell,$serial);
              return redirect(route('product.index'))->with(['success' => '<strong>' . $name . '</strong> added successfully']);
         }catch(\Exception $e)
         {
@@ -82,14 +91,23 @@ class ProductController extends Controller
             'name'  => 'required|max:100',
             'brand_id' => 'required|integer',
             'category_id' => 'required|integer',
+            'pprice' => 'required',
+            'sprice'=> 'required',
             'stock' => 'required|max:30',
             'description' => 'nullable|string|max:255',
             'code' => 'required|string|max:11',
+            'serial' => 'required|string|max:11',
         ]);
         // $aa = $Request->all();
         // print_r($aa);exit();
+        $pprice=$request['pprice'];
+        $sprice=$request['sprice'];
+        // konversi dari bilangan rupiah ke bilangan biasa
+        $price = str_replace(".", "", $pprice);
+        $sell = str_replace(".", "", $sprice);
         $name = $request['name'];
         $code = $request['code'];
+        $serial = $request['serial'];
         $brand = $request['brand_id'];
         $category = $request['category_id'];
         $description = $request['description'];
@@ -97,7 +115,7 @@ class ProductController extends Controller
 
         try{
             $productrepo =new ProductRepository;
-            $product = $productrepo->update_product($id,$name,$code,$brand,$category,$description,$stock);
+            $product = $productrepo->update_product($id,$name,$code,$serial,$brand,$category,$description,$stock,$price,$sell);
              return redirect(route('product.index'))->with(['success' => '<strong>' . $name . '</strong> Update successfully']);
         }catch(\Exception $e)
         {

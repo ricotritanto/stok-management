@@ -44,10 +44,15 @@
                                     <label for="">Product code</label>
                                     <input type="text" name="code" required 
                                         maxlength="10"
-                                        readonly
-                                        value="{{ $product->product_code }}"
+                                        value="{{ $product->product_kode }}"
                                         class="form-control {{ $errors->has('code') ? 'is-invalid':'' }}">
                                     <p class="text-danger">{{ $errors->first('code') }}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Serial Number</label>
+                                    <input type="text" name="serial" required value="{{ $product->serial }}"
+                                        class="form-control {{ $errors->has('serial') ? 'is-invalid':'' }}">
+                                        <p class="text-danger">{{ $errors->first('serial') }}</p>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Product Name</label>
@@ -83,6 +88,18 @@
                                     <p class="text-danger">{{ $errors->first('category_id') }}</p>
                                 </div>      
                                 <div class="form-group">
+                                    <label for="">Purchase Price</label>
+                                    <input type="text" name="pprice" id="pprice" required value="{{number_format($product->purchase_price,0,",",".")}}"
+                                        class="form-control {{ $errors->has('purchase_price') ? 'is-invalid':'' }}">
+                                    <p class="text-danger">{{ $errors->first('purchase_price') }}</p>
+                                </div>    
+                                <div class="form-group">
+                                    <label for="">Sell Price</label>
+                                    <input type="text" name="sprice" id="sprice" required value="{{number_format($product->sell_price,0,",",".")}}"
+                                        class="form-control {{ $errors->has('sell_price') ? 'is-invalid':'' }}">
+                                    <p class="text-danger">{{ $errors->first('sell_price') }}</p>
+                                </div>    
+                                <div class="form-group">
                                     <label for="">Deskripsi</label>
                                     <textarea name="description" id="description" 
                                         cols="5" rows="5" 
@@ -113,3 +130,61 @@
         </section>
     </div>
 @endsection
+
+<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
+<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+   var tanpa_rupiah = document.getElementById('pprice');
+	
+	tanpa_rupiah.addEventListener('keyup', function(e)
+	{
+		tanpa_rupiah.value = formatRupiah(this.value);
+	});
+})
+	function formatRupiah(angka, prefix)
+	{
+		var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split	= number_string.split(','),
+			sisa 	= split[0].length % 3,
+			rupiah 	= split[0].substr(0, sisa),
+			ribuan 	= split[0].substr(sisa).match(/\d{3}/gi);
+			
+		if (ribuan) {
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+		
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+	}
+
+    
+    
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    var abc = document.getElementById('sprice');
+    abc.addEventListener('keyup', function(e)
+	{
+        abc.value = formatsell(this.value);
+    });
+})
+	
+    function formatsell(angka, prefix)
+	{
+		var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split	= number_string.split(','),
+			sisa 	= split[0].length % 3,
+			rupiah 	= split[0].substr(0, sisa),
+			ribuan 	= split[0].substr(sisa).match(/\d{3}/gi);
+			
+		if (ribuan) {
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+		
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+	}
+    </script>

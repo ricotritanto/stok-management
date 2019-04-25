@@ -14,7 +14,11 @@ class CreateIssuingDetailsTable extends Migration
     public function up()
     {
         Schema::create('issuing_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('issuing_id');
+            $table->string('qty');
+            $table->integer('total');
             $table->timestamps();
         });
     }

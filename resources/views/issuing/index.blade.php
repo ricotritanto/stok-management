@@ -16,7 +16,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Purchase</li>
+                            <li class="breadcrumb-item active">Issuing</li>
                         </ol>
                     </div>
                 </div>
@@ -73,14 +73,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Suplier</label>
-                            <select class="form-control select2" name="suplier" id="suplier" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
-                                <option value="">Pilih Suplier</option>
-                                    @foreach ($suplier as $row)
-                                        <option value="{{ $row->id }}">{{ ucfirst($row->suplier_name) }}</option>
+                            <label>Customer</label>
+                            <select class="form-control select2" name="customer" id="customer" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
+                                <option value="">Pilih customer</option>
+                                    @foreach ($customer as $row)
+                                        <option value="{{ $row->id }}">{{ ucfirst($row->customer_name) }}</option>
                                     @endforeach                                        
                             </select>
-                            <p class="text-danger">{{ $errors->first('suplier_id') }}</p>
+                            <p class="text-danger">{{ $errors->first('customer_id') }}</p>
                         </div>      
                         
                          <td><button type="submit" id="btn" class="btn btn-sm btn-primary">Insert</button></td>
@@ -191,11 +191,11 @@
         var qty = $("#qty").val();
         var facture = $("#facture").val();
         var date = $("#date").val();
-        var suplier = $("#suplier").val();
-        addToCart(code, name, qty, facture, date, suplier, idpro);
+        var customer = $("#customer").val();
+        addToCart(code, name, qty, facture, date, customer, idpro);
     })
 
-    function addToCart(code, name, qty, facture, date, suplier, idpro){
+    function addToCart(code, name, qty, facture, date, customer, idpro){
         if(qty=="")
         {
             alert('QTY Empty')
@@ -209,7 +209,7 @@
                     return;
                 }
         }
-        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier, Id:idpro}; 
+        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, customer:customer, Id:idpro}; 
           tampung.push(item);
           showCart();
     }
@@ -235,7 +235,7 @@
             output += '<input type="hidden" name="product[]" id="product" value="'+item.Id+'"/>';
             output += '<input type="hidden" name="facture" id="facture'+count+'"" value="'+item.facture+'"/>';
             output += '<input type="hidden" name="date" id="date'+count+'"" value="'+item.date+'"/>';
-            output += '<input type="hidden" name="suplier" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
+            output += '<input type="hidden" name="customer" id="customer'+count+'" value="'+item.customer+'"/></td>';
             output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly /></td>';
             output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly /></td>';
             output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly /></td>';

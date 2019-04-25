@@ -1,7 +1,7 @@
 @extends('layouts.master')
 ​
 @section('title')
-    <title>Manajemen Product</title>
+    <title>Manajemen Customer</title>
 @endsection
 ​
 @section('content')
@@ -10,12 +10,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Manajemen Product</h1>
+                        <h1 class="m-0 text-dark">Manajemen Customer</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Product</li>
+                            <li class="breadcrumb-item active">Customer</li>
                         </ol>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     <div class="col-md-12">
                         @card
                             @slot('title')
-                            <a href="{{ route('product.create') }}" 
+                            <a href="{{ route('customer.create') }}" 
                                 class="btn btn-primary btn-sm">
                                 <i class="fa fa-edit"></i> ADD
                             </a>
@@ -46,38 +46,28 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Code</th>
-                                            <th>Serial No</th>
-                                            <th>Product Name</th>
-                                            <th>Category</th>
-                                            <th>Brand</th>
-                                            <th>Purchase Price</th>
-                                            <th>Sell Price</th>
-                                            <th>Stock</th>
-                                            <th>Description</th>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>                                            
                                             <th>Last Update</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @php $no = 1; @endphp
-                                    @forelse($product as $row)
+                                    @forelse($customer as $row)
                                         <tr>
                                             <td>{{$no++}}</td>
-                                            <td>{{$row->product_kode}}</td>
-                                            <td>{{$row->serial}}</td>
-                                            <td>{{$row->product_name}}</td>
-                                            <td>{{$row->category->category_name}}</td>
-                                            <td>{{$row->brand->brand_name}}</td>
-                                            <td>{{number_format($row->purchase_price,0,",",".")}}</td>
-                                            <td>{{number_format($row->sell_price,0,",",".")}}</td>
-                                            <td>{{$row->stocks}}</td>
-                                            <td>{{$row->description}}</td>
-                                            <td>{{$row->created_at}}</td>
+                                            <td>{{$row->customer_code}}</td>
+                                            <td>{{$row->name}}</td>
+                                            <td>{{$row->phone}}</td>
+                                            <td>{{$row->address}}</td>
+                                            <td>{{$row->updated_at}}</td>
                                             <td>
-                                                <form action="{{ route('product.destroy', $row->id) }}" method="POST">
+                                                <form action="{{ route('customer.destroy', $row->id) }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ route('product.edit', $row->id) }}" 
+                                                    <a href="{{ route('customer.edit', $row->id) }}" 
                                                         class="btn btn-warning btn-sm">
                                                         <i class="fa fa-edit"></i>
                                                     </a>

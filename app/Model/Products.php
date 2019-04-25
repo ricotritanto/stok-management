@@ -9,7 +9,7 @@ use App\Model\brand;
 
 class Products extends Model
 {
-    // protected $fillable = ['id','stocks','description','product_code','product_name'];
+    // protected $fillable = ['id','stocks','description','product_kode','product_name'];
     protected $guarded = [];
     protected $table = 'products';
 	

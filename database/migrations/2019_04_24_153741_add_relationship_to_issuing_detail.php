@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRelationshipsToPurchaseDetail extends Migration
+class AddRelationshipToIssuingDetail extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class AddRelationshipsToPurchaseDetail extends Migration
      */
     public function up()
     {
-        Schema::table('purchase_detail', function (Blueprint $table) {
+        Schema::table('issuing_details', function (Blueprint $table) {
             $table->foreign('product_id')->references('id')->on('products')
             ->onUpdate('cascade')
             ->onDelete('cascade');
         
-            $table->foreign('purchase_id')->references('id')->on('purchase')
+            $table->foreign('issuing_id')->references('id')->on('issuings')
             ->onUpdate('cascade')
             ->onDelete('cascade');
         });
@@ -31,7 +31,7 @@ class AddRelationshipsToPurchaseDetail extends Migration
      */
     public function down()
     {
-        Schema::table('purchase_detail', function (Blueprint $table) {
+        Schema::table('issuing_details', function (Blueprint $table) {
             //
         });
     }
