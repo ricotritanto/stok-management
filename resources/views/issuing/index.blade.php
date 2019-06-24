@@ -26,7 +26,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-4">
                         @card
                             @slot('title')
                             @endslot
@@ -39,22 +39,26 @@
                             
                             @csrf
                             <div class="form-group">
-                                <label for="name">No Facture</label>
-                                <input type="text" name="facture" id="facture" value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
+                                <label for="name">Nota /No.Facture</label>
+                                <input type="text" name="facture" id="facture" readonly value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
                             </div>
-                            <div class="form-group">
-                                <label for="name">Product Code</label>
-                                <input type="text" name="code" id="code" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group" id="detailpro">
 
+                            <div class="form-group">
+                            <label for="name">Date</label>
+                            <div class="input-group" >
+                                <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                                <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
                             </div>
+                            </div>
+
                                                          
                             @slot('footer')  
                             @endslot
                         @endcard
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         @card
                             @slot('title')                            
                             @endslot                            
@@ -63,28 +67,22 @@
                                     {!! session('success') !!}
                                 @endalert
                             @endif                        
-                        <div class="form-group">
-                            <label for="name">Date</label>
-                            <div class="input-group" >
-                                <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                </div>
-                                <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <label>Customer</label>
                             <select class="form-control select2" name="customer" id="customer" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
                                 <option value="">Pilih customer</option>
                                     @foreach ($customer as $row)
-                                        <option value="{{ $row->id }}">{{ ucfirst($row->customer_name) }}</option>
+                                        <option value="{{ $row->id }}">{{ucfirst($row->customer_code)}}- - {{ucfirst($row->name) }}</option>
                                     @endforeach                                        
                             </select>
                             <p class="text-danger">{{ $errors->first('customer_id') }}</p>
-                        </div>      
-                        
-                         <td><button type="submit" id="btn" class="btn btn-sm btn-primary">Insert</button></td>
-                           
+                        </div>                              
+                        <div class="col-sm-6">
+                        <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a>
+                        </div>
+                         <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-isi="Web Master">New</button> -->
+                         <!-- <td><button type="submit" id="btn" class="btn btn-sm btn-primary">NEW</button></td> -->
                          @slot('footer')​
                             @endslot
                         @endcard
@@ -99,19 +97,39 @@
                             <form action="{{ route('purchase.store')}}" method="post">        
                             @csrf                        
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="aa">
                                     <thead>
                                         <tr>
                                             <!-- <td>#</td> -->
-                                            <td>Product Code</td>
-                                            <td>Product Name</td>
-                                            <td>Qty</td>
-                                            <td>Action</td>
+                                            <td>Product Code 
+                                                <input type="text" name="code" id="code" class="form-control input-sm" required>
+                                            </td>
+                                            <td>Product Name
+                                                <input type="text" name="name" id="name" value="" class="form-control input-sm">    
+                                            </td>
+                                            <td>Price
+                                                <input type="text" name="code" id="code" class="form-control input-sm" required>    
+                                            </td>
+                                            <td>Qty
+                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
+                                            </td>
+                                            <td>Diskon%
+                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
+                                            </td>
+                                            <td>PPN % 
+                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
+                                            </td>
+                                            <td>Total 
+                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
+                                            </td>
+                                            <!-- <td>Action
+                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
+                                            </td> -->
                                         </tr>
                                     </thead>
-                                    <tbody id="tampilane">
+                                    <!-- <tbody id="tampilane">
                                         
-                                    </tbody>
+                                    </tbody> -->
                                     
                                 </table>
                                 <div class="card-footer">
@@ -127,7 +145,7 @@
                 </div>
             </div>
         </section>
-    </div>
+    </div>  @include('customer.cs_add')
 @endsection
 <script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
@@ -165,7 +183,7 @@
                    type: "POST",
                    data: data,
                    success: function(msg){
-                   $('#detailpro').html(msg);
+                   $('#aa').html(msg);
                    }
                 });
             }); 
@@ -219,16 +237,7 @@
           for (var i in tampung) 
           { 
             var item = tampung[i];
-            var count = 0;
-            
-            // var row = '<tr><td>'+item.code+'</td><td>'+item.name+'<input type="hidden" name="produk[]" id="produk" class="produk" value="'+item.Id+'" /><td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td><td><input type="button" class="a" name="xy" value="Update" onclick="upd(this)" /></td><td><input type="button" class="sifucker" name="x" value="Delete" onclick="hapuse(this)" /></td></tr>';      
-            // var row = '<tr>';
-            // var row = '<td>'+item.code+'</td>';
-            // var row = '<td>'+item.name+'<input type="hidden" name="produk[]" id="produk" class="produk" value="'+item.Id+'" /></td>';
-            // var row = '<td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td>';
-            
-            // var row = '</tr>';
-            // $("#tampilane").append(row); 
+            var count = 0;            
             
             count = count + 1;
             output = '<tr class="records" id="row_'+count+'">';
@@ -246,5 +255,52 @@
           }
         }     
    })   
+  
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+    $("#btn-add").click(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/customer',
+            data: {
+                code: $("#modal-form input[name=code]").val(),
+                name: $("#modal-form input[name=name]").val(),
+                phone: $("#modal-form input[name=phone]").val(),
+                address: $("#modal-form input[name=address]").val(),
+            },
+            dataType: 'json',
+            success: function(data) {
+                $('#modal-form').trigger("reset");
+                $("#modal-form .close").click();
+                window.location.reload();
+            },
+            error: function(data) {
+                var errors = $.parseJSON(data.responseText);
+                $('#add-task-errors').html('');
+                $.each(errors.messages, function(key, value) {
+                    $('#add-task-errors').append('<li>' + value + '</li>');
+                });
+                $("#add-error-bag").show();
+            }
+        });
+    });
+    
+    
+});
+
+function addTaskForm() {
+    $(document).ready(function() {
+        $("#add-error-bag").hide();
+        $('#modal-form').modal('show');
+    });
+}
+
+
 
 </script>

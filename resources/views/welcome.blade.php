@@ -1,99 +1,123 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+​
+    @yield('title')
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/iCheck/flat/blue.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/morris/morris.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
 
-        <title>Laravel</title>
+    <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">       
+    <link rel="stylesheet" href="{{ asset('plugins/datepicker/bootstrap-datepicker.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="index3.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
+​
+            <!-- SEARCH FORM -->
+            <form class="form-inline ml-3">
+                <div class="input-group input-group-sm">
+                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-navbar" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
                 </div>
-            @endif
+            </form>
+​
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="fa fa-comments-o"></i>
+                        <span class="badge badge-danger navbar-badge">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="#" class="dropdown-item">
+                            <div class="media">
+                                <img src="{{asset('dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Brad Diesel
+                                        <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">Call me whenever you can...</p>
+                                    <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+​
+        @include('layouts.module.sidebar')
+​
+        @yield('content')
+        
+        @include('layouts.module.footer')
+    </div>
+​
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/jquery-ui.min.js') }}"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+    <script src="{{asset('/plugins/input-mask/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+    <script src="{{asset('/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
+    <script src="{{ asset('plugins/jquery/raphael-min.js') }}"></script>
+    <script src="{{ asset('plugins/morris/morris.min.js') }}"></script>
+    <script src="{{ asset('plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <script src="{{ asset('plugins/knob/jquery.knob.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/jQuery/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    <script src="{{ asset('plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
+    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+    <script src="{{ asset('dist/js/demo.js') }}"></script>
+
+    <script src="{{asset('plugins/select2/dist/js/select2.full.min.js')}}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.js')}}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
+</body>
 </html>

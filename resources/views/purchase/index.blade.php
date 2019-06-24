@@ -166,7 +166,8 @@
                    data: data,
                    success: function(msg){
                    $('#detailpro').html(msg);
-                   }
+                   },
+                 
                 });
             }); 
 
