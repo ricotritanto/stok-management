@@ -11,12 +11,9 @@ class CustomerRepository{
         return customer::orderBy('created_at', 'DESC')->paginate(10);
     }
 
-    public function insert($name, $code,$address,$phone)
+    public function insert($data)
     {
-        return customer::create(['name'=>$name,
-								'customer_code' =>$code,
-								'phone' =>$phone,
-								'address' =>$address]);	
+        return customer::create($data);	
     }
 
     public function delete($id)

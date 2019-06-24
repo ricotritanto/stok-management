@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use yajra\DataTables\Datatables;
 use App\Repository\CustomerRepository;
 
 class CustomerController extends Controller
@@ -10,45 +11,66 @@ class CustomerController extends Controller
     public function index()
     {
         $customerrepo =  new CustomerRepository();
+        $cscode = $customerrepo->getcode();
+
+        $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
-        return view('customer.index', compact('customer'));
+        return view('customer.index', compact('customer','cscode'));
     }
 
     public function create()
     {
         $customerrepo =  new CustomerRepository();
-        $code = $customerrepo->getcode();
-        return view('customer.create', compact('code'));
+        $cscode = $customerrepo->getcode();
+        return view('customer.create', compact('cscode'));
     }
 
     public function store(Request $request)
     {
-        $name = $request['name'];
-        $code = $request['code'];
-        $address = $request['address'];
-        $phone = $request['phone'];
-        try{
-            $customerrepo =  new CustomerRepository();
-            $supliecustomer = $customerrepo->insert($name, $code,$address,$phone);
-             return redirect(route('customer.index'))->with(['success' => '<strong>'.$code.'</strong> added successfully']);
-        }catch(\Exception $e)
-        {
-            return redirect()->back()->with(['error'=>$e->getMessage()]);
-        }
+        $data = [
+            'customer_code' =>$request['code'],
+            'name' => $request['name'],
+            'phone' =>$request['phone'],
+            'address' => $request['address']
+        ];
+        $customerrepo =  new CustomerRepository();
+        $customer = $customerrepo->insert($data);
+
+        return response()->json([
+            'error' => false,
+            'customer'  => $customer,
+        ], 200);
+
+        // try{
+        //     $customerrepo =  new CustomerRepository();
+        //     $customer = $customerrepo->insert($data);
+        //         return redirect(route('customer.index'))->with(['success' => '<strong>'.$code.'</strong> added successfully']);
+        // }catch(\Exception $e)
+        // {
+        //     return redirect()->back()->with(['error'=>$e->getMessage()]);
+        // }
+       
     }
 
     public function destroy($id)
     {
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->delete($id);
-        return redirect()->back()->with(['success'=>'<strong>'.''.'</strong> Delete Success']);
+
+        return response()->json([
+            'error' => false,
+            'customer'  => $customer,
+        ], 200);
     }
 
-    public function edit($id)
+    public function show($id)
     {
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getid($id);
-        return view('customer.edit', compact('customer'));
+        return response()->json([
+            'error' => false,
+            'customer'  => $customer,
+        ], 200);
     }
 
     public function update(Request $request, $id)
@@ -57,14 +79,24 @@ class CustomerController extends Controller
         $code = $request['code'];
         $address = $request['address'];
         $phone = $request['phone'];
-
-        try{
-            $customerrepo =  new CustomerRepository();
-            $customer = $customerrepo->update($name, $code,$address,$phone,$id);
-             return redirect(route('customer.index'))->with(['success' => '<strong>'.$code.'</strong> added successfully']);
-        }catch(\Exception $e)
-        {
-            return redirect()->back()->with(['error'=>$e->getMessage()]);
-        }
+        $customerrepo =  new CustomerRepository();
+        $customer = $customerrepo->update($name, $code,$address,$phone,$id);
+        return response()->json([
+            'error' => false,
+            'customer'  => $customer,
+        ], 200);
+        // try{
+        //     $customerrepo =  new CustomerRepository();
+        //     $customer = $customerrepo->update($name, $code,$address,$phone,$id);
+        //     return response()->json([
+        //         'error' => false,
+        //         'customer'  => $customer,
+        //     ], 200);
+        //     //  return redirect(route('customer.index'))->with(['success' => '<strong>'.$code.'</strong> added successfully']);
+        // }catch(\Exception $e)
+        // {
+        //     return redirect()->back()->with(['error'=>$e->getMessage()]);
+        // }
+        
     }
 }

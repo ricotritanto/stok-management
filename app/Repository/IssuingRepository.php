@@ -5,20 +5,20 @@ namespace App\Repository;
 use App\Model\Category;
 use App\Model\Brand;
 use App\Model\Products;
-use App\Model\Suplier;
-use App\Model\Purchase;
-use App\Model\Purchase_detail;
+use App\Model\Customer;
+use App\Model\issuing;
+use App\Model\issuing_detail;
 
 
 class IssuingRepository{
 
     Public function getfacture()
     {
-        $cek =  purchase::max('issuing_facture');
+        $cek =  issuing::max('issuing_facture');
         $fak = (int) substr($cek, 6);
         $bulan = date('m');
         $tahun = date('Y'); 
-        $kd ="PF";
+        $kd ="FS-";
         $no = 1;
         if($fak)
         {

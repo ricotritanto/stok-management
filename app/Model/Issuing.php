@@ -1,8 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\issuing_detail;
+use App\Model\issuing;
+use App\Model\customer;
+
 
 class Issuing extends Model
 {

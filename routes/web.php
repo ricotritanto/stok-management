@@ -46,16 +46,20 @@ Route::group(['prefix' => 'suplier'], function()
 });
 
 Route::resource('/customer', 'CustomerController')->except([
-    'create', 'show']);
+    'create']);
 Route::group(['prefix' => 'customer'], function()
 {
-	Route::get('/','CustomerController@index')->name('customer.index');
+   
 	Route::get('/create','CustomerController@create')->name('customer.create');
     Route::post('/store','CustomerController@store')->name('customer.store');
     Route::delete('/{$id}','CustomerController@destroy')->name('customer.destroy');
-    Route::get('/{$id}/edit','CustomerController@edit')->name('customer.edit');
-    Route::Put('/{$id}','CustomerController@update')->name('customer.update');
+    Route::get('/{$id}','CustomerController@show')->name('customer.show');
+    Route::put('/{$id}','CustomerController@update')->name('customer.update');    
 });
+
+
+
+
 
 
 Route::resource('/purchase', 'PurchaseController')->except([
