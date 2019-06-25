@@ -165,7 +165,12 @@
                    type: "POST",
                    data: data,
                    success: function(msg){
+                    if (data.code === null){
+                           alert ("Code Tidak ada")
+                   }else{
+                    // $("#detailpro").empty();
                    $('#detailpro').html(msg);
+                   }
                    },
                  
                 });
@@ -197,9 +202,10 @@
     })
 
     function addToCart(code, name, qty, facture, date, suplier, idpro){
-        if(qty=="")
+        if(qty=="" || suplier=="")
         {
-            alert('QTY Empty')
+            alert('Data belum lengkap')
+            return false;
         }else
         {
             for (var i in tampung)
