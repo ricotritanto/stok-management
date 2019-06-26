@@ -23,4 +23,21 @@ class IssuingController extends Controller
         $code = $issuingrepo->getfacture();
         return view('issuing.index', compact('code','customer','cscode'));
     }
+
+    public function getproduct(Request $request)
+    {
+        $this->validate($request, [
+            'code' => 'required',
+        ]);
+        
+        try{
+            $productrepo = new ProductRepository;
+            $product = $productrepo->getprocod($request);
+
+            return view('issuing.detail', compact('product'));
+        }catch(\Exception $e)
+        {
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }
+    }
 }

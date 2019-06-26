@@ -26,7 +26,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         @card
                             @slot('title')
                             @endslot
@@ -41,9 +41,9 @@
                             <div class="form-group">
                                 <label for="name">Nota /No.Facture</label>
                                 <input type="text" name="facture" id="facture" readonly value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
-                            </div>
+                            </div>       
 
-                            <div class="form-group">
+                             <div class="form-group">
                             <label for="name">Date</label>
                             <div class="input-group" >
                                 <div class="input-group-prepend">
@@ -51,24 +51,9 @@
                                 </div>
                                 <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
                             </div>
-                            </div>
+                            </div>  
 
-                                                         
-                            @slot('footer')  
-                            @endslot
-                        @endcard
-                    </div>
-                    <div class="col-md-4">
-                        @card
-                            @slot('title')                            
-                            @endslot                            
-                            @if (session('success'))
-                                @alert(['type' => 'success'])
-                                    {!! session('success') !!}
-                                @endalert
-                            @endif                        
-                        
-                        <div class="form-group">
+                            <div class="form-group">
                             <label>Customer</label>
                             <select class="form-control select2" name="customer" id="customer" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
                                 <option value="">Pilih customer</option>
@@ -78,23 +63,44 @@
                             </select>
                             <p class="text-danger">{{ $errors->first('customer_id') }}</p>
                         </div>                              
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                         <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a>
+                        </div>                
+                            @slot('footer')  
+                            @endslot
+                        @endcard
+                    </div>
+                    <div class="col-md-9">
+                        @card
+                            @slot('title')                            
+                            @endslot                            
+                            @if (session('success'))
+                                @alert(['type' => 'success'])
+                                    {!! session('success') !!}
+                                @endalert
+                            @endif                        
+                        
+                            <div class="form-group">
+                            <label for="name">Product Code</label>
+                            <input type="text" name="code" id="code" class="form-control input-sm" required>
                         </div>
-                         <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-isi="Web Master">New</button> -->
-                         <!-- <td><button type="submit" id="btn" class="btn btn-sm btn-primary">NEW</button></td> -->
+                        <div class="form-group" id="detailpro">
+
+                        </div>      
+                        <td><button type="submit" id="btn" class="btn btn-sm btn-primary">Insert</button></td>
                          @slot('footer')​
                             @endslot
                         @endcard
                     </div>
                     </div>
+                    
                     <div class="col-md-12">
                         @card
                             @slot('title')
-                            List Purchase
+                            List Issuing
                             @endslot
                            
-                            <form action="{{ route('purchase.store')}}" method="post">        
+                            <form action="{{ route('issuing.store')}}" method="post">        
                             @csrf                        
                             <div class="table-responsive">
                                 <table class="table table-hover" id="aa">
@@ -177,13 +183,13 @@
         var data = {code:$(this).val()};
             $.ajax({
                headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                   url : "{{route('purchase.product')}}",
+                   url : "{{route('issuing.product')}}",
                    type: "POST",
                    data: data,
                    success: function(msg){
-                   $('#aa').html(msg);
+                   $('#detailpro').html(msg);
                    }
                 });
             }); 

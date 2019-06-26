@@ -31,11 +31,12 @@
                             @slot('title')
                             @endslot
                             
-                            @if (session('error'))
-                                @alert(['type' => 'danger'])
-                                    {!! session('error') !!}
-                                @endalert
-                            @endif                            
+                            @if ($message = Session::get('error'))
+                                <div class="alert alert-danger alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif                        
                             
                             @csrf
                             <div class="form-group">
@@ -57,12 +58,20 @@
                     <div class="col-md-5">
                         @card
                             @slot('title')                            
-                            @endslot                            
-                            @if (session('success'))
-                                @alert(['type' => 'success'])
-                                    {!! session('success') !!}
-                                @endalert
-                            @endif                        
+                            @endslot
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif     
+
+                            @if ($message = Session::get('error'))
+                                <div class="alert alert-danger alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif                 
                         <div class="form-group">
                             <label for="name">Date</label>
                             <div class="input-group" >
@@ -165,12 +174,9 @@
                    type: "POST",
                    data: data,
                    success: function(msg){
-                    if (data.code === null){
-                           alert ("Code Tidak ada")
-                   }else{
+                    
                     // $("#detailpro").empty();
                    $('#detailpro').html(msg);
-                   }
                    },
                  
                 });
@@ -236,16 +242,15 @@
             
             // var row = '</tr>';
             // $("#tampilane").append(row); 
-            
             count = count + 1;
             output = '<tr class="records" id="row_'+count+'">';
-            output += '<input type="hidden" name="product[]" id="product" value="'+item.Id+'"/>';
-            output += '<input type="hidden" name="facture" id="facture'+count+'"" value="'+item.facture+'"/>';
-            output += '<input type="hidden" name="date" id="date'+count+'"" value="'+item.date+'"/>';
-            output += '<input type="hidden" name="suplier" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
-            output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly /></td>';
-            output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly /></td>';
-            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly /></td>';
+            output += '<input type="hidden" required name="product[]" id="product" value="'+item.Id+'"/>';
+            output += '<input type="hidden" required name="facture" id="facture'+count+'"" value="'+item.facture+'"/>';
+            output += '<input type="hidden" required name="date" id="date'+count+'"" value="'+item.date+'"/>';
+            output += '<input type="hidden" required name="suplier" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
+            output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly required /></td>';
+            output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly  required /></td>';
+            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly required /></td>';
             output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
         
             output += '</tr>';

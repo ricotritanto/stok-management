@@ -57,11 +57,6 @@ Route::group(['prefix' => 'customer'], function()
     Route::put('/{$id}','CustomerController@update')->name('customer.update');    
 });
 
-
-
-
-
-
 Route::resource('/purchase', 'PurchaseController')->except([
     'create', 'show']);
 Route::group(['prefix' => 'purchase'], function()

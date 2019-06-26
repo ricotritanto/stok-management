@@ -2,17 +2,33 @@
 <table>
     <thead>
         <tr>
-            <td>Product Name</td>
-            <td>Qty</td>
-            <td></td>
+           
         </tr>
     </thead>
     <tbody>
     	<tr>
             <input type="hidden" name="idpro" id="idpro" value="{{$product->id}}">
-            <td><input type="text" name="proname" id="proname" value="{{$product->product_name}}" style="width:400px;margin-right:5px;" class="form-control input-sm" readonly></td>
-            <td><input type="text" name="qty" id="qty" class="form-control input-sm" style="width:90px;margin-right:5px;" required></td>
-            <!-- <td><button type="submit" id="btn" class="btn btn-sm btn-primary">Insert</button></td> -->
+            <td>Product Code 
+                <input type="text" name="code" id="code" value="{{$product->product_kode}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>
+            </td>
+            <td>Product Name
+                <input type="text" name="proname" id="proname" value="{{$product->product_name}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>   
+            </td>
+            <td>Price
+                <input type="text" name="price" id="price" value="{{$product->sell_price}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>    
+            </td>
+            <td>Qty
+                <input type="text" name="qty" id="qty" class="form-control input-sm" required>  
+            </td>
+            <td>Diskon%
+                <input type="text" name="disc" id="disc" class="form-control input-sm" required>  
+            </td>
+            <td>PPN % 
+                <input type="text" name="ppn" id="ppn" class="form-control input-sm" required>  
+            </td>
+            <td>Total 
+                <input type="text" name="total" id="total" class="form-control input-sm" required>  
+            </td>
 	    </tr>
     </tbody>	
 </table>

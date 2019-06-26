@@ -24,17 +24,28 @@ class PurchaseController extends Controller
     public function getproduct(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required|string|max:10'
+            'code' => 'required',
         ]);
+        
+        try{
+            $productrepo = new ProductRepository;
+            $product = $productrepo->getprocod($request);
 
-        $productrepo = new ProductRepository;
-        $product = $productrepo->getprocod($request);
-        return view('purchase.detail', compact('product'));
+            return view('purchase.detail', compact('product'));
+        }catch(\Exception $e)
+        {
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }
     }
 
     public function store(Request $request)
     {
         $a = $request->all();
+        $this->validate($request, [
+                'product' => 'required',
+                'qty' => 'required',
+                'suplier' =>'required',
+        ]);
         $idpro = $a['product'];
         $facture = $a['facture'];
         // $code = $a['code'];
@@ -62,7 +73,16 @@ class PurchaseController extends Controller
         $purchaserepo = new PurchaseRepository;
         $purchase = $purchaserepo->purchase($data);
         // $purchase = $purchaserepo->insertpurchasedetail($facture,$code,$product,$qty,$date,$suplier);
-        return redirect('purchase');
+        try
+        {
+            $purchaserepo = new PurchaseRepository;
+            $purchase = $purchaserepo->purchase($data);
+            return redirect('purchase')->with(['success' => 'Save Success']);
+        }catch(\Exception $e)
+        {
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }
+       
 
 
     }
