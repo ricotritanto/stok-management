@@ -18,17 +18,105 @@
                 <input type="text" name="price" id="price" value="{{$product->sell_price}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>    
             </td>
             <td>Qty
-                <input type="text" name="qty" id="qty" class="form-control input-sm" required>  
+                <input type="text" name="qty" id="qty" class="form-control input-sm" onkeyup="qty(this);" required>  
             </td>
             <td>Diskon%
-                <input type="text" name="disc" id="disc" class="form-control input-sm" required>  
+                <input type="text" name="disc" id="disc" class="form-control input-sm" value="0" onkeyup="disc(this);" required>  
             </td>
             <td>PPN % 
-                <input type="text" name="ppn" id="ppn" class="form-control input-sm" required>  
+                <input type="text" name="ppn" id="ppn" class="form-control input-sm"  value="0" onkeyup="ppn(this);" required>  
             </td>
             <td>Total 
-                <input type="text" name="total" id="total" class="form-control input-sm" required>  
+                <input type="text" name="total" id="total" class="form-control input-sm" value="0" required>  
             </td>
 	    </tr>
     </tbody>	
 </table>
+<script src="{{ asset('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
+<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+<script>
+    function qty(e) {
+    if (!/^[0-9]+$/.test(e.value)) {
+        e.value = e.value.substring(0,e.value.length-1);
+     }
+    }
+    function disc(e) {
+    if (!/^[0-9]+$/.test(e.value)) {
+        e.value = e.value.substring(0,e.value.length-1);
+        }
+    }
+    function ppn(e) {
+    if (!/^[0-9]+$/.test(e.value)) {
+        e.value = e.value.substring(0,e.value.length-1);
+        }
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){        
+        $("#qty").focus();      
+        $("#qty").keypress(function(e){
+            if(e.which==13){
+                $("#disc").focus();
+            }
+        });
+
+        $("#disc").keypress(function(e){
+            if(e.which==13){
+                $("#ppn").focus();
+            }
+        });
+        $("#ppn").keypress(function(e){
+            if(e.which==13){
+                $("#ppn").focus();
+            }
+        });
+       
+
+        $("#qty,#disc,#ppn").keyup(function(){
+        var harga  = parseInt($("#price").val());
+        var qty  = parseInt($("#qty").val());
+        var disc  = parseInt($("#disc").val());
+        var ppn  = parseInt($("#ppn").val());
+        var jml = harga*qty;
+        var disc1 = parseFloat(disc*jml/100);
+        var discount = jml-disc1;
+        var ppn1 = parseFloat(discount*ppn/100);
+        var total = discount+ppn1;
+        
+        // var total = harga - (harga*(diskon/100));
+        $("#total").val(total);
+      });
+    });    
+</script>
+<script>
+$(document).ready(function(){
+   var tanpa_rupiah = document.getElementById('total');
+	
+	tanpa_rupiah.addEventListener('keyup', function(e)
+	{
+		tanpa_rupiah.value = formatRupiah(this.value);
+	});
+})
+	function formatRupiah(angka, prefix)
+	{
+		var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split	= number_string.split(','),
+			sisa 	= split[0].length % 3,
+			rupiah 	= split[0].substr(0, sisa),
+			ribuan 	= split[0].substr(sisa).match(/\d{3}/gi);
+			
+		if (ribuan) {
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+		
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+	}
+</script>
