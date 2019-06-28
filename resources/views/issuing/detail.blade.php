@@ -9,23 +9,17 @@
     	<tr>
             <input type="hidden" name="idpro" id="idpro" value="{{$product->id}}">
             <td>Product Code 
-                <input type="text" name="code" id="code" value="{{$product->product_kode}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>
+                <input type="text" name="kode" id="kode" value="{{$product->product_kode}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>
             </td>
             <td>Product Name
-                <input type="text" name="proname" id="proname" value="{{$product->product_name}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>   
+                <input type="text" name="proname" id="proname" value="{{$product->product_name}}" style="width:200PX;margin-right:5px;" class="form-control input-sm" readonly>   
             </td>
             <td>Price
-                <input type="text" name="price" id="price" value="{{$product->sell_price}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>    
+                <input type="text" name="price" id="price" value="{{$product->sell_price}}" style="width:150PX;margin-right:5px;" class="form-control input-sm" readonly>    
             </td>
             <td>Qty
-                <input type="text" name="qty" id="qty" class="form-control input-sm" onkeyup="qty(this);" required>  
-            </td>
-            <td>Diskon%
-                <input type="text" name="disc" id="disc" class="form-control input-sm" value="0" onkeyup="disc(this);" required>  
-            </td>
-            <td>PPN % 
-                <input type="text" name="ppn" id="ppn" class="form-control input-sm"  value="0" onkeyup="ppn(this);" required>  
-            </td>
+                <input type="text" name="qty" id="qty" class="form-control input-sm" style="width:80PX;margin-right:5px;" onkeyup="qty(this);" required>  
+            </td>           
             <td>Total 
                 <input type="text" name="total" id="total" class="form-control input-sm" value="0" required>  
             </td>
@@ -44,16 +38,6 @@
         e.value = e.value.substring(0,e.value.length-1);
      }
     }
-    function disc(e) {
-    if (!/^[0-9]+$/.test(e.value)) {
-        e.value = e.value.substring(0,e.value.length-1);
-        }
-    }
-    function ppn(e) {
-    if (!/^[0-9]+$/.test(e.value)) {
-        e.value = e.value.substring(0,e.value.length-1);
-        }
-    }
 
 </script>
 
@@ -62,32 +46,16 @@
         $("#qty").focus();      
         $("#qty").keypress(function(e){
             if(e.which==13){
-                $("#disc").focus();
+                $("#total").focus();
             }
         });
 
-        $("#disc").keypress(function(e){
-            if(e.which==13){
-                $("#ppn").focus();
-            }
-        });
-        $("#ppn").keypress(function(e){
-            if(e.which==13){
-                $("#ppn").focus();
-            }
-        });
-       
+      
 
-        $("#qty,#disc,#ppn").keyup(function(){
+        $("#qty").keyup(function(){
         var harga  = parseInt($("#price").val());
         var qty  = parseInt($("#qty").val());
-        var disc  = parseInt($("#disc").val());
-        var ppn  = parseInt($("#ppn").val());
-        var jml = harga*qty;
-        var disc1 = parseFloat(disc*jml/100);
-        var discount = jml-disc1;
-        var ppn1 = parseFloat(discount*ppn/100);
-        var total = discount+ppn1;
+        var total = harga*qty;
         
         // var total = harga - (harga*(diskon/100));
         $("#total").val(total);
@@ -101,7 +69,7 @@ $(document).ready(function(){
 	tanpa_rupiah.addEventListener('keyup', function(e)
 	{
 		tanpa_rupiah.value = formatRupiah(this.value);
-	});
+	});  
 })
 	function formatRupiah(angka, prefix)
 	{

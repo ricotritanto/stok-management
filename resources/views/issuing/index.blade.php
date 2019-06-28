@@ -87,7 +87,7 @@
                         <div class="form-group" id="detailpro">
 
                         </div>      
-                        <td><button type="submit" id="btn" class="btn btn-sm btn-primary">Insert</button></td>
+                        <td><button type="submit" id="btn" class="btn btn-sm btn-primary">To Cart</button></td>
                          @slot('footer')​
                             @endslot
                         @endcard
@@ -107,35 +107,19 @@
                                     <thead>
                                         <tr>
                                             <!-- <td>#</td> -->
-                                            <td>Product Code 
-                                                <input type="text" name="code" id="code" class="form-control input-sm" required>
-                                            </td>
-                                            <td>Product Name
-                                                <input type="text" name="name" id="name" value="" class="form-control input-sm">    
-                                            </td>
-                                            <td>Price
-                                                <input type="text" name="code" id="code" class="form-control input-sm" required>    
-                                            </td>
-                                            <td>Qty
-                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
-                                            </td>
-                                            <td>Diskon%
-                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
-                                            </td>
-                                            <td>PPN % 
-                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
-                                            </td>
-                                            <td>Total 
-                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
-                                            </td>
+                                            <td>Product Code</td>
+                                            <td>Item</td>
+                                            <td>Price</td>
+                                            <td>Qty</td>
+                                            <td>Total</td>
                                             <!-- <td>Action
                                                 <input type="text" name="code" id="code" class="form-control input-sm" required>  
                                             </td> -->
                                         </tr>
                                     </thead>
-                                    <!-- <tbody id="tampilane">
+                                    <tbody id="tampilane">
                                         
-                                    </tbody> -->
+                                    </tbody>
                                     
                                 </table>
                                 <div class="card-footer">
@@ -209,20 +193,23 @@
         e.preventDefault();
         
         // var count = 0;
-        var idpro = $("#idpro").val();  
-        var code = $("#code").val();             
+        var idpro = $("#idpro").val();
+        var nota = $("#facture").val();  
+        var code = $("#kode").val();             
         var name = $("#proname").val();
-        var qty = $("#qty").val();
-        var facture = $("#facture").val();
-        var date = $("#date").val();
         var customer = $("#customer").val();
-        addToCart(code, name, qty, facture, date, customer, idpro);
+        var price = $("#price").val();
+        var qty = $("#qty").val();
+        var total = $("#total").val();
+        
+        addToCart(nota, date, code, name, qty,customer, price,total, idpro);
     })
 
-    function addToCart(code, name, qty, facture, date, customer, idpro){
-        if(qty=="")
+    function addToCart(nota, date, code, name, qty,customer, price, total, idpro){
+        if(code =="" || name =="" || customer ==""|| qty=="" || total=="")
         {
-            alert('QTY Empty')
+            alert('Data Belum Lengkap !!')
+            return false;
         }else
         {
             for (var i in tampung)
@@ -232,15 +219,16 @@
                     showCart();
                     return;
                 }
+            
         }
-        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, customer:customer, Id:idpro}; 
+        var item = { Nota:nota, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total , Id:idpro}; 
           tampung.push(item);
           showCart();
     }
 
     function showCart(){
         $("#tampilane").empty();
-          for (var i in tampung) 
+          for (var i in tampung ) 
           { 
             var item = tampung[i];
             var count = 0;            
@@ -251,9 +239,12 @@
             output += '<input type="hidden" name="facture" id="facture'+count+'"" value="'+item.facture+'"/>';
             output += '<input type="hidden" name="date" id="date'+count+'"" value="'+item.date+'"/>';
             output += '<input type="hidden" name="customer" id="customer'+count+'" value="'+item.customer+'"/></td>';
-            output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly /></td>';
-            output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly /></td>';
-            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly /></td>';
+            output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" style="width:100PX;margin-right:5px;" readonly /></td>';
+            output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" style="width:200PX;margin-right:5px;" readonly /></td>';
+            output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="form-control input-sm" style="width:100PX;margin-right:5px;" readonly /></td>';
+            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" style="width:80PX;margin-right:5px;" readonly /></td>';
+            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="form-control input-sm" readonly /></td>';
+            
             output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
         
             output += '</tr>';
