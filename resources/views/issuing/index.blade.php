@@ -103,6 +103,13 @@
                             <form action="{{ route('issuing.store')}}" method="post">        
                             @csrf                        
                             <div class="table-responsive">
+                                <table class="table table-hover" id="bb">
+                                    <thead>TOTAL:  <input type="text" name="totale" id="totale" value="100000" class="form-control input-sm" align="center" font-size="20">
+                                            
+                                    </thead>
+                                </table>        
+                            </div>
+                            <div class="table-responsive">
                                 <table class="table table-hover" id="aa">
                                     <thead>
                                         <tr>
@@ -216,6 +223,7 @@
                 if(tampung[i].Id ==idpro)
                 {
                     tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
+                    tampung[i].Total = parseInt(tampung[i].Qty) * parseInt(price) ;
                     showCart();
                     return;
                 }
