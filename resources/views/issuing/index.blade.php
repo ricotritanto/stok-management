@@ -97,16 +97,24 @@
                     <div class="col-md-12">
                         @card
                             @slot('title')
-                            List Issuing
+                            LIST CART
                             @endslot
                            
                             <form action="{{ route('issuing.store')}}" method="post">        
                             @csrf                        
                             <div class="table-responsive">
                                 <table class="table table-hover" id="bb">
-                                    <thead>TOTAL:  <input type="text" name="totale" id="totale" value="100000" class="form-control input-sm" align="center" font-size="20">
+                                    <tbody id="jangkrik">
+                                        <tr>
+                                            <td>
+                                                <h1>TOTAL BAYAR :</h1> 
+                                            </td>
+                                            <td>
+                                                <input type="text" class="totale" id="pay" name="pay" size="24" value="0" >
+                                            </td>
+                                        </tr>
                                             
-                                    </thead>
+                                    </tbody>
                                 </table>        
                             </div>
                             <div class="table-responsive">
@@ -192,7 +200,26 @@
         });
     });
 </script>
+<!-- JS PAY -->
+<script type="text/javascript">
+    $(document).ready(function(){        
+        $('#btn').click(function (e) {
+        e.preventDefault();
 
+      
+
+        $("#pay").keyup(function(){
+        var harga  = parseInt($("#price").val());
+        var qty  = parseInt($("#qty").val());
+        var total = harga*qty;
+        
+        // var total = harga - (harga*(diskon/100));
+        $("#pay").val(total);
+      });
+        })
+    });    
+</script>
+<!-- END JS PAY -->
 <script>
     var tampung = [];
     $(document).ready(function(){
@@ -208,8 +235,7 @@
         var price = $("#price").val();
         var qty = $("#qty").val();
         var total = $("#total").val();
-        
-        addToCart(nota, date, code, name, qty,customer, price,total, idpro);
+        addToCart(nota, date, code, name, qty,customer, price,total,idpro);
     })
 
     function addToCart(nota, date, code, name, qty,customer, price, total, idpro){
@@ -223,13 +249,14 @@
                 if(tampung[i].Id ==idpro)
                 {
                     tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
-                    tampung[i].Total = parseInt(tampung[i].Qty) * parseInt(price) ;
+                    tampung[i].Total = parseInt(tampung[i].Qty) * parseInt(price);
+                    tampung[i].totpay = tampung[i].Total + tampung[i].Total;
                     showCart();
                     return;
                 }
             
         }
-        var item = { Nota:nota, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total , Id:idpro}; 
+        var item = { Nota:nota, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total, Id:idpro}; 
           tampung.push(item);
           showCart();
     }
@@ -247,18 +274,19 @@
             output += '<input type="hidden" name="facture" id="facture'+count+'"" value="'+item.facture+'"/>';
             output += '<input type="hidden" name="date" id="date'+count+'"" value="'+item.date+'"/>';
             output += '<input type="hidden" name="customer" id="customer'+count+'" value="'+item.customer+'"/></td>';
-            output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" style="width:100PX;margin-right:5px;" readonly /></td>';
-            output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" style="width:200PX;margin-right:5px;" readonly /></td>';
-            output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="form-control input-sm" style="width:100PX;margin-right:5px;" readonly /></td>';
-            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" style="width:80PX;margin-right:5px;" readonly /></td>';
-            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="form-control input-sm" readonly /></td>';
+            output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="untukInput1" style="width:100PX;margin-right:5px;" readonly /></td>';
+            output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="untukInput1" style="width:200PX;margin-right:5px;" readonly /></td>';
+            output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="untukInput1" style="width:100PX;margin-right:5px;" readonly /></td>';
+            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="untukInput1" style="width:80PX;margin-right:5px;" readonly /></td>';
+            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" readonly /></td>';
             
             output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
         
             output += '</tr>';
             $("#tampilane").append(output); 
           }
-        }     
+        }  
+ 
    })   
   
 </script>
@@ -305,7 +333,21 @@ function addTaskForm() {
         $('#modal-form').modal('show');
     });
 }
-
-
-
 </script>
+<style type='text/css'>
+input.untukInput1 {
+  border-bottom: 0px solid #ccc;
+  border-left:none;
+  border-right:none;
+  border-top:none;
+ }
+ input.totale{
+  border-bottom: 0px solid #ccc;
+  border-left:none;
+  border-right:none;
+  border-top:none;
+  width: 100%;
+  text-align: right;
+  font-size:50Px;
+ }
+</style>
