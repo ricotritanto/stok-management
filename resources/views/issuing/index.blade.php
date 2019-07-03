@@ -104,14 +104,12 @@
                             @csrf                        
                             <div class="table-responsive">
                                 <table class="table table-hover" id="bb">
-                                    <tbody id="jangkrik">
+                                    <tbody id="totpay">
                                         <tr>
                                             <td>
                                                 <h1>TOTAL BAYAR :</h1> 
                                             </td>
-                                            <td>
-                                                <input type="text" class="totale" id="pay" name="pay" size="24" value="0" >
-                                            </td>
+                                           
                                         </tr>
                                             
                                     </tbody>
@@ -205,9 +203,6 @@
     $(document).ready(function(){        
         $('#btn').click(function (e) {
         e.preventDefault();
-
-      
-
         $("#pay").keyup(function(){
         var harga  = parseInt($("#price").val());
         var qty  = parseInt($("#qty").val());
@@ -250,8 +245,8 @@
                 {
                     tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
                     tampung[i].Total = parseInt(tampung[i].Qty) * parseInt(price);
-                    tampung[i].totpay = tampung[i].Total + tampung[i].Total;
                     showCart();
+                    // subtotal();
                     return;
                 }
             
@@ -266,7 +261,9 @@
           for (var i in tampung ) 
           { 
             var item = tampung[i];
-            var count = 0;            
+            var count = 0;   
+            var sum = parseFloat(item.Total);
+            var subtot= parseFloat(sum) + parseFloat(sum);
             
             count = count + 1;
             output = '<tr class="records" id="row_'+count+'">';
@@ -281,11 +278,23 @@
             output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" readonly /></td>';
             
             output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
-        
             output += '</tr>';
+
+            pay = '<td><input type="text" class="totale" id="totpay" name="totpay" value="'+subtot+'" size="24" ></td>';
+
             $("#tampilane").append(output); 
+            $("#totpay").append(pay); 
           }
         }  
+
+    // function subtotal(){
+    //     var totpay=0; 
+    //         $("#tampilane").each(function(){
+    //             subtot += parseFloat($(this).val()||0);
+    //         });
+    //         $("#tampilane").append(subtot);
+
+    //     }
  
    })   
   
