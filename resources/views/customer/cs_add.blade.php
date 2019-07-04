@@ -50,7 +50,7 @@
                 <div class="modal-footer">
                     <!-- <button type="submit" id="btn-add" class="btn btn-primary">Insert</button> -->
                     <button type="button"class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" id="btn-add" type="button" value="add">
+                    <button class="btn btn-primary" id="btn-add" name="btn-add" type="button" value="add">
                             Insert
                         </button>
                     <!-- <input class="btn btn-default" data-dismiss="modal" type="button" value="Cancel"> -->

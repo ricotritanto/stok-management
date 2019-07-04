@@ -107,7 +107,7 @@
   
    
 @endsection
-<script src="{{ asset('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
@@ -124,7 +124,7 @@
         });
         $.ajax({
             type: 'POST',
-            url: '/customer',
+            url: "{{route('customer.store')}}",
             data: {
                 code: $("#modal-form input[name=code]").val(),
                 name: $("#modal-form input[name=name]").val(),
@@ -138,16 +138,18 @@
                 window.location.reload();
             },
             error: function(data) {
-                var errors = $.parseJSON(data.responseText);
-                $('#add-task-errors').html('');
-                $.each(errors.messages, function(key, value) {
-                    $('#add-task-errors').append('<li>' + value + '</li>');
-                });
-                $("#add-error-bag").show();
+                console.log(data);
+                // var errors = $.parseJSON(data.responseText);
+                // $('#add-task-errors').html('ERORR BONG');
+                // $.each(errors.messages, function(key, value) {
+                //     $('#add-task-errors').append('<li>' + value + '</li>');
+                // });
+                // $("#add-error-bag").show();
             }
         });
     });
     $("#btn-edit").click(function() {
+        var id = $(this).data('id');
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -210,7 +212,6 @@ function editTaskForm(id) {
     $.ajax({
         type: 'GET',
         url: '/customer/' + id,
-        dataType:'json',
         success: function(data) {
             $("#edit-error-bag").hide();
             $("#frmEditCs input[name=code]").val(data.customer.customer_code);
@@ -230,6 +231,7 @@ function deleteTaskForm(id) {
     $.ajax({
         type: 'GET',
         url: '/customer/' + id,
+        dataType:'json',
         success: function(data) {
             console.log(data);
             $("#frmDeleteTask #delete-title").html("Delete Customer  (" + data.customer.name + ")?");

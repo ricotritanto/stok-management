@@ -68,7 +68,7 @@ class CustomerController extends Controller
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getid($id);
         return response()->json([
-            'error' => false,
+            'success' => 'false',
             'customer'  => $customer,
         ], 200);
     }
