@@ -69,10 +69,8 @@ class PurchaseController extends Controller
       
                 $index++;
         }
-        // print_r($data);exit();
         $purchaserepo = new PurchaseRepository;
         $purchase = $purchaserepo->purchase($data);
-        // $purchase = $purchaserepo->insertpurchasedetail($facture,$code,$product,$qty,$date,$suplier);
         try
         {
             $purchaserepo = new PurchaseRepository;
