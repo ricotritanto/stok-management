@@ -104,10 +104,12 @@
                             @csrf                        
                             <div class="table-responsive">
                                 <table class="table table-hover" id="bb">
-                                    <tbody id="totpay">
+                                    <tbody id="totpay" class="totpay" name="totpay">
                                         <tr>
                                             <td>
-                                                <h1>TOTAL BAYAR :</h1> 
+                                                <h1>TOTAL BAYAR :</h1>
+                                                <h4> <input type="text" name="grandtot" class="totale" id="grandtot"/> </h4>
+                                                <!-- <h4><span id="amount" class="amount">Rp. 0</span></h4> -->
                                             </td>
                                            
                                         </tr>
@@ -136,7 +138,7 @@
                                     
                                 </table>
                                 <div class="card-footer">
-                                    <button class="btn btn-primary">Save</button>
+                                     <a onclick="event.preventDefault();payForm();" href="#" class="btn btn-warning" data-toggle="modal"><i class="material-icons payment">&#xe8a1;</i> <span>Pay</span></a>
                                 </div>
                             </div>
                             </form>
@@ -149,6 +151,7 @@
             </div>
         </section>
     </div>  @include('customer.cs_add')
+            @include('issuing.pay')
 @endsection
 <script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
@@ -173,7 +176,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        
+        reloadtotal();
         $("#code").focus();
         $("#code").keyup(function(){
 
@@ -211,6 +214,9 @@
         // var total = harga - (harga*(diskon/100));
         $("#pay").val(total);
       });
+          $('.amount').change(function() {
+                    reloadtotal();
+                });     
         })
     });    
 </script>
@@ -221,7 +227,6 @@
         $('#btn').click(function (e) {
         e.preventDefault();
         
-        // var count = 0;
         var idpro = $("#idpro").val();
         var nota = $("#facture").val();  
         var code = $("#kode").val();             
@@ -246,14 +251,14 @@
                     tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
                     tampung[i].Total = parseInt(tampung[i].Qty) * parseInt(price);
                     showCart();
-                    // subtotal();
                     return;
                 }
             
         }
         var item = { Nota:nota, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total, Id:idpro}; 
-          tampung.push(item);
-          showCart();
+        tampung.push(item);
+        showCart();
+           
     }
 
     function showCart(){
@@ -261,9 +266,7 @@
           for (var i in tampung ) 
           { 
             var item = tampung[i];
-            var count = 0;   
-            var sum = parseFloat(item.Total);
-            var subtot= parseFloat(sum) + parseFloat(sum);
+            var count = 0;  
             
             count = count + 1;
             output = '<tr class="records" id="row_'+count+'">';
@@ -274,30 +277,48 @@
             output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="untukInput1" style="width:100PX;margin-right:5px;" readonly /></td>';
             output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="untukInput1" style="width:200PX;margin-right:5px;" readonly /></td>';
             output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="untukInput1" style="width:100PX;margin-right:5px;" readonly /></td>';
-            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="untukInput1" style="width:80PX;margin-right:5px;" readonly /></td>';
-            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" readonly /></td>';
+            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="untukInput1" style="width:80PX;margin-right:5px;"  /></td>';
+            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
             
-            output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
+            output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="deleterow(this)"  readonly/></td>';
             output += '</tr>';
 
-            pay = '<td><input type="text" class="totale" id="totpay" name="totpay" value="'+subtot+'" size="24" ></td>';
-
             $("#tampilane").append(output); 
-            $("#totpay").append(pay); 
-          }
+          }                
+          reloadtotal(); // memanggil function reloadtotal() untuk melihat hasil grandtotal
         }  
-
-    // function subtotal(){
-    //     var totpay=0; 
-    //         $("#tampilane").each(function(){
-    //             subtot += parseFloat($(this).val()||0);
-    //         });
-    //         $("#tampilane").append(subtot);
-
-    //     }
  
    })   
-  
+
+function reloadtotal() // function untuk menghitung grandtotal 
+{
+    var arr = document.getElementsByName('total[]'); // mengambil value dari  function showcart() dengan name=total[]
+    var tot=0; // default tot 0 
+    for(var i=0;i<arr.length;i++){
+        if(parseInt(arr[i].value))
+            tot += parseInt(arr[i].value);
+    }
+    var number_string = tot.toString(), //merubah value tot ke string
+    split   = number_string.split(','), // split dengan koma
+    sisa    = split[0].length % 3, 
+    rupiah  = split[0].substr(0, sisa),
+    ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
+            
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    document.getElementById('grandtot').value = rupiah; // hasil perhitungan (value = tot) ditampilkan di kolom dengan name=grandtot
+}
+
+function deleterow(e) // function untuk delete row pada list cart
+{
+    $(e).parents(".records").fadeOut();
+    $(e).parents(".records").remove();
+    reloadtotal();
+}
+
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -342,9 +363,25 @@ function addTaskForm() {
         $('#modal-form').modal('show');
     });
 }
+
+function payForm()
+{
+    $(document).ready(function(){
+        var grand = $("#grandtot").val();
+        var idpro = $("#idpro").val();
+        var nota = $("#facture").val();  
+        var code = $("#kode").val();    
+        var customer = $("#customer").val();
+        var price = $("#price").val();
+        alert(idpro)
+        $("#add-error-bag").hide();
+        $('#pay-form').modal('show');
+    })
+}
+
 </script>
-<style type='text/css'>
-input.untukInput1 {
+<style type='text/css'> 
+input.untukInput1 { /* function disable border table*/
   border-bottom: 0px solid #ccc;
   border-left:none;
   border-right:none;
@@ -360,3 +397,5 @@ input.untukInput1 {
   font-size:50Px;
  }
 </style>
+
+
