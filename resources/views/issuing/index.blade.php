@@ -138,7 +138,7 @@
                                     
                                 </table>
                                 <div class="card-footer">
-                                     <a onclick="event.preventDefault();payForm();" href="#" class="btn btn-warning" data-toggle="modal"><i class="material-icons payment">&#xe8a1;</i> <span>Pay</span></a>
+                                     <a onclick="event.preventDefault();payForm();" href="#" id="payment" class="btn btn-warning" data-toggle="modal"><i class="material-icons payment">&#xe8a1;</i> <span>Pay</span></a>
                                 </div>
                             </div>
                             </form>
@@ -367,16 +367,20 @@ function addTaskForm() {
 function payForm()
 {
     $(document).ready(function(){
+        // $('#payment').click(function (e) {
+        // e.preventDefault();
         var grand = $("#grandtot").val();
         var idpro = $("#idpro").val();
         var nota = $("#facture").val();  
         var code = $("#kode").val();    
         var customer = $("#customer").val();
         var price = $("#price").val();
-        alert(idpro)
+        // alert(grand)
         $("#add-error-bag").hide();
+        $("#pay-form #grandtot").val($('#grandtot').val()); // get data dari value grandtot didisplay ke pay-from
         $('#pay-form').modal('show');
     })
+    // })
 }
 
 </script>

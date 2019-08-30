@@ -20,14 +20,14 @@
                         <label>
                             Total
                         </label>
-                        <input class="form-control" id="code" name="code" readonly value={{$cscode}} type="text">
+                        <input class="form-control" id="grandtot" name="grandtot" readonly type="text">
                     </div>
 
                     <div class="form-group">
                         <label>
                             Bayar
                         </label>
-                        <input class="form-control" id="name" name="name" type="text" autofocus required> 
+                        <input class="form-control" id="bayar" name="bayar" type="text" required> 
                         <span class="help-block with errors0"></span>
                     </div>
 
@@ -35,7 +35,7 @@
                         <label>
                             Kembalian
                         </label>
-                        <input class="form-control" id="phone" name="phone" required type="text">
+                        <input class="form-control" id="susuke" name="susuke"  type="text">
                         <span class="help-block with errors0"></span>
                     </div>
 
@@ -58,3 +58,26 @@
     </div>
 </div>
 </form>
+<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
+<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){        
+        $("#bayar").focus();      
+        $("#bayar").keypress(function(e){
+            if(e.which==13){
+                $("#susuke").focus();
+            }
+        });
+        $("#bayar").keyup(function(){
+        var grandtot  = parseInt($("#grandtot").val());
+        var bayar  = parseInt($("#bayar").val());
+        var susuke = bayar-grandtot;
+        
+        // var total = harga - (harga*(diskon/100));
+        $("#susuke").val(susuke);
+      });
+    });    
+</script>
