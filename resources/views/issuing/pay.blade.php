@@ -27,7 +27,7 @@
                         <label>
                             Bayar
                         </label>
-                        <input class="form-control" id="bayar" name="bayar" type="text" required> 
+                        <input class="form-control" id="bayar" name="bayar" autofocus=""  type="text" required> 
                         <span class="help-block with errors0"></span>
                     </div>
 
@@ -35,7 +35,7 @@
                         <label>
                             Kembalian
                         </label>
-                        <input class="form-control" id="susuke" name="susuke"  type="text">
+                        <input class="form-control" id="susuke" name="susuke" readonly type="text">
                         <span class="help-block with errors0"></span>
                     </div>
 
@@ -72,12 +72,54 @@
             }
         });
         $("#bayar").keyup(function(){
-        var grandtot  = parseInt($("#grandtot").val());
-        var bayar  = parseInt($("#bayar").val());
+        var grandtot  = convertToAngka($("#grandtot").val());
+        var bayar  = convertToAngka($("#bayar").val());
         var susuke = bayar-grandtot;
         
         // var total = harga - (harga*(diskon/100));
-        $("#susuke").val(susuke);
+        var number_string = susuke.toString(), //merubah value tot ke string
+        split   = number_string.split(','), // split dengan koma
+        sisa    = split[0].length % 3, 
+        rupiah  = split[0].substr(0, sisa),
+        ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
+                
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        document.getElementById('susuke').value = rupiah; 
+        // $("#susuke").val(susuke);
       });
+    function convertToAngka(rupiah)
+    {
+        return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
+    }
     });    
+</script>
+<script>
+$(document).ready(function(){
+   var bayare = document.getElementById('bayar');
+    
+    bayar.addEventListener('keyup', function(e)
+    {
+        bayar.value = formatRupiah(this.value);
+    });  
+})
+    function formatRupiah(angka, prefix)
+    {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split   = number_string.split(','),
+            sisa    = split[0].length % 3,
+            rupiah  = split[0].substr(0, sisa),
+            ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
+            
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
 </script>
