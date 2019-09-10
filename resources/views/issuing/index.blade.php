@@ -70,7 +70,7 @@
                             @endslot
                         @endcard
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         @card
                             @slot('title')                            
                             @endslot                            
@@ -92,6 +92,37 @@
                             @endslot
                         @endcard
                     </div>
+                    <div class="col-md-3">
+                        @card
+                            @slot('title')                            
+                            @endslot                            
+                            @if (session('success'))
+                                @alert(['type' => 'success'])
+                                    {!! session('success') !!}
+                                @endalert
+                            @endif                        
+                        <div class="form-group" id="detailpro">
+                            <tbody id="totpay" class="totpay" name="totpay">
+                                <div class="form-group">                                    
+                                    <label for="name">GRAND TOTAL</label>
+                                    <input type="text" name="grandtot" class="form-control" id="grandtot" readonly=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">CASH:</label>
+                                    <input type="text" name="bayar" class="form-control" id="bayar" required="" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">KEMBALI:</label>
+                                    <input type="text" name="grandtot" class="form-control" id="grandtot" readonly="" />
+                                </div>
+                                        
+                            </tbody>
+                        </div>      
+                        <td><button type="submit" id="btn" class="btn btn-sm btn-primary">Process Payment</button></td>
+                         @slot('footer')​
+                            @endslot
+                        @endcard
+                    </div>
                     </div>
                     
                     <div class="col-md-12">
@@ -99,24 +130,6 @@
                             @slot('title')
                             LIST CART
                             @endslot
-                           
-                            <form action="{{ route('issuing.store')}}" method="post">        
-                            @csrf                        
-                            <div class="table-responsive">
-                                <table class="table table-hover" id="bb">
-                                    <tbody id="totpay" class="totpay" name="totpay">
-                                        <tr>
-                                            <td>
-                                                <h1>TOTAL BAYAR :</h1>
-                                                <h4> <input type="text" name="grandtot" class="totale" id="grandtot"/> </h4>
-                                                <!-- <h4><span id="amount" class="amount">Rp. 0</span></h4> -->
-                                            </td>
-                                           
-                                        </tr>
-                                            
-                                    </tbody>
-                                </table>        
-                            </div>
                             <div class="table-responsive">
                                 <table class="table table-hover" id="aa">
                                     <thead>
@@ -141,7 +154,7 @@
                                      <a onclick="event.preventDefault();payForm();" href="#" id="payment" class="btn btn-warning" data-toggle="modal"><i class="material-icons payment">&#xe8a1;</i> <span>Pay</span></a>
                                 </div>
                             </div>
-                            </form>
+                            <!-- </form> -->
                             @slot('footer')
 ​
                             @endslot
@@ -398,7 +411,7 @@ input.untukInput1 { /* function disable border table*/
   border-top:none;
   width: 100%;
   text-align: right;
-  font-size:50Px;
+  font-size:30Px;
  }
 </style>
 

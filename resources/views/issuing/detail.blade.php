@@ -7,9 +7,9 @@
     <tbody>
     	<tr>
             <input type="hidden" name="idpro" id="idpro" value="{{$product->id}}">
-            <td>Product Code 
-                <input type="text" name="kode" id="kode" value="{{$product->product_kode}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>
-            </td>
+            <!-- <td>Product Code  -->
+                <input type="hidden" name="kode" id="kode" value="{{$product->product_kode}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>
+            <!-- </td> -->
             <td>Product Name
                 <input type="text" name="proname" id="proname" value="{{$product->product_name}}" style="width:200PX;margin-right:5px;" class="form-control input-sm" readonly>   
             </td>
