@@ -8,13 +8,13 @@
     	<tr>
             <input type="hidden" name="idpro" id="idpro" value="{{$product->id}}">
             <!-- <td>Product Code  -->
-                <input type="hidden" name="kode" id="kode" value="{{$product->product_kode}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>
+                <input type="hidden" name="kode" id="kode" value="{{$product->product_kode}}" style="width:50PX;margin-right:5px;" class="form-control input-sm" readonly>
             <!-- </td> -->
             <td>Product Name
-                <input type="text" name="proname" id="proname" value="{{$product->product_name}}" style="width:200PX;margin-right:5px;" class="form-control input-sm" readonly>   
+                <input type="text" name="proname" id="proname" value="{{$product->product_name}}" style="width:175PX;margin-right:5px;" class="form-control input-sm" readonly>   
             </td>
             <td>Price
-                <input type="text" name="price" id="price" value="{{$product->sell_price}}" style="width:150PX;margin-right:5px;" class="form-control input-sm" readonly>    
+                <input type="text" name="price" id="price" value="{{$product->sell_price}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>    
             </td>
             <td>Qty
                 <input type="text" name="qty" id="qty" class="form-control input-sm" style="width:80PX;margin-right:5px;" onkeyup="qty(this);" required>  
@@ -48,9 +48,6 @@
                 $("#total").focus();
             }
         });
-
-      
-
         $("#qty").keyup(function(){
         var harga  = parseInt($("#price").val());
         var qty  = parseInt($("#qty").val());
@@ -61,7 +58,7 @@
       });
     });    
 </script>
-<script>
+<!-- <script>
 $(document).ready(function(){
    var tanpa_rupiah = document.getElementById('total');
 	
@@ -86,4 +83,4 @@ $(document).ready(function(){
 		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 		return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 	}
-</script>
+</script> -->
