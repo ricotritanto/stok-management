@@ -51,26 +51,12 @@
                                 </div>
                                 <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
                             </div>
-                            </div>  
-
-                            <div class="form-group">
-                            <label>Customer</label>
-                            <select class="form-control select2" name="customer" id="customer" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
-                                <option value="">Pilih customer</option>
-                                    @foreach ($customer as $row)
-                                        <option value="{{ $row->id }}">{{ucfirst($row->customer_code)}}- - {{ucfirst($row->name) }}</option>
-                                    @endforeach                                        
-                            </select>
-                            <p class="text-danger">{{ $errors->first('customer_id') }}</p>
-                        </div>                              
-                        <div class="col-sm-3">
-                        <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a>
-                        </div>                
+                            </div>
                             @slot('footer')  
                             @endslot
                         @endcard
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         @card
                             @slot('title')                            
                             @endslot                            
@@ -78,16 +64,35 @@
                                 @alert(['type' => 'success'])
                                     {!! session('success') !!}
                                 @endalert
-                            @endif                        
-                        
-                        <div class="form-group">
-                            <label for="name">Product Code</label>
-                            <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required>
-                        </div>
+                            @endif 
+
+                        <table class="table">
+                            
+                            <tbody>                                        
+                                <td><label for="name">Customer</label></td>
+                                <td>:</td>                                          
+                                <td>
+                                    <select class="form-control select2" name="customer" id="customer" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
+                                        <option value="">Pilih customer</option>
+                                    @foreach ($customer as $row)
+                                        <option value="{{ $row->id }}">{{ucfirst($row->customer_code)}}- - {{ucfirst($row->name) }}</option>
+                                    @endforeach                                        
+                                    </select>
+                                    <p class="text-danger">{{ $errors->first('customer_id') }}</p></td>
+                                <td>
+                                    <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a></td>
+                                <tr></tr>                 
+                                <td> <label for="name">Product Code</label></td>
+                                <td>:</td>
+                                <td> 
+                                    <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
+                                <td><button type="submit" id="btn" class="btn btn-primary">To Cart</button></td> 
+                                </tbody>
+                        </table>
+
                         <div class="form-group" id="detailpro">
 
-                        </div>      
-                        <td><button type="submit" id="btn" class="btn btn-sm btn-primary">To Cart</button></td>
+                        </div>
                          @slot('footer')​
                             @endslot
                         @endcard
