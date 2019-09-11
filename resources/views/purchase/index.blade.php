@@ -156,12 +156,9 @@
     orientation: "auto"
     });
   })
-  </script>
-
-
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
-        
         $("#code").focus();
         $("#code").keyup(function(){
 
@@ -173,12 +170,10 @@
                    url : "{{route('purchase.product')}}",
                    type: "POST",
                    data: data,
-                   success: function(msg){
-                    
+                   success: function(msg){                    
                     // $("#detailpro").empty();
                    $('#detailpro').html(msg);
-                   },
-                 
+                   },                 
                 });
             }); 
 
@@ -189,7 +184,6 @@
         });
     });
 </script>
-
 <script>
     var tampung = [];
     $(document).ready(function(){
@@ -233,15 +227,7 @@
           { 
             var item = tampung[i];
             var count = 0;
-            
-            // var row = '<tr><td>'+item.code+'</td><td>'+item.name+'<input type="hidden" name="produk[]" id="produk" class="produk" value="'+item.Id+'" /><td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td><td><input type="button" class="a" name="xy" value="Update" onclick="upd(this)" /></td><td><input type="button" class="sifucker" name="x" value="Delete" onclick="hapuse(this)" /></td></tr>';      
-            // var row = '<tr>';
-            // var row = '<td>'+item.code+'</td>';
-            // var row = '<td>'+item.name+'<input type="hidden" name="produk[]" id="produk" class="produk" value="'+item.Id+'" /></td>';
-            // var row = '<td class="ikibakaltakupdate">'+item.Qty+' <input type="hidden" name="qty[]" id="qtyne" value="'+item.Qty+'" /></td>';
-            
-            // var row = '</tr>';
-            // $("#tampilane").append(row); 
+       
             count = count + 1;
             output = '<tr class="records" id="row_'+count+'">';
             output += '<input type="hidden" required name="product[]" id="product" value="'+item.Id+'"/>';

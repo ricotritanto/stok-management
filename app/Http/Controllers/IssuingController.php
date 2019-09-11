@@ -40,4 +40,10 @@ class IssuingController extends Controller
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
     }
+
+    public function store(Request $request)
+    {
+        $a = $request->all();
+        print_r($a);exit();
+    }
 }
