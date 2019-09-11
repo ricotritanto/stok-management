@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-​
+​                      
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -70,7 +70,7 @@
                             @endslot
                         @endcard
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         @card
                             @slot('title')                            
                             @endslot                            
@@ -80,9 +80,9 @@
                                 @endalert
                             @endif                        
                         
-                            <div class="form-group">
+                        <div class="form-group">
                             <label for="name">Product Code</label>
-                            <input type="text" name="code" id="code" class="form-control input-sm" required>
+                            <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required>
                         </div>
                         <div class="form-group" id="detailpro">
 
@@ -91,32 +91,14 @@
                          @slot('footer')​
                             @endslot
                         @endcard
-                    </div>
-                    </div>
-                    
-                    <div class="col-md-12">
+                    </div>      
+                    <div class="col-md-12">   
+                    <form action="{{ route('issuing.store')}}" method="post">        
+                    @csrf                  
                         @card
                             @slot('title')
-                            LIST CART
+                            Record Data
                             @endslot
-                           
-                            <form action="{{ route('issuing.store')}}" method="post">        
-                            @csrf                        
-                            <div class="table-responsive">
-                                <table class="table table-hover" id="bb">
-                                    <tbody id="totpay" class="totpay" name="totpay">
-                                        <tr>
-                                            <td>
-                                                <h1>TOTAL BAYAR :</h1>
-                                                <h4> <input type="text" name="grandtot" class="totale" id="grandtot"/> </h4>
-                                                <!-- <h4><span id="amount" class="amount">Rp. 0</span></h4> -->
-                                            </td>
-                                           
-                                        </tr>
-                                            
-                                    </tbody>
-                                </table>        
-                            </div>
                             <div class="table-responsive">
                                 <table class="table table-hover" id="aa">
                                     <thead>
@@ -134,24 +116,45 @@
                                     </thead>
                                     <tbody id="tampilane">
                                         
-                                    </tbody>
-                                    
+                                    </tbody>                                    
                                 </table>
-                                <div class="card-footer">
-                                     <a onclick="event.preventDefault();payForm();" href="#" id="payment" class="btn btn-warning" data-toggle="modal"><i class="material-icons payment">&#xe8a1;</i> <span>Pay</span></a>
-                                </div>
+                                <div class="col-md-auto">
+                                    <div class="table-responsive">
+                                    <table class="table table-hover" id="aa">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>                                        
+                                            <td><label for="name">GRAND TOTAL</label></td>
+                                            <td>:</td>                                          
+                                            <td><input type="text" name="grandtot" class="form-control"  style="font-weight: bold; "  id="grandtot" readonly=""/></td>
+                                            <td><label for="name">KEMBALI</label></td>
+                                            <td>:</td>                                
+                                            <td><input type="text" name="kembali" class="form-control" id="kembali" style="font-weight: bold;color:red;"readonly="" /></td> 
+
+                                            <tr></tr>                                           
+                                            <td> <label for="name">CASH</label></td>
+                                            <td>:</td>
+                                            <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar"/></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><button type="submit"  class="btn btn-warning">Process Payment</button></td>  
+                                            </tbody>
+                                    </table>
+                                    </div>
+                               </div>
                             </div>
-                            </form>
                             @slot('footer')
 ​
                             @endslot
                         @endcard
+                    </form>
                     </div>
                 </div>
             </div>
-        </section>
+        </section>    
     </div>  @include('customer.cs_add')
-            @include('issuing.pay')
 @endsection
 <script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
@@ -160,7 +163,7 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script>
-  $(function () {
+  $(function () { //function datepicker
    $( "#date" ).datepicker({
     format: "dd-mm-yyyy",
     weekStart: 0,
@@ -171,15 +174,12 @@
     orientation: "auto"
     });
   })
-  </script>
-
-
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
         reloadtotal();
         $("#code").focus();
         $("#code").keyup(function(){
-
         var data = {code:$(this).val()};
             $.ajax({
                headers: {
@@ -189,8 +189,9 @@
                    type: "POST",
                    data: data,
                    success: function(msg){
-                   $('#detailpro').html(msg);
+                    $('#detailpro').html(msg);
                    }
+                   
                 });
             }); 
 
@@ -210,7 +211,6 @@
         var harga  = parseInt($("#price").val());
         var qty  = parseInt($("#qty").val());
         var total = harga*qty;
-        
         // var total = harga - (harga*(diskon/100));
         $("#pay").val(total);
       });
@@ -253,12 +253,10 @@
                     showCart();
                     return;
                 }
-            
         }
         var item = { Nota:nota, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total, Id:idpro}; 
         tampung.push(item);
         showCart();
-           
     }
 
     function showCart(){
@@ -285,7 +283,8 @@
 
             $("#tampilane").append(output); 
           }                
-          reloadtotal(); // memanggil function reloadtotal() untuk melihat hasil grandtotal
+          reloadtotal();
+          $("#code").focus(); // memanggil function reloadtotal() untuk melihat hasil grandtotal
         }  
  
    })   
@@ -352,9 +351,7 @@ function deleterow(e) // function untuk delete row pada list cart
                 $("#add-error-bag").show();
             }
         });
-    });
-    
-    
+    });    
 });
 
 function addTaskForm() {
@@ -363,26 +360,64 @@ function addTaskForm() {
         $('#modal-form').modal('show');
     });
 }
-
-function payForm()
-{
-    $(document).ready(function(){
-        // $('#payment').click(function (e) {
-        // e.preventDefault();
-        var grand = $("#grandtot").val();
-        var idpro = $("#idpro").val();
-        var nota = $("#facture").val();  
-        var code = $("#kode").val();    
-        var customer = $("#customer").val();
-        var price = $("#price").val();
-        // alert(grand)
-        $("#add-error-bag").hide();
-        $("#pay-form #grandtot").val($('#grandtot').val()); // get data dari value grandtot didisplay ke pay-from
-        $('#pay-form').modal('show');
-    })
-    // })
-}
-
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){        
+        // $("#bayar").focus();      
+        $("#bayar").keypress(function(e){
+            if(e.which==13){
+                $("#kembali").focus();
+            }
+        });
+        $("#bayar").keyup(function(){
+        var grandtot  = convertToAngka($("#grandtot").val());
+        var bayar  = convertToAngka($("#bayar").val());
+        var kembali = bayar-grandtot;
+        
+        // var total = harga - (harga*(diskon/100));
+        var number_string = kembali.toString(), //merubah value tot ke string
+        split   = number_string.split(','), // split dengan koma
+        sisa    = split[0].length % 3, 
+        rupiah  = split[0].substr(0, sisa),
+        ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
+                
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        document.getElementById('kembali').value = rupiah; 
+      });
+    function convertToAngka(rupiah)
+    {
+        return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
+    }
+    });    
+</script>
+<script>
+$(document).ready(function(){
+   var bayare = document.getElementById('bayar');
+    bayar.addEventListener('keyup', function(e)
+    {
+        bayar.value = formatRupiah(this.value);
+    });  
+})
+    function formatRupiah(angka, prefix)
+    {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split   = number_string.split(','),
+            sisa    = split[0].length % 3,
+            rupiah  = split[0].substr(0, sisa),
+            ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
+            
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
 </script>
 <style type='text/css'> 
 input.untukInput1 { /* function disable border table*/
@@ -398,7 +433,7 @@ input.untukInput1 { /* function disable border table*/
   border-top:none;
   width: 100%;
   text-align: right;
-  font-size:50Px;
+  font-size:30Px;
  }
 </style>
 

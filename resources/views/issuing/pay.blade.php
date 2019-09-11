@@ -27,7 +27,7 @@
                         <label>
                             Bayar
                         </label>
-                        <input class="form-control" id="bayar" name="bayar" autofocus=""  type="text" required> 
+                        <input class="form-control" id="bayar" name="bayar" type="text" required> 
                         <span class="help-block with errors0"></span>
                     </div>
 
