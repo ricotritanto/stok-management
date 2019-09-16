@@ -12,7 +12,7 @@ use App\Model\issuing;
 class Issuing_detail extends Model
 {
     protected $guarded = [];
-    protected $table = 'issuing_detail';
+    protected $table = 'issuing_details';
 
     public function product()
     { 
