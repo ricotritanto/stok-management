@@ -44,39 +44,39 @@ class IssuingController extends Controller
     public function store(Request $request)
     {
         $a = $request->all();
-        print_r($a);exit();
-
-        $idpro = $a['code'];
+        // print_r($a);exit();
         $facture = $a['facture'];
         $date = $a['date'];
-        // $code = $a['code'];
-        // $product = $a['name'];
-        $qty = $a['qty'];
-        
         $customer = $a['customer'];
+        $grandtot = $a['grandtot'];
+        $idpro = $a['product'];      
+        $qty = $a['qty'];
+        $total = $a['total'];
         
         $data =array();
 
-         $index=0;
+        $index=0;
         foreach ($idpro as $key ) 
         {
             array_push($data, array(
-                        'purchase_facture'=>$facture,
-                        'suplier'=>$suplier,
+                        'issuing_facture'=>$facture,
+                        'customer_id'=>$customer,
                         'date'=>$date,
+                        'grandtotal'=>$grandtot,
                         'product_id'=>$idpro[$index],
                         'qty'=>$qty[$index],  // Ambil dan set data nama sesuai index array dari $index
+                        'total'=>$total[$index],
                       ));
       
                 $index++;
         }
-        $purchaserepo = new PurchaseRepository;
-        $purchase = $purchaserepo->purchase($data);
+        // $issuingrepo = new IssuingRepository;
+        // $issuing = $issuingrepo->issuing($data);
         try
         {
-            $purchaserepo = new PurchaseRepository;
-            $purchase = $purchaserepo->purchase($data);
-            return redirect('purchase')->with(['success' => 'Save Success']);
+            $issuingrepo = new IssuingRepository;
+            $issuing = $issuingrepo->issuing($data);
+            return redirect('issuing')->with(['success' => 'Save Success']);
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);

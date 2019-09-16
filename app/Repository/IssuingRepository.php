@@ -35,14 +35,15 @@ class IssuingRepository{
        
         foreach ($data as $key) 
         {
-            $aa['purchase_facture'] = $key['purchase_facture'];
+            $aa['issuing_facture'] = $key['issuing_facture'];
             $aa['date'] = $key['date'];
-            $aa['suplier_id'] = $key['suplier'];
+            $aa['customer_id'] = $key['customer_id'];
+            $aa['grandtotal'] = $key['grandtotal'];
             $aa['created_at'] = date('Y-m-d H:i:s');
             $aa['updated_at'] = date('Y-m-d H:i:s');;
         }
         
-        $id= purchase::insertGetId($aa);	
+        $id= issuing::insertGetId($aa);	
         // print_r($id);exit();
         // foreach ($data as $key) 
         // {
@@ -55,15 +56,16 @@ class IssuingRepository{
         // }
         for($i=0;$i<count($data);$i++)
       {
-            $bb[$i]['purchase_id']=$id;
+            $bb[$i]['issuing_id']=$id;
             $bb[$i]['product_id']=$data[$i]['product_id'];
   			$bb[$i]['qty']=$data[$i]['qty'];
+            $bb[$i]['total']=$data[$i]['total'];
             $bb[$i]['created_at'] =date('Y-m-d H:i:s');
             $bb[$i]['updated_at'] = date('Y-m-d H:i:s');
   			unset($bb[$i]['id']);
   		}
     	
         // print_r($bb);exit();
-        return purchase_detail::insert($bb);
+        return issuing_detail::insert($bb);
      }
 }
