@@ -40,7 +40,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="name">Nota /No.Facture</label>
-                                <input type="text" name="facture" id="facture" readonly value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
+                                <input type="text" name="facture" id="facture" readonly value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" required>
                             </div>       
 
                              <div class="form-group">
@@ -66,8 +66,7 @@
                                 @endalert
                             @endif 
 
-                        <table class="table">
-                            
+                        <table class="table">                            
                             <tbody>                                        
                                 <td><label for="name">Customer</label></td>
                                 <td>:</td>                                          
@@ -114,6 +113,7 @@
                                             <td>Price</td>
                                             <td>Qty</td>
                                             <td>Total</td>
+                                            <td></td>
                                             <!-- <td>Action
                                                 <input type="text" name="code" id="code" class="form-control input-sm" required>  
                                             </td> -->
@@ -144,7 +144,9 @@
                                             <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar"/></td>
                                             <td></td>
                                             <td></td>
-                                            <td><button type="submit"  class="btn btn-warning">Process Payment</button></td>  
+                                            <td><button type="submit"  class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
+                                                <a href="invoice-print.html" target="_blank" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</a>
+                                                <button type="button" class="btn btn-primary"><i class="fa fa-download"></i>Generate PDF</button></td>  
                                             </tbody>
                                     </table>
                                     </div>
@@ -233,17 +235,18 @@
         e.preventDefault();
         
         var idpro = $("#idpro").val();
-        var nota = $("#facture").val();  
+        var facture = $("#facture").val();
+        var date = $("#date").val();  
         var code = $("#kode").val();             
         var name = $("#proname").val();
         var customer = $("#customer").val();
         var price = $("#price").val();
         var qty = $("#qty").val();
         var total = $("#total").val();
-        addToCart(nota, date, code, name, qty,customer, price,total,idpro);
+        addToCart(facture, date, code, name, qty,customer, price,total,idpro);
     })
 
-    function addToCart(nota, date, code, name, qty,customer, price, total, idpro){
+    function addToCart(facture, date, code, name, qty,customer, price, total, idpro){
         if(code =="" || name =="" || customer ==""|| qty=="" || total=="")
         {
             alert('Data Belum Lengkap !!')
@@ -259,7 +262,7 @@
                     return;
                 }
         }
-        var item = { Nota:nota, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total, Id:idpro}; 
+        var item = { facture:facture, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total, Id:idpro}; 
         tampung.push(item);
         showCart();
     }
@@ -400,13 +403,13 @@ function addTaskForm() {
     });    
 </script>
 <script>
-$(document).ready(function(){
-   var bayare = document.getElementById('bayar');
-    bayar.addEventListener('keyup', function(e)
-    {
-        bayar.value = formatRupiah(this.value);
-    });  
-})
+    $(document).ready(function(){
+       var bayare = document.getElementById('bayar');
+        bayar.addEventListener('keyup', function(e)
+        {
+            bayar.value = formatRupiah(this.value);
+        });  
+    })
     function formatRupiah(angka, prefix)
     {
         var number_string = angka.replace(/[^,\d]/g, '').toString(),

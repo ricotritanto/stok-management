@@ -45,5 +45,41 @@ class IssuingController extends Controller
     {
         $a = $request->all();
         print_r($a);exit();
+
+        $idpro = $a['code'];
+        $facture = $a['facture'];
+        $date = $a['date'];
+        // $code = $a['code'];
+        // $product = $a['name'];
+        $qty = $a['qty'];
+        
+        $customer = $a['customer'];
+        
+        $data =array();
+
+         $index=0;
+        foreach ($idpro as $key ) 
+        {
+            array_push($data, array(
+                        'purchase_facture'=>$facture,
+                        'suplier'=>$suplier,
+                        'date'=>$date,
+                        'product_id'=>$idpro[$index],
+                        'qty'=>$qty[$index],  // Ambil dan set data nama sesuai index array dari $index
+                      ));
+      
+                $index++;
+        }
+        $purchaserepo = new PurchaseRepository;
+        $purchase = $purchaserepo->purchase($data);
+        try
+        {
+            $purchaserepo = new PurchaseRepository;
+            $purchase = $purchaserepo->purchase($data);
+            return redirect('purchase')->with(['success' => 'Save Success']);
+        }catch(\Exception $e)
+        {
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }
     }
 }
