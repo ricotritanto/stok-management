@@ -84,3 +84,17 @@ Route::group(['prefix' => 'issuing'], function()
     Route::Put('/{$id}','IssuingController@update')->name('issuing.update');
 
 });
+
+Route::resource('/invoice', 'InvoiceController')->except([
+    'create', 'show']);
+Route::group(['prefix' => 'invoice'], function()
+{
+    Route::get('/','InvoiceController@index')->name('invoice.index');
+    Route::get('/create','InvoiceController@create')->name('invoice.create');
+    Route::post('/store','InvoiceController@store')->name('invoice.store');
+    Route::delete('/{$id}','InvoiceController@destroy')->name('invoice.destroy');
+    Route::get('/{$id}/edit','InvoiceController@edit')->name('invoice.edit');
+    Route::post('/getpro','InvoiceController@getproduct')->name('invoice.product');
+    Route::Put('/{$id}','InvoiceController@update')->name('invoice.update');
+
+});

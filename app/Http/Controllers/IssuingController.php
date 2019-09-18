@@ -8,6 +8,7 @@ use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use App\Repository\IssuingRepository;
 use App\Repository\CustomerRepository;
+use PDF;
 
 class IssuingController extends Controller
 {
@@ -70,8 +71,6 @@ class IssuingController extends Controller
       
                 $index++;
         }
-        // $issuingrepo = new IssuingRepository;
-        // $issuing = $issuingrepo->issuing($data);
         try
         {
             $issuingrepo = new IssuingRepository;
@@ -81,5 +80,12 @@ class IssuingController extends Controller
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
+    }
+
+    public function invoice()
+    {
+        $header = ['title' => 'Invoice StarCCTV'];
+        $pdf = PDF::loadview('issuing.index',['header'=>$header]);
+        return $pdf->download('laporan-issuing-pdf');
     }
 }
