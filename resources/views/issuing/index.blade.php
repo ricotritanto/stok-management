@@ -107,16 +107,13 @@
                                 <table class="table table-hover" id="aa">
                                     <thead>
                                         <tr>
-                                            <!-- <td>#</td> -->
+                                            <td>#</td>
                                             <td>Product Code</td>
                                             <td>Item</td>
                                             <td>Price</td>
                                             <td>Qty</td>
                                             <td>Total</td>
-                                            <td></td>
-                                            <!-- <td>Action
-                                                <input type="text" name="code" id="code" class="form-control input-sm" required>  
-                                            </td> -->
+                                            <td>Action</td>
                                         </tr>
                                     </thead>
                                     <tbody id="tampilane">
@@ -141,12 +138,12 @@
                                             <tr></tr>                                           
                                             <td> <label for="name">CASH</label></td>
                                             <td>:</td>
-                                            <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar"/></td>
+                                            <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar" required="" /></td>
                                             <td></td>
                                             <td></td>
-                                            <td><button type="submit"  class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
-                                                <a href="invoice-print.html" target="_blank" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</a>
-                                                <button type="button" class="btn btn-primary"><i class="fa fa-download"></i>Generate PDF</button></td>  
+                                            <td><button type="submit" id="payment" class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
+                                                <a href="{{route ('invoice.index')}}" target="_blank"  id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</a>
+                                                <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td>  
                                             </tbody>
                                     </table>
                                     </div>
@@ -205,7 +202,7 @@
         $("#code").keypress(function(e){
             if(e.which==13){
                 $("#qty").focus();
-            }
+            }        
         });
     });
 </script>
@@ -269,17 +266,19 @@
 
     function showCart(){
         $("#tampilane").empty();
+        var a =1;
           for (var i in tampung ) 
           { 
             var item = tampung[i];
-            var count = 0;  
-            
+            var count = 0;
+
             count = count + 1;
             output = '<tr class="records" id="row_'+count+'">';
             output += '<input type="hidden" name="product[]" id="product" value="'+item.Id+'"/>';
             output += '<input type="hidden" name="facture" id="facture'+count+'"" value="'+item.facture+'"/>';
             output += '<input type="hidden" name="date" id="date'+count+'"" value="'+item.date+'"/>';
             output += '<input type="hidden" name="customer" id="customer'+count+'" value="'+item.customer+'"/></td>';
+            output += '<td><input type="text" name="count[]" id="count'+count+'"" value="'+a+++'" class="untukInput1" style="width:25PX;margin-right:5px;" readonly /></td>';
             output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="untukInput1" style="width:100PX;margin-right:5px;" readonly /></td>';
             output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="untukInput1" style="width:200PX;margin-right:5px;" readonly /></td>';
             output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="untukInput1" style="width:100PX;margin-right:5px;" readonly /></td>';
@@ -369,6 +368,40 @@ function addTaskForm() {
     });
 }
 </script>
+<!-- SHORTCUT KEY -->
+<script>
+    document.onkeydown = function (e) {
+        switch (e.keyCode) {
+            // F2
+            case 113:
+               $("#customer").focus();
+                break;
+            // F3
+            case 114:
+               $("#code").focus();
+                break;
+            // F4
+            case 115:
+               $("#payment").focus();
+                break;
+            // F5
+            case 116:
+              window.reload();
+                break;
+            // f12
+            case 123:
+                $("#bayar").focus();
+                break;
+            // F8
+            case 119 :
+               $("#print").focus();
+                break;
+        }
+        //menghilangkan fungsi default tombol
+        e.preventDefault();
+    };
+</script>
+<!-- END SHORTCUT KEY -->
 <script type="text/javascript">
     $(document).ready(function(){        
         // $("#bayar").focus();      
