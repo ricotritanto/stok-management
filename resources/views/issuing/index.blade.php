@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-​                      
+​     
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -35,7 +35,7 @@
                                 @alert(['type' => 'danger'])
                                     {!! session('error') !!}
                                 @endalert
-                            @endif                            
+                            @endif  
                             
                             @csrf
                             <div class="form-group">
@@ -64,8 +64,8 @@
                                 @alert(['type' => 'success'])
                                     {!! session('success') !!}
                                 @endalert
-                            @endif 
-
+                            @endif                            
+                           
                         <table class="table">                            
                             <tbody>                                        
                                 <td><label for="name">Customer</label></td>
@@ -185,19 +185,20 @@
         $("#code").focus();
         $("#code").keyup(function(){
         var data = {code:$(this).val()};
+        if(this.value.length==7) {
             $.ajax({
                headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                    url : "{{route('issuing.product')}}",
                    type: "POST",
-                   data: data,
-                   success: function(msg){
-                    $('#detailpro').html(msg);
-                   }
+                   data:data,
+                   success: function(data){
+                    $('#detailpro').html(data);
+                }
                    
                 });
-            }); 
+        }   }); 
 
         $("#code").keypress(function(e){
             if(e.which==13){
@@ -389,7 +390,7 @@ function addTaskForm() {
               window.reload();
                 break;
             // f12
-            case 123:
+            case 121:
                 $("#bayar").focus();
                 break;
             // F8
@@ -398,7 +399,7 @@ function addTaskForm() {
                 break;
         }
         //menghilangkan fungsi default tombol
-        e.preventDefault();
+        // e.preventDefault();
     };
 </script>
 <!-- END SHORTCUT KEY -->

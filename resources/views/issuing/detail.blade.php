@@ -18,6 +18,9 @@
             </td>
             <td>Qty
                 <input type="text" name="qty" id="qty" class="form-control input-sm" style="width:80PX;margin-right:5px;" onkeyup="qty(this);" required>  
+            </td>  
+            <td>Stok
+                <input type="text" name="stok" id="stok" value="{{$product->stocks}}" class="form-control input-sm" style="width:80PX;margin-right:5px;" readonly>  
             </td>           
             <td>Total 
                 <input type="text" name="total" id="total" class="form-control input-sm" value="0" required>  
@@ -42,11 +45,12 @@
 
 <script type="text/javascript">
     $(document).ready(function(){        
-        $("#qty").focus();      
+        $("#qty").focus();                 
         $("#qty").keypress(function(e){
-            if(e.which==13){
-                $("#total").focus();
-            }
+        if(e.which==13){
+            $("#total").focus();
+        }
+
         });
         $("#qty").keyup(function(){
         var harga  = parseInt($("#price").val());

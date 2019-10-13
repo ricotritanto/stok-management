@@ -34,8 +34,17 @@ class IssuingController extends Controller
         try{
             $productrepo = new ProductRepository;
             $product = $productrepo->getprocod($request);
+            
+            // // print_r($product['stocks']);exit();
+            if (empty($product['produk_kode']) && $product['stocks']<=0 ) {
+               echo '<script language="javascript">';
+               echo 'alert("Out Of Stock!")';
+               echo '</script>';
 
-            return view('issuing.detail', compact('product'));
+            }else
+            {
+                return view('issuing.detail', compact('product'));
+            }
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
@@ -45,7 +54,8 @@ class IssuingController extends Controller
     public function store(Request $request)
     {
         $a = $request->all();
-        // print_r($a);exit();
+
+
         $facture = $a['facture'];
         $date = $a['date'];
         $customer = $a['customer'];
@@ -68,7 +78,6 @@ class IssuingController extends Controller
                         'qty'=>$qty[$index],  // Ambil dan set data nama sesuai index array dari $index
                         'total'=>$total[$index],
                       ));
-      
                 $index++;
         }
         try
@@ -76,6 +85,7 @@ class IssuingController extends Controller
             $issuingrepo = new IssuingRepository;
             $issuing = $issuingrepo->issuing($data);
             return redirect('issuing')->with(['success' => 'Save Success']);
+            // return redirect()->route('invoice', $issuing->issuing_facture);
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
