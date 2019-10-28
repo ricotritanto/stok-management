@@ -81,6 +81,7 @@ Route::group(['prefix' => 'issuing'], function()
     Route::delete('/{$id}','IssuingController@destroy')->name('issuing.destroy');
     Route::get('/{$id}/edit','IssuingController@edit')->name('issuing.edit');
     Route::post('/getpro','IssuingController@getproduct')->name('issuing.product');
+    Route::post('/getnota','IssuingController@invoice')->name('issuing.invoice');
     Route::Put('/{$id}','IssuingController@update')->name('issuing.update');
 
 });

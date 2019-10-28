@@ -50,31 +50,30 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 40%;">
-                <h3>John Doe</h3>
+                <h3>{{ $datane->customers}}</h3>
                 <pre>
-Street 15
-123456 City
-United Kingdom
-<br /><br />
-Date: 2018-01-01
-Identifier: #uniquehash
-Status: Paid
-</pre>
-
-
+                    Street 15
+                    123456 City
+                    United Kingdom
+                    <br /><br />
+                    Nota : {{$datane->issuing_facture}}
+                    Date: {{$datane->date}}
+                    Identifier: #uniquehash
+                    Status: Paid
+                </pre>
             </td>
             <td align="center">
                 <img src="/path/to/logo.png" alt="Logo" width="64" class="logo"/>
             </td>
             <td align="right" style="width: 40%;">
 
-                <h3>CompanyName</h3>
+                <h3>STARTCCTV</h3>
                 <pre>
-                    https://company.com
+                    www.startcctv.com
 
                     Street 26
-                    123456 City
-                    United Kingdom
+                    Semarang City
+                    Indonesia
                 </pre>
             </td>
         </tr>

@@ -64,8 +64,12 @@ class IssuingRepository{
             $bb[$i]['updated_at'] = date('Y-m-d H:i:s');
   			unset($bb[$i]['id']);
   		}
-    	
-        // print_r($bb);exit();
         return issuing_detail::insert($bb);
+     }
+
+     function getnota($facture)
+     {
+        return issuing::Where('issuing_facture', $facture)->first();
+        // return issuing::with('customers')->Where('issuing_facture', $facture)->first();
      }
 }
