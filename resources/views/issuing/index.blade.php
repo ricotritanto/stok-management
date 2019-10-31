@@ -142,8 +142,9 @@
                                             <td></td>
                                             <td></td>
                                             <td><button type="submit" id="payment" class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
-                                                <a href="{{route ('invoice.index')}}" target="_blank"  id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</a>
-                                                <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td>  
+                                                <button onclick="printpay()" id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
+                                                <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td> 
+                                                <button onclick="printpay()">Try it</button>
                                             </tbody>
                                     </table>
                                     </div>
@@ -478,5 +479,19 @@ input.untukInput1 { /* function disable border table*/
   font-size:30Px;
  }
 </style>
+<script type="text/javascript">
+    function printpay()
+    {
+        var txt;
+        var person = prompt("Please enter No Facture:""");
+          if (person == null || person == "") {
+            txt = "User cancelled the prompt.";
+          } else {
+            txt = "Hello " + person + "! How are you today?";
+          }
+          document.getElementById("demo").innerHTML = txt;
+
+    }
+</script>
 
 
