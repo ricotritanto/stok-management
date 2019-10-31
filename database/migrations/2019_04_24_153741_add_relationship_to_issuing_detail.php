@@ -18,9 +18,6 @@ class AddRelationshipToIssuingDetail extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
         
-            $table->foreign('issuing_id')->references('id')->on('issuings')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
         });
     }
 

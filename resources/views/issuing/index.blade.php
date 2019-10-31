@@ -390,7 +390,7 @@ function addTaskForm() {
             case 116:
               window.reload();
                 break;
-            // f12
+            // f10
             case 121:
                 $("#bayar").focus();
                 break;
