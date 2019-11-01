@@ -34,16 +34,16 @@ class IssuingRepository{
      {
        
         foreach ($data as $key) 
-        {
-            $aa['issuing_facture'] = $key['issuing_facture'];
-            $aa['date'] = $key['date'];
-            $aa['customer_id'] = $key['customer_id'];
-            $aa['grandtotal'] = $key['grandtotal'];
-            $aa['created_at'] = date('Y-m-d H:i:s');
-            $aa['updated_at'] = date('Y-m-d H:i:s');;
+        {   
+           
+            $aa['product_id']=$key['product_id'];
+            $aa['qty']=$key['qty'];
+            $aa['total']=$key['total'];
+            $aa['created_at'] =date('Y-m-d H:i:s');
+            $aa['updated_at'] = date('Y-m-d H:i:s');
         }
         
-        $id= issuing::insertGetId($aa);	
+        $id= issuing_detail::insertGetId($aa);	
         // print_r($id);exit();
         // foreach ($data as $key) 
         // {
@@ -56,20 +56,28 @@ class IssuingRepository{
         // }
         for($i=0;$i<count($data);$i++)
       {
-            $bb[$i]['issuing_id']=$id;
-            $bb[$i]['product_id']=$data[$i]['product_id'];
-  			$bb[$i]['qty']=$data[$i]['qty'];
-            $bb[$i]['total']=$data[$i]['total'];
-            $bb[$i]['created_at'] =date('Y-m-d H:i:s');
+            // $bb[$i]['issuing_id']=$id;
+            $bb[$i]['issuing_details_id'] = $id;
+            $bb[$i]['issuing_facture'] = $data[$i]['issuing_facture'];
+            $bb[$i]['date'] = $data[$i]['date'];
+            $bb[$i]['customer_id'] = $data[$i]['customer_id'];
+            $bb[$i]['grandtotal'] = $data[$i]['grandtotal'];
+            $bb[$i]['created_at'] = date('Y-m-d H:i:s');
             $bb[$i]['updated_at'] = date('Y-m-d H:i:s');
   			unset($bb[$i]['id']);
   		}
-        return issuing_detail::insert($bb);
+        return issuing::insert($bb);
      }
 
      function getnota($facture)
      {
-        return issuing::Where('issuing_facture', $facture)->first();
+        return issuing::Where('issuing_facture',$facture)->with('customer')
+        ->join('customers','issuings.customer_id','=','customers.id')
+        ->join('issuing_details','issuings.issuing_details_id','=','issuing_details.id')
+        ->join('products','issuing_details.product_id','=','products.id')
+        ->join('brands','products.brand_id','=','brands.id')->get();
+        // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
+        // $workers = Worker::with('result')->find($id);
         // return issuing::with('customers')->Where('issuing_facture', $facture)->first();
      }
 }
