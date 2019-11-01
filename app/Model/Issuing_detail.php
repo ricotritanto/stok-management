@@ -16,11 +16,11 @@ class Issuing_detail extends Model
 
     public function product()
     { 
-    	return $this->belongsTo(Product::class);
+    	return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
     public function issuing()
     {
-        return $this->hasMany(issuings::class, 'id','issuing_id');
+        return $this->belongsTo(issuing::class, 'issuing_details_id', 'id');
     }
 }

@@ -16,9 +16,11 @@ class InvoiceController extends Controller
     public function index()
     {
     	 // return view('invoice.index');
-    	$facture = ['FS-00001/09/2019'];
+    	$facture = ['FS-00001/10/2019'];
     	$issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
+
+        // print_r($datane);exit();
 
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
