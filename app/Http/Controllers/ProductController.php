@@ -96,7 +96,7 @@ class ProductController extends Controller
             'stock' => 'required|max:30',
             'description' => 'nullable|string|max:255',
             'code' => 'required|string|max:11',
-            'serial' => 'required|string|max:11',
+            'serial' => 'required|string|max:255',
         ]);
         // $aa = $Request->all();
         // print_r($aa);exit();

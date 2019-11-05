@@ -338,7 +338,7 @@ function deleterow(e) // function untuk delete row pada list cart
         });
         $.ajax({
             type: 'POST',
-            url: '/customer',
+            url: "{{route('customer.store')}}",
             data: {
                 code: $("#modal-form input[name=code]").val(),
                 name: $("#modal-form input[name=name]").val(),
@@ -352,15 +352,16 @@ function deleterow(e) // function untuk delete row pada list cart
                 window.location.reload();
             },
             error: function(data) {
-                var errors = $.parseJSON(data.responseText);
-                $('#add-task-errors').html('');
-                $.each(errors.messages, function(key, value) {
-                    $('#add-task-errors').append('<li>' + value + '</li>');
-                });
-                $("#add-error-bag").show();
+                console.log(data);
+                // var errors = $.parseJSON(data.responseText);
+                // $('#add-task-errors').html('ERORR BONG');
+                // $.each(errors.messages, function(key, value) {
+                //     $('#add-task-errors').append('<li>' + value + '</li>');
+                // });
+                // $("#add-error-bag").show();
             }
         });
-    });    
+    });  
 });
 
 function addTaskForm() {
@@ -479,7 +480,7 @@ input.untukInput1 { /* function disable border table*/
   font-size:30Px;
  }
 </style>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     function printpay()
     {
         var txt;
@@ -492,6 +493,6 @@ input.untukInput1 { /* function disable border table*/
           document.getElementById("demo").innerHTML = txt;
 
     }
-</script>
+</script> -->
 
 
