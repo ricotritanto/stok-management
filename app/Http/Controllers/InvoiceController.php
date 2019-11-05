@@ -15,7 +15,6 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-    	 // return view('invoice.index');
     	$facture = ['FS-00001/10/2019'];
     	$issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
@@ -24,7 +23,6 @@ class InvoiceController extends Controller
 
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
-        // print_r($nota);exit();
 
     	$header = ['StarCCTV'];
     	

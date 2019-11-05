@@ -108,13 +108,15 @@
                             <form action="{{ route('purchase.store')}}" method="post">        
                             @csrf                        
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="aa">
                                     <thead>
                                         <tr>
                                             <!-- <td>#</td> -->
                                             <td>Product Code</td>
                                             <td>Product Name</td>
+                                            <td>Price</td>
                                             <td>Qty</td>
+                                            <td>Total</td>
                                             <td>Action</td>
                                         </tr>
                                     </thead>
@@ -123,6 +125,31 @@
                                     </tbody>
                                     
                                 </table>
+                                 <div class="col-md-auto">
+                                    <div class="table-responsive">
+                                    <table class="table table-hover" id="aa">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>                                        
+                                            <td><label for="name">GRAND TOTAL</label></td>
+                                            <td>:</td>                                          
+                                            <td><input type="text" name="grandtot" class="form-control"  style="font-weight: bold; "  id="grandtot" readonly=""/></td>
+                                            <td><label for="name">KEMBALI</label></td>
+                                            <td>:</td>                                
+                                            <td><input type="text" name="kembali" class="form-control" id="kembali" style="font-weight: bold;color:red;"readonly="" /></td> 
+
+                                            <tr></tr>                                           
+                                            <td> <label for="name">CASH</label></td>
+                                            <td>:</td>
+                                            <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar" required="" /></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><button onclick="printpay()" id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
+                                                <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td> 
+                                            </tbody>
+                                    </table>
                                 <div class="card-footer">
                                     <button class="btn btn-primary">Save</button>
                                 </div>
@@ -159,6 +186,7 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
+        reloadtotal();
         $("#code").focus();
         $("#code").keyup(function(){
 
@@ -184,6 +212,26 @@
         });
     });
 </script>
+
+<!-- JS PAY -->
+<script type="text/javascript">
+    $(document).ready(function(){        
+        $('#btn').click(function (e) {
+        e.preventDefault();
+        $("#pay").keyup(function(){
+        var harga  = parseInt($("#price").val());
+        var qty  = parseInt($("#qty").val());
+        var total = harga*qty;
+        // var total = harga - (harga*(diskon/100));
+        $("#pay").val(total);
+      });
+          $('.amount').change(function() {
+                    reloadtotal();
+                });     
+        })
+    });    
+</script>
+<!-- END PAY-->
 <script>
     var tampung = [];
     $(document).ready(function(){
@@ -195,13 +243,15 @@
         var code = $("#code").val();             
         var name = $("#proname").val();
         var qty = $("#qty").val();
+        var price = $("#price").val();
         var facture = $("#facture").val();
         var date = $("#date").val();
         var suplier = $("#suplier").val();
-        addToCart(code, name, qty, facture, date, suplier, idpro);
+        var total = $("#total").val();
+        addToCart(code, name, qty, facture, date, suplier, idpro,price, total);
     })
 
-    function addToCart(code, name, qty, facture, date, suplier, idpro){
+    function addToCart(code, name, qty, facture, date, suplier, idpro, price, total){
         if(qty=="" || suplier=="")
         {
             alert('Data belum lengkap')
@@ -212,11 +262,12 @@
                 if(tampung[i].Id ==idpro)
                 {
                     tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
+                    tampung[i].Total = parseInt(tampung[i].Qty) * parseInt(price);
                     showCart();
                     return;
                 }
         }
-        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier, Id:idpro}; 
+        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier, Id:idpro, price:price, Total:total}; 
           tampung.push(item);
           showCart();
     }
@@ -236,13 +287,57 @@
             output += '<input type="hidden" required name="suplier" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
             output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly required /></td>';
             output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly  required /></td>';
+            output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="form-control input-sm" readonly  required /></td>';
             output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly required /></td>';
+            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
             output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
         
             output += '</tr>';
             $("#tampilane").append(output); 
           }
+            reloadtotal();
+          $("#code").focus();
         }     
    })   
 
+
+function reloadtotal() // function untuk menghitung grandtotal 
+{
+    var arr = document.getElementsByName('total[]'); // mengambil value dari  function showcart() dengan name=total[]
+    var tot=0; // default tot 0 
+    for(var i=0;i<arr.length;i++){
+        if(parseInt(arr[i].value))
+            tot += parseInt(arr[i].value);
+    }
+    var number_string = tot.toString(), //merubah value tot ke string
+    split   = number_string.split(','), // split dengan koma
+    sisa    = split[0].length % 3, 
+    rupiah  = split[0].substr(0, sisa),
+    ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
+            
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    document.getElementById('grandtot').value = rupiah; // hasil perhitungan (value = tot) ditampilkan di kolom dengan name=grandtot
+}
 </script>
+
+<style type='text/css'> 
+input.untukInput1 { /* function disable border table*/
+  border-bottom: 0px solid #ccc;
+  border-left:none;
+  border-right:none;
+  border-top:none;
+ }
+ input.totale{
+  border-bottom: 0px solid #ccc;
+  border-left:none;
+  border-right:none;
+  border-top:none;
+  width: 100%;
+  text-align: right;
+  font-size:30Px;
+ }
+</style>

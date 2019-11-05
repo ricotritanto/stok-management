@@ -18,6 +18,7 @@ class CreatePurchaseDetailsTable extends Migration
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('purchase_id');
             $table->string('qty');
+            $table->string('total');
             $table->timestamps();
         });
     }
