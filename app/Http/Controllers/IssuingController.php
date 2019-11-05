@@ -59,7 +59,7 @@ class IssuingController extends Controller
 
     public function store(Request $request)
     {  
-        return redirect('invoice');
+        // return redirect('invoice');
         $a = $request->all();
 
         $facture = $a['facture'];

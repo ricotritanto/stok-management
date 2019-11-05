@@ -18,11 +18,11 @@ class Purchase_detail extends Model
 
     public function product()
     { 
-    	return $this->belongsTo(Product::class);
+    	rreturn $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
     public function purchase()
     {
-        return $this->hasMany(purchase::class, 'id','purchase_id');
+        return $this->hasMany(purchase::class, 'purchase_detail_id','id');
     }
 }

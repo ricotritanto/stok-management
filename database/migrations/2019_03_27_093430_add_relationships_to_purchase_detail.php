@@ -18,9 +18,7 @@ class AddRelationshipsToPurchaseDetail extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
         
-            $table->foreign('purchase_id')->references('id')->on('purchase')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+          
         });
     }
 

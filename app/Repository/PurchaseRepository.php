@@ -38,8 +38,9 @@ class PurchaseRepository{
             $aa['purchase_facture'] = $key['purchase_facture'];
             $aa['date'] = $key['date'];
             $aa['suplier_id'] = $key['suplier'];
+            $aa['grandtotal'] = $key['grandtotal'];
             $aa['created_at'] = date('Y-m-d H:i:s');
-            $aa['updated_at'] = date('Y-m-d H:i:s');;
+            $aa['updated_at'] = date('Y-m-d H:i:s');
         }
         
         $id= purchase::insertGetId($aa);	
@@ -58,6 +59,7 @@ class PurchaseRepository{
             $bb[$i]['purchase_id']=$id;
             $bb[$i]['product_id']=$data[$i]['product_id'];
   			$bb[$i]['qty']=$data[$i]['qty'];
+            $bb[$i]['total']=$data[$i]['total'];
             $bb[$i]['created_at'] =date('Y-m-d H:i:s');
             $bb[$i]['updated_at'] = date('Y-m-d H:i:s');
   			unset($bb[$i]['id']);

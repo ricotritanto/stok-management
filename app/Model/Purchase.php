@@ -15,11 +15,11 @@ class Purchase extends Model
     
     public function purchase_detail()
     {
-        return $this->belongsTo(purchase_detail::class, 'purchase_id', 'id');
+        return $this->belongsTo(purchase_detail::class, 'purchase_detail_id', 'id');
     }
 
     public function suplier()
     {
-    	return $this->belongsTo(suplier::class, 'suplier_id','id');
+    	return $this->belongsTo(suplier::class, 'id','suplier_id');
     }
 }

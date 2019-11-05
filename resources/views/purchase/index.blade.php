@@ -26,7 +26,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-3">
                         @card
                             @slot('title')
                             @endslot
@@ -44,18 +44,21 @@
                                 <input type="text" name="facture" id="facture" value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" id="facture" required>
                             </div>
                             <div class="form-group">
-                                <label for="name">Product Code</label>
-                                <input type="text" name="code" id="code" class="form-control input-sm" required>
+                            <label for="name">Date</label>
+                            <div class="input-group" >
+                                <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                                <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
                             </div>
-                            <div class="form-group" id="detailpro">
-
-                            </div>
+                        </div>                            
+                            
                                                          
                             @slot('footer')  
                             @endslot
                         @endcard
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-8">
                         @card
                             @slot('title')                            
                             @endslot
@@ -72,27 +75,28 @@
                                     <strong>{{ $message }}</strong>
                                 </div>
                             @endif                 
-                        <div class="form-group">
-                            <label for="name">Date</label>
-                            <div class="input-group" >
-                                <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                </div>
-                                <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Suplier</label>
-                            <select class="form-control select2" name="suplier" id="suplier" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
+                        <table class="table">                            
+                            <tbody>
+                                <td><label for="name">Suplier</label></td>
+                                <td>:</td>                                          
+                                <td><select class="form-control select2" name="suplier" id="suplier" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
                                 <option value="">Pilih Suplier</option>
                                     @foreach ($suplier as $row)
                                         <option value="{{ $row->id }}">{{ ucfirst($row->suplier_name) }}</option>
                                     @endforeach                                        
-                            </select>
-                            <p class="text-danger">{{ $errors->first('suplier_id') }}</p>
-                        </div>      
-                        
-                         <td><button type="submit" id="btn" class="btn btn-sm btn-primary">Insert</button></td>
+                                    </select>
+                                    <p class="text-danger">{{ $errors->first('suplier_id') }}</p>
+                                </td>
+                                <tr></tr>                 
+                                <td> <label for="name">Product Code</label></td>
+                                <td>:</td>
+                                <td> <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
+                                <td><button type="submit" id="btn" class="btn btn-primary">Insert</button></td> 
+                            </tbody>
+                        </table>            
+                        <div class="form-group" id="detailpro">
+
+                        </div>
                            
                          @slot('footer')​
                             @endslot
@@ -132,27 +136,15 @@
                                             <tr>
                                             </tr>
                                         </thead>
-                                        <tbody>                                        
+                                        <tbody>        
                                             <td><label for="name">GRAND TOTAL</label></td>
                                             <td>:</td>                                          
                                             <td><input type="text" name="grandtot" class="form-control"  style="font-weight: bold; "  id="grandtot" readonly=""/></td>
-                                            <td><label for="name">KEMBALI</label></td>
-                                            <td>:</td>                                
-                                            <td><input type="text" name="kembali" class="form-control" id="kembali" style="font-weight: bold;color:red;"readonly="" /></td> 
-
-                                            <tr></tr>                                           
-                                            <td> <label for="name">CASH</label></td>
-                                            <td>:</td>
-                                            <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar" required="" /></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><button class="btn btn-warning">Save</button></td> 
                                             <td><button onclick="printpay()" id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
-                                                <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td> 
+                                                <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td>
                                             </tbody>
                                     </table>
-                                <div class="card-footer">
-                                    <button class="btn btn-primary">Save</button>
-                                </div>
                             </div>
                             </form>
                             @slot('footer')
@@ -290,7 +282,7 @@
             output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="form-control input-sm" readonly  required /></td>';
             output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly required /></td>';
             output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
-            output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="jembut(this)"  readonly/></td>';
+            output += '<td><input type="button" class="sifucker btn-default" name="x" value="Delete" onclick="deleterow(this)"  readonly/></td>';
         
             output += '</tr>';
             $("#tampilane").append(output); 
@@ -322,8 +314,40 @@ function reloadtotal() // function untuk menghitung grandtotal
     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
     document.getElementById('grandtot').value = rupiah; // hasil perhitungan (value = tot) ditampilkan di kolom dengan name=grandtot
 }
+function deleterow(e) // function untuk delete row pada list cart
+{
+    $(e).parents(".records").fadeOut();
+    $(e).parents(".records").remove();
+    reloadtotal();
+}
 </script>
-
+<!-- SHORTCUT KEY -->
+<script>
+    document.onkeydown = function (e) {
+        switch (e.keyCode) {
+            // F2
+            case 113:
+               $("#suplier").focus();
+                break;
+            // F3
+            case 114:
+               $("#code").focus();
+                break;
+            // F5
+            case 116:
+              window.reload();
+                break;
+        
+            // F8
+            case 119 :
+               $("#print").focus();
+                break;
+        }
+        //menghilangkan fungsi default tombol
+        // e.preventDefault();
+    };
+</script>
+<!-- END SHORTCUT KEY -->
 <style type='text/css'> 
 input.untukInput1 { /* function disable border table*/
   border-bottom: 0px solid #ccc;

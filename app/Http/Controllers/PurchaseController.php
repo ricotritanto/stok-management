@@ -41,15 +41,15 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         $a = $request->all();
-        $this->validate($request, [
-                'product' => 'required',
-                'qty' => 'required',
-                'suplier' =>'required',
-        ]);
+        // $this->validate($request, [
+        //         'product' => 'required',
+        //         'qty' => 'required',
+        //         'suplier' =>'required',
+        // ]);
         $idpro = $a['product'];
         $facture = $a['facture'];
-        // $code = $a['code'];
-        // $product = $a['name'];
+        $total = $a['total'];
+        $grandtotal = $a['grandtot'];
         $qty = $a['qty'];
         $date = $a['date'];
         $suplier = $a['suplier'];
@@ -64,6 +64,8 @@ class PurchaseController extends Controller
                         'suplier'=>$suplier,
                         'date'=>$date,
                         'product_id'=>$idpro[$index],
+                        'total'=>$total[$index],
+                        'grandtotal' => $grandtotal,
                         'qty'=>$qty[$index],  // Ambil dan set data nama sesuai index array dari $index
                       ));
       
