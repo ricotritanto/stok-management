@@ -8,6 +8,7 @@ use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use App\Repository\PurchaseRepository;
 use App\Repository\SuplierRepository;
+use PDF;
 
 class PurchaseController extends Controller
 {
@@ -82,8 +83,22 @@ class PurchaseController extends Controller
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
-       
+    }
 
+    public function generatepdf()
+    {
+        $facture = ['PF00001/11/2019'];
+        $purchaserepo = new PurchaseRepository;
+        $datane = $purchaserepo->getnota($facture);
 
+        // print_r($datane);exit();
+
+        $suplierrepo =  new SuplierRepository();
+        $suplier = $suplierrepo->getsuplier();
+
+        $header = ['StarCCTV'];
+        
+        $pdf = PDF::loadview('purchase.pdf',compact('header','datane','suplier'));
+        return $pdf->download('generate-purchase');
     }
 }

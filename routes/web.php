@@ -68,6 +68,7 @@ Route::group(['prefix' => 'purchase'], function()
     Route::get('/{$id}/edit','PurchaseController@edit')->name('purchase.edit');
     Route::post('/getpro','PurchaseController@getproduct')->name('purchase.product');
     Route::Put('/{$id}','PurchaseController@update')->name('purchase.update');
+    Route::get('/generatepdf','PurchaseController@generatepdf')->name('purchase.pdf');
 
 });
 

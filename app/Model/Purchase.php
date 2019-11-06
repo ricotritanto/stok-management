@@ -10,7 +10,7 @@ use App\Model\suplier;
 class Purchase extends Model
 {
     // protected $guarded = [];   
-    protected $fillable = ['id','purchase_facture','date','suplier_id','created_at','updated_at'];
+    protected $fillable = ['id','purchase_facture','purchase_detail_id','date','suplier_id','created_at','updated_at'];
     protected $table = 'purchase';
     
     public function purchase_detail()
@@ -20,6 +20,6 @@ class Purchase extends Model
 
     public function suplier()
     {
-    	return $this->belongsTo(suplier::class, 'id','suplier_id');
+    	return $this->hasMany(suplier::class, 'id','suplier_id');
     }
 }

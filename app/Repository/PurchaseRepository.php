@@ -35,15 +35,17 @@ class PurchaseRepository{
        
         foreach ($data as $key) 
         {
-            $aa['purchase_facture'] = $key['purchase_facture'];
-            $aa['date'] = $key['date'];
-            $aa['suplier_id'] = $key['suplier'];
-            $aa['grandtotal'] = $key['grandtotal'];
-            $aa['created_at'] = date('Y-m-d H:i:s');
+            // $aa['purchase_id']=$id;
+            $aa['product_id']=$key['product_id'];
+            $aa['qty']=$key['qty'];
+            $aa['total']=$key['total'];
+            $aa['created_at'] =date('Y-m-d H:i:s');
             $aa['updated_at'] = date('Y-m-d H:i:s');
+
+            
         }
         
-        $id= purchase::insertGetId($aa);	
+        $id= purchase_detail::insertGetId($aa);	
         // print_r($id);exit();
         // foreach ($data as $key) 
         // {
@@ -56,16 +58,31 @@ class PurchaseRepository{
         // }
         for($i=0;$i<count($data);$i++)
       {
-            $bb[$i]['purchase_id']=$id;
-            $bb[$i]['product_id']=$data[$i]['product_id'];
-  			$bb[$i]['qty']=$data[$i]['qty'];
-            $bb[$i]['total']=$data[$i]['total'];
-            $bb[$i]['created_at'] =date('Y-m-d H:i:s');
+            $bb[$i]['purchase_detail_id']=$id;
+            $bb[$i]['purchase_facture'] = $data[$i]['purchase_facture'];
+            $bb[$i]['date'] = $data[$i]['date'];
+            $bb[$i]['suplier_id'] = $data[$i]['suplier'];
+            $bb[$i]['grandtotal'] = $data[$i]['grandtotal'];
+            $bb[$i]['created_at'] = date('Y-m-d H:i:s');
             $bb[$i]['updated_at'] = date('Y-m-d H:i:s');
+
+           
   			unset($bb[$i]['id']);
   		}
     	
         // print_r($bb);exit();
-        return purchase_detail::insert($bb);
+        return purchase::insert($bb);
+     }
+
+     function getnota($facture)
+     {
+        return purchase::Where('purchase_facture',$facture)->with('suplier')
+        ->join('supliers','purchase.suplier_id','=','supliers.id')
+        ->join('purchase_detail','purchase.purchase_detail_id','=','purchase_detail.id')
+        ->join('products','purchase_detail.product_id','=','products.id')
+        ->join('brands','products.brand_id','=','brands.id')->get();
+        // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
+        // $workers = Worker::with('result')->find($id);
+        // return issuing::with('customers')->Where('issuing_facture', $facture)->first();
      }
 }
