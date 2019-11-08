@@ -15,7 +15,7 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-    	$facture = ['FS-00001/10/2019'];
+    	$facture = ['FS-00001/11/2019'];
     	$issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
 
