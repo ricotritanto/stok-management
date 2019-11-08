@@ -99,10 +99,20 @@ class IssuingController extends Controller
         }
     }
 
-    public function invoice()
+    public function generatepdf()
     {
-        $header = ['title' => 'Invoice StarCCTV'];
-        $pdf = PDF::loadview('issuing.index',['header'=>$header]);
+        $facture = ['FS-00001/11/2019'];
+        $issuingrepo =  new IssuingRepository();
+        $datane = $issuingrepo->getnota($facture);
+
+        // print_r($datane);exit();
+
+        $customerrepo =  new CustomerRepository();
+        $customer = $customerrepo->getcustomer();
+
+        $header = ['StarCCTV'];
+        
+        $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
         return $pdf->download('laporan-issuing-pdf');
     }
 }

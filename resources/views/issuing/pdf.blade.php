@@ -52,14 +52,14 @@
             <td align="left" style="width: 40%;">
                 @forelse($datane as $abc)    
                 <pre>
-                    Code :{{$abc->suplier_code}}
-                    Name: {{$abc->suplier_name}}                   
+                    Code Customer :{{$abc->customer_code}}
+                    Name: {{$abc->name}}                   
                     Address: {{$abc->address}}
                     Hp: {{$abc->phone}}
 
                     <br /><br />
                     
-                    Nota : {{$abc->purchase_facture}}
+                    Nota : {{$abc->issuing_facture}}
                     Date: {{$abc->date}}
                     @empty
                     @endforelse
@@ -88,7 +88,7 @@
 <br/>
 
 <div class="invoice">
-    <h3>Invoice specification  {{$abc->purchase_facture}}</h3>
+    <h3>Invoice specification  {{$abc->issuing_facture}}</h3>
     <table width="100%">
         <thead>
         <tr>
@@ -114,7 +114,7 @@
             <td colspan="1"></td>
             <td colspan="1"></td>
             <td colspan="1"></td>
-            <td align="left">Grand Total</td>
+            <td align="left">Total</td>
             <td align="left" class="gray"> Rp{{number_format($abc->total,0,".",".")}}</td>
         </tr>
         </tfoot>
