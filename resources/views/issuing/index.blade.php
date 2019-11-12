@@ -141,10 +141,10 @@
                                             <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar" required="" /></td>
                                             <td></td>
                                             <td></td>
-                                            <td><button type="submit" id="payment" class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
+                                            <td><button type="submit" id="paymen" class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
                                                 <button onclick="printpay()" id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
                                                 <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td> 
-                                                <button onclick="printpay()">Try it</button>
+                                                <a onclick="event.preventDefault();popup();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Save</span></a>
                                             </tbody>
                                     </table>
                                     </div>
@@ -160,6 +160,7 @@
             </div>
         </section>    
     </div>  @include('customer.cs_add')
+    </div>  @include('issuing.nota')
 @endsection
 <script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
@@ -368,6 +369,14 @@ function addTaskForm() {
     $(document).ready(function() {
         $("#add-error-bag").hide();
         $('#modal-form').modal('show');
+    });
+}
+
+function popup()
+{
+    $(document).ready(function() {
+        $("#add-error-bag").hide();
+        $('#modal-print').modal('show');
     });
 }
 </script>
