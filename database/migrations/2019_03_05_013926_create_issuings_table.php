@@ -19,6 +19,8 @@ class CreateIssuingsTable extends Migration
             $table->String('issuing_facture');
             $table->String('date');
             $table->unsignedInteger('customer_id');
+            $table->string('bayar');
+            $table->string('kembali');
             $table->string('grandtotal');
             $table->timestamps();
         });
