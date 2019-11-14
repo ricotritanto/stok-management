@@ -62,6 +62,8 @@ class IssuingRepository{
             $bb[$i]['date'] = $data[$i]['date'];
             $bb[$i]['customer_id'] = $data[$i]['customer_id'];
             $bb[$i]['grandtotal'] = $data[$i]['grandtotal'];
+            $bb[$i]['bayar'] = $data[$i]['bayar'];
+            $bb[$i]['kembali'] = $data[$i]['kembali'];
             $bb[$i]['created_at'] = date('Y-m-d H:i:s');
             $bb[$i]['updated_at'] = date('Y-m-d H:i:s');
   			unset($bb[$i]['id']);
