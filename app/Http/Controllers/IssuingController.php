@@ -59,7 +59,7 @@ class IssuingController extends Controller
 
     public function store(Request $request)
     {  
-        // return redirect('invoice');
+       
         $a = $request->all();
 
         $facture = $a['facture'];
@@ -69,7 +69,9 @@ class IssuingController extends Controller
         $idpro = $a['product'];      
         $qty = $a['qty'];
         $total = $a['total'];
-        // return Redirect('invoice', compact('facture'));
+        $bayar = $a['bayar'];
+        $kembali = $a['kembali'];
+       
         $data =array();
 
         $index=0;
@@ -80,6 +82,8 @@ class IssuingController extends Controller
                         'customer_id'=>$customer,
                         'date'=>$date,
                         'grandtotal'=>$grandtot,
+                        'bayar'=>$bayar,
+                        'kembali'=>$kembali,
                         'product_id'=>$idpro[$index],
                         'qty'=>$qty[$index],  // Ambil dan set data nama sesuai index array dari $index
                         'total'=>$total[$index],
@@ -90,7 +94,21 @@ class IssuingController extends Controller
         {
             $issuingrepo = new IssuingRepository;
             $issuing = $issuingrepo->issuing($data);
-            return redirect('issuing')->with(['success' => 'Save Success']);
+        //      return redirect()->route('generatepdf', compact('issuing'));
+        // exit();
+            // $b = $data; print_r($b);exit();
+            $facture = $a['facture'];
+            // print_r($facture);exit();    
+            $issuingrepo =  new IssuingRepository();
+            $datane = $issuingrepo->getnota($facture);
+            print_r($datane);exit();
+
+            $header = ['StarCCTV'];
+            
+            $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
+            return $pdf->download('laporan-issuing-pdf');
+          
+            // return redirect('issuing')->with(['success' => 'Save Success']);
 
            
         }catch(\Exception $e)
@@ -101,10 +119,15 @@ class IssuingController extends Controller
 
     public function generatepdf()
     {
-        $facture = ['FS-00001/11/2019'];
+        $a = $issuing->all();
+        $facture = $a['facture'];
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
 
+        // return response()->json([
+        //         'error' => false,
+        //         'datane'  => $datane,
+            // ], 200);
         // print_r($datane);exit();
 
         $customerrepo =  new CustomerRepository();

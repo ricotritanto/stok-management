@@ -120,6 +120,8 @@
                                         
                                     </tbody>                                    
                                 </table>
+
+                                
                                 <div class="col-md-auto">
                                     <div class="table-responsive">
                                     <table class="table table-hover" id="aa">
@@ -141,7 +143,7 @@
                                             <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar" required="" /></td>
                                             <td></td>
                                             <td></td>
-                                            <td><button type="submit" id="paymen" class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
+                                            <td><button type="submit" id="payment" class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
                                                 <button onclick="printpay()" id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
                                                 <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td> 
                                                 <a onclick="event.preventDefault();popup();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Save</span></a>
@@ -379,6 +381,26 @@ function popup()
         $('#modal-print').modal('show');
     });
 }
+
+// function generatepdf() {
+//     $.ajax({
+//         type: 'GET',
+//         url: '/issuing/generatepdf'
+//         success: function(data) {
+//             $("#edit-error-bag").hide();
+//             $("#addForm input[name=facture]").val(datane.issuing.issuing_facture);
+//             $("#addForm input[name=grandtot]").val(datane.issuing.grandtotal);
+//             $("#addForm input[name=cash]").val(datane.issuing.bayar);
+//             $("#addForm input[name=kembali]").val(datane.issuing.kembali);
+//             $("#addForm input[name=id]").val(datane.issuing.id);
+//             $('#modal-form').modal('show');
+//         },
+//         error: function(data) {
+//             console.log(data);
+//         }
+//     });
+// }
+
 </script>
 <!-- SHORTCUT KEY -->
 <script>
@@ -489,19 +511,5 @@ input.untukInput1 { /* function disable border table*/
   font-size:30Px;
  }
 </style>
-<!-- <script type="text/javascript">
-    function printpay()
-    {
-        var txt;
-        var person = prompt("Please enter No Facture:""");
-          if (person == null || person == "") {
-            txt = "User cancelled the prompt.";
-          } else {
-            txt = "Hello " + person + "! How are you today?";
-          }
-          document.getElementById("demo").innerHTML = txt;
-
-    }
-</script> -->
 
 
