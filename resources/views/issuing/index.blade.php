@@ -379,6 +379,27 @@ function popup()
         $('#modal-print').modal('show');
     });
 }
+
+function printinvoice() {
+    $.ajax({
+        type: 'POST',
+        url: '/issuing/generatepdf/',
+        dataType: 'json',
+        success: function(data) {
+            $("#edit-error-bag").hide();
+            $("#addForm input[name=facture]").val(data.issuing.issuing_facture);
+            $("#addForm input[name=grandtot]").val(data.issuing.grandtotal);
+            $("#addForm input[name=cash]").val(data.issuing.bayar);
+            $("#addForm input[name=kembali]").val(data.issuing.kembali);
+            $("#addForm input[name=id]").val(data.issuing.id);
+            $('#modal-print').modal('show');
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+}
+
 </script>
 <!-- SHORTCUT KEY -->
 <script>

@@ -69,6 +69,8 @@ class IssuingController extends Controller
         $idpro = $a['product'];      
         $qty = $a['qty'];
         $total = $a['total'];
+        $bayar = $a['bayar'];
+        $kembali = $a['kembali'];
         // return Redirect('invoice', compact('facture'));
         $data =array();
 
@@ -80,23 +82,59 @@ class IssuingController extends Controller
                         'customer_id'=>$customer,
                         'date'=>$date,
                         'grandtotal'=>$grandtot,
+                        'bayar'=>$bayar,
+                        'kembali'=>$kembali,
                         'product_id'=>$idpro[$index],
                         'qty'=>$qty[$index],  // Ambil dan set data nama sesuai index array dari $index
                         'total'=>$total[$index],
                       ));
                 $index++;
         }
-        try
-        {
-            $issuingrepo = new IssuingRepository;
-            $issuing = $issuingrepo->issuing($data);
+
+        $issuingrepo = new IssuingRepository;
+        $issuing = $issuingrepo->issuing($data);
+
+        $facture = $a['facture'];
+        $issuingrepo =  new IssuingRepository();
+        $datane = $issuingrepo->getnota($facture);
+
+            $header = ['StarCCTV'];
+            
+            $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
+            return $pdf->download('laporan-issuing-pdf');
             return redirect('issuing')->with(['success' => 'Save Success']);
+        //  return response()->json([
+        //     'error' => false,
+        //     'datane'  => $datane,
+        // ], 200);
+
+
+        // try
+        // {
+        //     $issuingrepo = new IssuingRepository;
+        //     $issuing = $issuingrepo->issuing($data);
+            
+            
+        //     $facture = $a['facture'];
+        //     $issuingrepo =  new IssuingRepository();
+        //     $datane = $issuingrepo->getnota($facture);
+
+        //     $customerrepo =  new CustomerRepository();
+        //     $customer = $customerrepo->getcustomer();
+
+        //     $header = ['StarCCTV'];
+        //     // return redirect('issuing')->with(['success' => 'Save Success']);
+        //     $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
+        //     return $pdf->stream('laporan-issuing-pdf');
+
 
            
-        }catch(\Exception $e)
-        {
-            return redirect()->back()->with(['error'=>$e->getMessage()]);
-        }
+        // }catch(\Exception $e)
+        // {
+        //     return redirect()->back()->with(['error'=>$e->getMessage()]);
+        // }
+
+        
     }
 
     public function generatepdf()
