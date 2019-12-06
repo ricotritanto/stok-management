@@ -36,7 +36,7 @@
                                     {!! session('error') !!}
                                 @endalert
                             @endif  
-                            
+                           
                             @csrf
                             <div class="form-group">
                                 <label for="name">Nota /No.Facture</label>
@@ -60,11 +60,13 @@
                         @card
                             @slot('title')                            
                             @endslot                            
-                            @if (session('success'))
-                                @alert(['type' => 'success'])
-                                    {!! session('success') !!}
-                                @endalert
-                            @endif                            
+                            
+                            @if ($message = Session::get('success'))
+                              <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button> 
+                                  <strong>{{ $message }}</strong>
+                              </div>
+                            @endif                    
                            
                         <table class="table">                            
                             <tbody>                                        
@@ -382,26 +384,7 @@ function popup()
     });
 }
 
-<<<<<<< HEAD
-// function generatepdf() {
-//     $.ajax({
-//         type: 'GET',
-//         url: '/issuing/generatepdf'
-//         success: function(data) {
-//             $("#edit-error-bag").hide();
-//             $("#addForm input[name=facture]").val(datane.issuing.issuing_facture);
-//             $("#addForm input[name=grandtot]").val(datane.issuing.grandtotal);
-//             $("#addForm input[name=cash]").val(datane.issuing.bayar);
-//             $("#addForm input[name=kembali]").val(datane.issuing.kembali);
-//             $("#addForm input[name=id]").val(datane.issuing.id);
-//             $('#modal-form').modal('show');
-//         },
-//         error: function(data) {
-//             console.log(data);
-//         }
-//     });
-// }
-=======
+
 function printinvoice() {
     $.ajax({
         type: 'POST',
@@ -421,7 +404,6 @@ function printinvoice() {
         }
     });
 }
->>>>>>> 27c166c975038a6bcf09ee8073d4549f1d3982de
 
 </script>
 <!-- SHORTCUT KEY -->
