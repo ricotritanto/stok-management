@@ -84,7 +84,7 @@ Route::group(['prefix' => 'issuing'], function()
     Route::post('/getpro','IssuingController@getproduct')->name('issuing.product');
     Route::post('/getnota','IssuingController@invoice')->name('issuing.invoice');
     Route::Put('/{$id}','IssuingController@update')->name('issuing.update');
-    Route::get('/generatepdf','IssuingController@generatepdf')->name('issuing.pdf');
+    Route::post('/generatepdf','IssuingController@generatepdf')->name('issuing.pdf');
 
 });
 
