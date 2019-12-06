@@ -60,12 +60,21 @@
                         @card
                             @slot('title')                            
                             @endslot                            
-                            @if (session('success'))
+                            <!-- @if (session('success'))
                                 @alert(['type' => 'success'])
                                     {!! session('success') !!}
                                 @endalert
-                            @endif                            
-                           
+                            @endif   -->                          
+                            @if(session('modal_message_error'))
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                    $("#add-error-bag").hide();
+                                    $('#modal-print').modal('show');
+                                });
+                               </script>
+                                @endif   
+                               
+                                          
                         <table class="table">                            
                             <tbody>                                        
                                 <td><label for="name">Customer</label></td>
@@ -97,7 +106,7 @@
                         @endcard
                     </div>      
                     <div class="col-md-12">   
-                    <form action="{{ route('issuing.store')}}" method="post">        
+                    <form action="{{ route('issuing.store')}}" method="post" >        
                     @csrf                  
                         @card
                             @slot('title')
