@@ -22,7 +22,13 @@ class IssuingController extends Controller
 
         $issuingrepo =  new IssuingRepository();
         $code = $issuingrepo->getfacture();
-        return view('issuing.index', compact('code','customer','cscode'));
+
+        //untuk forelse di nota
+        $facture =''; 
+        $issuingrepo =  new IssuingRepository();
+        $datane = $issuingrepo->getnota($facture);
+
+        return view('issuing.index', compact('code','customer','cscode','datane'));
     }
 
     public function getproduct(Request $request)
@@ -90,49 +96,31 @@ class IssuingController extends Controller
                       ));
                 $index++;
         }
-return redirect('issuing')->with(['success' => 'Save Success']);
-        // $issuingrepo = new IssuingRepository;
-        // $issuing = $issuingrepo->issuing($data);
-        // $facture = $a['facture'];
-        // $issuingrepo =  new IssuingRepository();
-        // $datane = $issuingrepo->getnota($facture);
-        //     $header = ['StarCCTV'];
-            
-        //     $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
-        //     return $pdf->download('laporan-issuing-pdf');
-        //     return redirect('issuing')->with(['success' => 'Save Success']);
 
-        //  return response()->json([
-        //     'error' => false,
-        //     'datane'  => $datane,
-        // ], 200);
-
+        
 
         try
-        {
+        {     
             $issuingrepo = new IssuingRepository;
             $issuing = $issuingrepo->issuing($data);
 
-            $facture = $a['facture'];
+        
             $issuingrepo =  new IssuingRepository();
             $datane = $issuingrepo->getnota($facture);
+            foreach ($datane as $key ) 
+            {
+                $a = $key['issuing_facture'];
+                $b = $key['grandtotal'];
+                $c = $key['bayar'];
+                $d = $key['kembali'];
+            }
             
-            return view('issuing.pdf', compact('datane'));
-            // $facture = $a['facture'];
-            // $issuingrepo =  new IssuingRepository();
-            // $datane = $issuingrepo->getnota($facture);
-
-            // $customerrepo =  new CustomerRepository();
-            // $customer = $customerrepo->getcustomer();
-
-            // $header = ['StarCCTV'];
-            // // return redirect('issuing')->with(['success' => 'Save Success']);
-            // $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
-            // return $pdf->stream('laporan-issuing-pdf');
-
-
-
-           
+            return redirect('issuing')->with(['modal_message_error' => 'Save Success',
+                                                'facture' => $a,
+                                                'grandtot' => $b,
+                                                'bayar' => $c,
+                                                'kembali' => $d]);
+               
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
@@ -141,9 +129,10 @@ return redirect('issuing')->with(['success' => 'Save Success']);
         
     }
 
-    public function generatepdf()
+    public function generatepdf(Request $request)
     {
-        $a = $issuing->all();
+        $a = $request->all();
+
         $facture = $a['facture'];
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
@@ -154,6 +143,6 @@ return redirect('issuing')->with(['success' => 'Save Success']);
         $header = ['StarCCTV'];
         
         $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
-        return $pdf->download('laporan-issuing-pdf');
+        return $pdf->stream('laporan-issuing-pdf');
     }
 }

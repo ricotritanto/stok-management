@@ -137,12 +137,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>        
-                                            <td><label for="name">GRAND TOTAL</label></td>
-                                            <td>:</td>                                          
-                                            <td><input type="text" name="grandtot" class="form-control"  style="font-weight: bold; "  id="grandtot" readonly=""/></td>
-                                            <td><button class="btn btn-warning">Save</button></td> 
-                                            <td><button onclick="printpay()" id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
-                                                <button onclick="runPopup()" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td>
+                                                <td><label for="name">GRAND TOTAL</label></td>
+                                                <td>:</td>                                          
+                                                <td><input type="text" name="grandtot" class="form-control"  style="font-weight: bold; "  id="grandtot" readonly=""/></td>
+                                                <td><button class="btn btn-warning">Save</button></td> 
                                             </tbody>
                                     </table>
                             </div>

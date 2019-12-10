@@ -89,23 +89,23 @@
 
 <div class="invoice">
     <h3>Invoice specification  {{$abc->issuing_facture}}</h3>
-    <table width="100%">
+    <table width="100%" style="border-collapse: collapse; border: 0px;">
         <thead>
         <tr>
-            <th>Code</th>
-            <th>Description</th>
-            <th>Brand</th>
-            <th>Quantity</th>
-            <th>Total</th>
+            <th style="border: 1px solid; padding:12px;" width="15%">Code</th>
+            <th style="border: 1px solid; padding:12px;" width="15%">Description</th>
+            <th style="border: 1px solid; padding:12px;" width="15%">Brand</th>
+            <th style="border: 1px solid; padding:12px;" width="15%">Quantity</th>
+            <th style="border: 1px solid; padding:12px;" width="15%">Total</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>{{$abc->product_kode}}</td>
-            <td>{{$abc->product_name}}</td>
-            <td>{{$abc->brand_name}}</td>
-            <td>{{$abc->qty}}</td>
-            <td align="left">Rp{{number_format($abc->sell_price,0,".",".")}}</td>
+            <td style="border: 1px solid; padding:12px;">{{$abc->product_kode}}</td>
+            <td style="border: 1px solid; padding:12px;">{{$abc->product_name}}</td>
+            <td style="border: 1px solid; padding:12px;">{{$abc->brand_name}}</td>
+            <td style="border: 1px solid; padding:12px;">{{$abc->qty}}</td>
+            <td style="border: 1px solid; padding:12px;" align="left">Rp{{number_format($abc->sell_price,0,".",".")}}</td>
         </tr>
         </tbody>
 
@@ -114,8 +114,8 @@
             <td colspan="1"></td>
             <td colspan="1"></td>
             <td colspan="1"></td>
-            <td align="left">Total</td>
-            <td align="left" class="gray"> Rp{{number_format($abc->total,0,".",".")}}</td>
+            <td style="border: 1px solid; padding:12px;" align="left"style="border: 1px solid; padding:12px;" >Total</td>
+            <td style="border: 1px solid; padding:12px;" align="left" class="gray"> Rp{{number_format($abc->total,0,".",".")}}</td>
         </tr>
         </tfoot>
     </table>

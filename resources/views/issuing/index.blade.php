@@ -60,14 +60,22 @@
                         @card
                             @slot('title')                            
                             @endslot                            
-                            
-                            @if ($message = Session::get('success'))
-                              <div class="alert alert-success alert-block">
-                                <button type="button" class="close" data-dismiss="alert">×</button> 
-                                  <strong>{{ $message }}</strong>
-                              </div>
-                            @endif                    
-                           
+                            <!-- @if (session('success'))
+                                @alert(['type' => 'success'])
+                                    {!! session('success') !!}
+                                @endalert
+                            @endif   -->                          
+                            @if(session('modal_message_error'))
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                    $("#add-error-bag").hide();
+                                    $('#modal-print').modal('show');
+                                    
+                                });
+                               </script>
+                                @endif   
+                               
+
                         <table class="table">                            
                             <tbody>                                        
                                 <td><label for="name">Customer</label></td>
@@ -99,7 +107,7 @@
                         @endcard
                     </div>      
                     <div class="col-md-12">   
-                    <form action="{{ route('issuing.store')}}" method="post">        
+                    <form action="{{ route('issuing.store')}}" method="post" >        
                     @csrf                  
                         @card
                             @slot('title')
@@ -145,10 +153,7 @@
                                             <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar" required="" /></td>
                                             <td></td>
                                             <td></td>
-                                            <td><button type="submit" id="payment" class="btn btn-warning"><i class="fa fa-credit-card"></i>Process Payment</button>
-                                                <button onclick="printpay()" id="print" class="btn btn-default pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
-                                                <button type="button" class="btn btn-primary" id="generate"><i class="fa fa-download"></i>Generate PDF</button></td> 
-                                                <a onclick="event.preventDefault();popup();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Save</span></a>
+                                            <td><button type="submit" id="payment" class="btn btn-warning"><i class="fa fa-credit-card"></i><b> Save Payment</b></button>
                                             </tbody>
                                     </table>
                                     </div>
@@ -367,20 +372,41 @@ function deleterow(e) // function untuk delete row pada list cart
             }
         });
     });  
+    $("#btn-nota").click(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "{{route('issuing.pdf')}}",
+            data: {
+                code: $("#modal-form input[name=facture]").val(),
+            },
+            dataType: 'json',
+            success: function(data) {
+                $('#modal-form').trigger("reset");
+                $("#modal-form .close").click();
+                window.location.reload();
+            },
+            error: function(data) {
+                console.log(data);
+                // var errors = $.parseJSON(data.responseText);
+                // $('#add-task-errors').html('ERORR BONG');
+                // $.each(errors.messages, function(key, value) {
+                //     $('#add-task-errors').append('<li>' + value + '</li>');
+                // });
+                // $("#add-error-bag").show();
+            }
+        });
+    });
 });
 
 function addTaskForm() {
     $(document).ready(function() {
         $("#add-error-bag").hide();
         $('#modal-form').modal('show');
-    });
-}
-
-function popup()
-{
-    $(document).ready(function() {
-        $("#add-error-bag").hide();
-        $('#modal-print').modal('show');
     });
 }
 

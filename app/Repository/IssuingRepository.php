@@ -16,6 +16,7 @@ class IssuingRepository{
     {
         $cek =  issuing::max('issuing_facture');
         $fak = (int) substr($cek, 6);
+        $day = date('d');
         $bulan = date('m');
         $tahun = date('Y'); 
         $kd ="FS-";
@@ -23,9 +24,9 @@ class IssuingRepository{
         if($fak)
         {
             $sum = $fak +1;
-            $a = $kd.sprintf("%05d",$sum)."/".$bulan."/".$tahun;
+            $a = $kd.$day.$bulan."".$tahun."-".sprintf("%05d",$sum);
         }else{
-            $a = $kd.sprintf("%05d",$no)."/".$bulan."/".$tahun;
+            $a = $kd.$day.$bulan."".$tahun."-".sprintf("%05d",$no);
         }      
         return $a;
     }
