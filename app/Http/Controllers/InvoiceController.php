@@ -15,18 +15,16 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-    	$facture = ['FS-00001/11/2019'];
-    	$issuingrepo =  new IssuingRepository();
-        $datane = $issuingrepo->getnota($facture);
+         return view('invoice.index');
+    }
 
-        // print_r($datane);exit();
+    public function issuing($Request request)
+    {
 
-        $customerrepo =  new CustomerRepository();
-        $customer = $customerrepo->getcustomer();
+    }
 
-    	$header = ['StarCCTV'];
-    	
-        $pdf = PDF::loadview('invoice.index',compact('header','datane','customer'));
-        return $pdf->download('laporan-issuing-pdf');
+    public function purchase($Request request)
+    {
+        
     }
 }
