@@ -32,7 +32,8 @@
                           </div>
                           <!-- /.card-header -->
                           <!-- form start -->
-                          <form class="form-horizontal">
+                          <form class="form-horizontal" action="{{route('invoice.issuing')}}" method="GET">
+                             @csrf
                             <div class="card-body">
                               <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-4 control-label">Facture</label>
@@ -48,7 +49,7 @@
                                   <input type="text" class="form-control" id="customer" name="customer" placeholder="Customer">
                                 </div>
                               </div>
-                                    <button type="submit" class="btn btn-info">Search</button>
+                                    <button type="submit" id="search" class="btn btn-info">Search</button>
                             </div>
                               
                            
@@ -62,8 +63,10 @@
                     <div class="col-md-4">
                         <div class="card card-primary">
                           <div class="card-header">
-                            <h3 class="card-title">Seach By date</h3>
+                            <h3 class="card-title">Search By date</h3>
                           </div>
+                          <form class="form-horizontal" action="{{route('invoice.issuing')}}" method="GET">
+                             @csrf
                           <div class="card-body">
                             <!-- Date range -->
                             <div class="form-group">
@@ -92,10 +95,48 @@
                               </div>
                               <!-- /.input group -->
                             </div>
-                            <button class="btn btn-warning">Search</button>
+                            <button type="submit" class="btn btn-warning" id="btn">Search</button>
                         </div>
+                        </form>
                     </div>
+
+
                 </div>
+
+                <div class="table-responsive">
+                     @if(isset($datane))
+                    <table class="table table-hover" id="aa">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>Date</td>
+                                <td>Facture</td>
+                                <td>Customer</td>
+                                <td>Total</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody id="tampilane">
+                            @php $no = 1; @endphp
+                            @foreach($datane as $key)
+                            <tr>
+                                <td>{{$no++}} . </td>
+                                <td>{{$key->date}}</td>
+                                <td>{{$key->issuing_facture}}</td>
+                                <td>{{$key->name}}</td>
+                                <td>{{$key->total}}</td>
+                                
+                                <td><a href="{{route('invoice.print', $key->id) }}" target="_blank" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
+                                <a href="{{ route('invoice.print', $key->id) }}" target="_blank" class="btn btn-warning"><i class="fa fa-book"></i></a>
+                                    Details</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>                                    
+                    </table>
+                     @endif
+                </div>
+
             </div>
         </section>
     </div>
@@ -128,4 +169,22 @@
     orientation: "auto"
     });
   })
+</script>
+<script type="text/javascript">
+   $.ajax({
+        type: 'GET',
+        url: '/invoice/' + id,
+        success: function(data) {
+            $("#edit-error-bag").hide();
+            $("#frmEditCs input[name=code]").val(data.customer.customer_code);
+            $("#frmEditCs input[name=name]").val(data.customer.name);
+            $("#frmEditCs input[name=phone]").val(data.customer.phone);
+            $("#frmEditCs input[name=address]").val(data.customer.address);
+            $("#frmEditCs input[name=id]").val(data.customer.id);
+            $('#edit-form').modal('show');
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
 </script>
