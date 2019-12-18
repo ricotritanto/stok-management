@@ -126,9 +126,9 @@
                                 <td>{{$key->name}}</td>
                                 <td>{{$key->total}}</td>
                                 
-                                <td><a href="{{route('invoice.print', $key->id) }}" target="_blank" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
-                                <a href="{{ route('invoice.print', $key->id) }}" target="_blank" class="btn btn-warning"><i class="fa fa-book"></i></a>
-                                    Details</button>
+                                <td><a href="{{route('invoice.print_invis', $key->issuing_facture) }}" target="_blank" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
+                                <a href="{{ route('invoice.invis', $key->issuing_facture) }}" target="_blank" class="btn btn-warning"><i class="fa fa-book"></i>Details</a>
+                                
                                 </td>
                             </tr>
                             @endforeach
@@ -169,22 +169,4 @@
     orientation: "auto"
     });
   })
-</script>
-<script type="text/javascript">
-   $.ajax({
-        type: 'GET',
-        url: '/invoice/' + id,
-        success: function(data) {
-            $("#edit-error-bag").hide();
-            $("#frmEditCs input[name=code]").val(data.customer.customer_code);
-            $("#frmEditCs input[name=name]").val(data.customer.name);
-            $("#frmEditCs input[name=phone]").val(data.customer.phone);
-            $("#frmEditCs input[name=address]").val(data.customer.address);
-            $("#frmEditCs input[name=id]").val(data.customer.id);
-            $('#edit-form').modal('show');
-        },
-        error: function(data) {
-            console.log(data);
-        }
-    });
 </script>

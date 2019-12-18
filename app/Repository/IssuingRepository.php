@@ -94,9 +94,9 @@ class IssuingRepository{
         return $abc;
      }
 
-     function getbyid($facture)
+     function getbyid($issuing_facture)
      {
-        return issuing::Where('facture',$facture)->with('customer')
+        return issuing::Where('issuing_facture',$issuing_facture)->with('customer')
         ->join('customers','issuings.customer_id','=','customers.id')
         ->join('issuing_details','issuings.issuing_details_id','=','issuing_details.id')
         ->join('products','issuing_details.product_id','=','products.id')
