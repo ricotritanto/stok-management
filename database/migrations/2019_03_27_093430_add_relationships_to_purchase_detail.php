@@ -17,6 +17,9 @@ class AddRelationshipsToPurchaseDetail extends Migration
             $table->foreign('product_id')->references('id')->on('products')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+             $table->foreign('purchase_id')->references('id')->on('purchase')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         
           
         });
@@ -29,8 +32,8 @@ class AddRelationshipsToPurchaseDetail extends Migration
      */
     public function down()
     {
-        Schema::table('purchase_detail', function (Blueprint $table) {
-            //
-        });
+        // Schema::table('purchase_detail', function (Blueprint $table) {
+        //     //
+        // });
     }
 }
