@@ -41,27 +41,28 @@ class InvoiceController extends Controller
         
     }
 
-    public function print($id)
+    public function invis($issuing_facture)
     {   
-        $a = $id;
-        print_r($a);exit();
         $issuingrepo =  new IssuingRepository();
-        $datane = $issuingrepo->getbyid($id);
-        print_r($datane);exit();
+        $datane = $issuingrepo->getbyid($issuing_facture);
 
-        foreach ($datane as $key ) 
-            {
-                $a = $key['issuing_facture'];
-                $b = $key['grandtotal'];
-                $c = $key['bayar'];
-                $d = $key['kembali'];
-            }
-            
-            return redirect('invoice.issuing')->with(['modal_message_error' => 'Save Success',
-                                                'facture' => $a,
-                                                'grandtot' => $b,
-                                                'bayar' => $c,
-                                                'kembali' => $d]);
+        return view('invoice.invis', compact('datane'));
+      
+    }
+
+    public function print_invis($issuing_facture)
+    {
+        $issuingrepo =  new IssuingRepository();
+        $datane = $issuingrepo->getbyid($issuing_facture);
+        
+        $customerrepo =  new CustomerRepository();
+        $customer = $customerrepo->getcustomer();
+
+        $header = ['StarCCTV'];
+        
+        $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
+        return $pdf->stream('laporan-issuing-pdf');
+
     }
 
     public function purchase(request $Request)

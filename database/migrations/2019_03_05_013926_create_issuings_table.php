@@ -15,7 +15,6 @@ class CreateIssuingsTable extends Migration
     {
         Schema::create('issuings', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('issuing_details_id');
             $table->String('issuing_facture');
             $table->String('date');
             $table->unsignedInteger('customer_id');

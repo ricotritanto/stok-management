@@ -10,12 +10,12 @@ use App\Model\customer;
 
 class Issuing extends Model
 {
-    protected $fillable = ['id','issuing_details_id','issuing_facture','date','customer_id','grandtotal','created_at','updated_at'];
+    protected $fillable = ['id','issuing_facture','date','customer_id','grandtotal','created_at','updated_at'];
     protected $table = 'issuings';
 
-    public function issuing_detail()
+    public function issuing_details()
     {
-        return $this->belongsTo(issuing::class, 'issuing_details_id', 'id');
+        return $this->belongsTo(issuing_detail::class, 'issuing_id', 'id');
     }
 
     public function customer()

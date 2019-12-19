@@ -94,7 +94,8 @@ Route::group(['prefix' => 'invoice'], function()
 {
     Route::get('/','InvoiceController@index')->name('invoice.index');
     Route::GET('/issuing','InvoiceController@issuing')->name('invoice.issuing');
-    Route::get('/{$id}/print','InvoiceController@print')->name('invoice.print');
+    Route::get('/invis/{issuing_facture}','InvoiceController@invis')->name('invoice.invis');
+    Route::get('/print_invis/{issuing_facture}','InvoiceController@print_invis')->name('invoice.print_invis');
     Route::post('/getpro','InvoiceController@getproduct')->name('invoice.product');
     Route::Put('/{$id}','InvoiceController@update')->name('invoice.update');
 

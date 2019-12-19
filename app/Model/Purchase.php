@@ -10,12 +10,12 @@ use App\Model\suplier;
 class Purchase extends Model
 {
     // protected $guarded = [];   
-    protected $fillable = ['id','purchase_facture','purchase_detail_id','date','suplier_id','created_at','updated_at'];
+    protected $fillable = ['id','purchase_facture','date','suplier_id','created_at','updated_at'];
     protected $table = 'purchase';
     
     public function purchase_detail()
     {
-        return $this->belongsTo(purchase_detail::class, 'purchase_detail_id', 'id');
+        return $this->belongsTo(purchase_detail::class, 'purchase_id', 'id');
     }
 
     public function suplier()

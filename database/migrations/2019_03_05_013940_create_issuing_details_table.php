@@ -15,6 +15,7 @@ class CreateIssuingDetailsTable extends Migration
     {
         Schema::create('issuing_details', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('issuing_id');
             $table->unsignedInteger('product_id');            
             $table->string('qty');
             $table->integer('total');

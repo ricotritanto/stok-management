@@ -17,6 +17,10 @@ class AddRelationshipToIssuingDetail extends Migration
             $table->foreign('product_id')->references('id')->on('products')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+
+             $table->foreign('issuing_id')->references('id')->on('issuings')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         
         });
     }
@@ -28,8 +32,8 @@ class AddRelationshipToIssuingDetail extends Migration
      */
     public function down()
     {
-        Schema::table('issuing_details', function (Blueprint $table) {
-            //
-        });
+        // Schema::table('issuing_details', function (Blueprint $table) {
+        //     //
+        // });
     }
 }
