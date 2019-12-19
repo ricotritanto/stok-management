@@ -45,7 +45,7 @@ class PurchaseRepository{
 
             
         }
-        
+        print_r($data);exit();
         $id= purchase_detail::insertGetId($aa);	
         // print_r($id);exit();
         // foreach ($data as $key) 
