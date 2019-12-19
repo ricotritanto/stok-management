@@ -10,9 +10,9 @@
         <![endif]-->
     <title>Report Invoice</title>
     <!-- BOOTSTRAP CORE STYLE  -->
-    <link href="{{asset('invoice/css/bootstrap.css')}}" rel="stylesheet" />
+    <link href="{{asset('inv/css/bootstrap.css')}}" rel="stylesheet" />
       <!-- CUSTOM STYLE  -->
-    <link href="{{asset('invoice/css/custom-style.css')}}" rel="stylesheet" />
+    <link href="{{asset('inv/css/custom-style.css')}}" rel="stylesheet" />
     <!-- GOOGLE FONTS -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
 
@@ -91,14 +91,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no = 1; @endphp
+                                @foreach($datane as $abc)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{$no++ }}</td>
                                     <td>{{$abc->product_kode}}</td>
                                     <td>{{$abc->product_name}}</td>
                                     <td>{{$abc->brand_name}}</td>
                                     <td>{{$abc->qty}}</td>
                                     <td>Rp{{number_format($abc->sell_price,0,".",".")}}</td>
-                                </tr>                                
+                                </tr> 
+                                 @endforeach                               
                             </tbody>
                         </table>
                </div>

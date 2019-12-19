@@ -34,29 +34,27 @@ class PurchaseRepository{
      public function purchase($data)
      {
        
-        foreach ($data as $key) 
-        {
-            // $aa['purchase_id']=$id;
-            $aa['product_id']=$key['product_id'];
-            $aa['qty']=$key['qty'];
-            $aa['total']=$key['total'];
-            $aa['created_at'] =date('Y-m-d H:i:s');
-            $aa['updated_at'] = date('Y-m-d H:i:s');
-
-            
-        }
-        
-        $id= purchase_detail::insertGetId($aa);	
-        // print_r($id);exit();
         // foreach ($data as $key) 
         // {
-        //     $bb['purchase_id'] = $id;
-        //     $bb['product_id'] = $key['product_id'];
-        //     $bb['qty'] = $key['qty'];
-        //     $bb['created_at'] =date('Y-m-d H:i:s');
-        //     $bb['updated_at'] =date('Y-m-d H:i:s');
+        //     // $aa['purchase_id']=$id;
+        //     $aa['product_id']=$key['product_id'];
+        //     $aa['qty']=$key['qty'];
+        //     $aa['total']=$key['total'];
+        //     $aa['created_at'] =date('Y-m-d H:i:s');
+        //     $aa['updated_at'] = date('Y-m-d H:i:s');
 
+            
         // }
+        // // print_r($aa);exit();
+        // // $id= purchase_detail::insertGetId($aa);	
+        // $as = $data('purchase_id'=$id,
+        //             'product_id' => $product_id,
+        //             'qty' => $qty, 
+        //             'total' => $total,
+        //             'created_at' => date('Y-m-d H:i:s'),
+        //             'updated_at' => date('Y-m-d H:i:s')); 
+
+        // print_r($as); exit();
         for($i=0;$i<count($data);$i++)
       {
             $bb[$i]['purchase_detail_id']=$id;
@@ -72,7 +70,34 @@ class PurchaseRepository{
   		}
     	
         // print_r($bb);exit();
-        return purchase::insert($bb);
+        return purchase_detail::insert($bb);
+     }
+
+     public function purchase_details($data)
+     {
+
+        // $data = [
+        //     'product_id'=>$status,
+        //     'qty'=>$this->generateRandomString(15),
+        //     'total'=>,
+        //     'created_at' =>date('Y-m-d H:i:s'),
+        //     'updated_at' =>date('Y-m-d H:i:s'),
+        // ];
+        foreach ($data as $key) 
+        {
+            // $aa['purchase_id']=$id;
+            $aa['purchase_facture']=$key['product_id'];
+            $aa['date']=$key['date'];
+            $aa['suplier_id']=$key['suplier'];
+            $aa['grandtotal'] =$key['grandtotal'];
+            $aa['created_at'] =date('Y-m-d H:i:s');
+            $aa['updated_at'] = date('Y-m-d H:i:s');
+
+            
+        }
+        $id = purchase::insertGetId($aa);
+        return $id;
+
      }
 
      function getnota($facture)
