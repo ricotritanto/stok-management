@@ -136,7 +136,7 @@ class IssuingController extends Controller
         $facture = $a['facture'];
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
-
+        
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
 

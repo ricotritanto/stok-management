@@ -51,6 +51,9 @@
         <tr>
             <td align="left" style="width: 40%;">
                 @forelse($datane as $abc)    
+                
+                    @empty
+                    @endforelse
                 <pre>
                     Code Customer :{{$abc->customer_code}}
                     Name: {{$abc->name}}                   
@@ -61,8 +64,6 @@
                     
                     Nota : {{$abc->issuing_facture}}
                     Date: {{$abc->date}}
-                    @empty
-                    @endforelse
                 </pre>
             </td>
             <td align="center">
@@ -100,6 +101,8 @@
         </tr>
         </thead>
         <tbody>
+        <!-- @php $no = 1; @endphp -->
+        @foreach($datane as $abc)
         <tr>
             <td style="border: 1px solid; padding:12px;">{{$abc->product_kode}}</td>
             <td style="border: 1px solid; padding:12px;">{{$abc->product_name}}</td>
@@ -107,6 +110,7 @@
             <td style="border: 1px solid; padding:12px;">{{$abc->qty}}</td>
             <td style="border: 1px solid; padding:12px;" align="left">Rp{{number_format($abc->sell_price,0,".",".")}}</td>
         </tr>
+        @endforeach 
         </tbody>
 
         <tfoot>
@@ -115,7 +119,7 @@
             <td colspan="1"></td>
             <td colspan="1"></td>
             <td style="border: 1px solid; padding:12px;" align="left"style="border: 1px solid; padding:12px;" >Total</td>
-            <td style="border: 1px solid; padding:12px;" align="left" class="gray"> Rp{{number_format($abc->total,0,".",".")}}</td>
+            <td style="border: 1px solid; padding:12px;" align="left" class="gray"> Rp{{$abc->grandtotal)}}</td>
         </tr>
         </tfoot>
     </table>

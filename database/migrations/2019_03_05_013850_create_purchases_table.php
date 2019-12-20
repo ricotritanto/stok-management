@@ -15,7 +15,6 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchase', function (Blueprint $table) {
             $table->increments('id');
-            $table->String('purchase_facture');
             $table->String('date');
             $table->unsignedInteger('suplier_id');
             $table->String('grandtotal');

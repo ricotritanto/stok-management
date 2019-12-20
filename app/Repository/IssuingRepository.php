@@ -14,7 +14,7 @@ class IssuingRepository{
 
     Public function getfacture()
     {
-        $cek =  issuing::max('issuing_facture');
+        $cek =  issuing_detail::max('issuing_facture');
         $fak = (int) substr($cek, 6);
         $day = date('d');
         $bulan = date('m');
@@ -38,6 +38,7 @@ class IssuingRepository{
         for($i=0;$i<count($data);$i++)
         {
             // $bb[$i]['issuing_id']=$id;
+            $bb[$i]['issuing_facture']=$data[$i]['issuing_facture'];
             $bb[$i]['issuing_id'] = $transId;
             $bb[$i]['product_id'] = $data[$i]['product_id'];
             $bb[$i]['qty'] = $data[$i]['qty'];
@@ -56,7 +57,6 @@ class IssuingRepository{
          foreach ($data as $key) 
         {   
            
-            $aa['issuing_facture']=$key['issuing_facture'];
             $aa['date']=$key['date'];
             $aa['customer_id']=$key['customer_id'];
             $aa['bayar']=$key['bayar'];
@@ -76,19 +76,19 @@ class IssuingRepository{
      {
         return issuing::Where('issuing_facture',$facture)->with('customer')
         ->join('customers','issuings.customer_id','=','customers.id')
-        ->join('issuings','issuing_details.issuing_id','=','issuings.id')
+        ->join('issuing_details','issuing_details.issuing_id','=','issuings.id')
         ->join('products','issuing_details.product_id','=','products.id')
         ->join('brands','products.brand_id','=','brands.id')->get();
         // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
         // $workers = Worker::with('result')->find($id);
-        // return issuing::with('customers')->Where('issuing_facture', $facture)->first()
+        // return issuing::with('customers')->Where('issuing_facture', $facture)->first();
      }
 
      function getinvoice($facture, $customer, $tgl1, $tgl2)
      {
          $abc = issuing::Where('issuing_facture',$facture)->with('customer')
         ->join('customers','issuings.customer_id','=','customers.id')
-        ->join('issuings','issuing_details.issuing_id','=','issuings.id')
+        ->join('issuing_details','issuing_details.issuing_id','=','issuings.id')
         ->join('products','issuing_details.product_id','=','products.id')
         ->join('brands','products.brand_id','=','brands.id')->orWhere('name','LIKE',"%{$customer}%")->WhereBetween('date',[$tgl1, $tgl2] )->get();
         return $abc;
@@ -98,7 +98,7 @@ class IssuingRepository{
      {
         return issuing::Where('issuing_facture',$issuing_facture)->with('customer')
         ->join('customers','issuings.customer_id','=','customers.id')
-        ->join('issuing_details','issuings.issuing_details_id','=','issuing_details.id')
+        ->join('issuing_details','issuing_details.issuing_id','=','issuings.id')
         ->join('products','issuing_details.product_id','=','products.id')
         ->join('brands','products.brand_id','=','brands.id')->get();
         // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
