@@ -14,7 +14,7 @@ class PurchaseRepository{
 
     Public function getfacture()
     {
-        $cek =  purchase::max('purchase_facture');
+        $cek =  purchase_detail::max('purchase_facture');
         $fak = (int) substr($cek, 6);
         $day = date('d');
         $bulan = date('m');
@@ -37,6 +37,7 @@ class PurchaseRepository{
         $transId=$this->purchase_details($data);
         for($i=0;$i<count($data);$i++)
         {
+            $bb[$i]['purchase_facture']=$data[$i]['purchase_facture'];
             $bb[$i]['purchase_id']=$transId;
             $bb[$i]['product_id'] = $data[$i]['product_id'];
             $bb[$i]['qty'] = $data[$i]['qty'];
@@ -54,8 +55,7 @@ class PurchaseRepository{
      {
         foreach ($data as $key) 
         {
-            // $aa['purchase_id']=$id;
-            $aa['purchase_facture']=$key['purchase_facture'];
+            // $aa['purchase_id']=$id;          
             $aa['date']=$key['date'];
             $aa['suplier_id']=$key['suplier'];
             $aa['grandtotal'] =$key['grandtotal'];

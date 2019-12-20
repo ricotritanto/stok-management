@@ -19,8 +19,10 @@ class Issuing_detail extends Model
     	return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
-    public function issuings()
+     public function issuing()
     {
-        return $this->hasMany(issuing::class, 'issuing_id', 'id');
+        return $this->belongsTo(issuing::class, 'issuing_details_id', 'id');
     }
 }
+
+ 

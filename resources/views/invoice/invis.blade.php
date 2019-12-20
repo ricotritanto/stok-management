@@ -54,27 +54,29 @@
      <div  class="row pad-top-botm client-info">
          <div class="col-lg-6 col-md-6 col-sm-6">
         @forelse($datane as $abc)    
-         <h4>  <strong>Client Information</strong></h4>
-           <strong>  {{$abc->name}}  </strong>
-             <br />
-                  <b>Code :</b> {{$abc->customer_code}}
-            <br />
-                  <b>Address :</b> {{$abc->address}}
-              <br />
-             <b>Phone :</b> {{$abc->phone}}
-              <br />
+        
+        @empty
+        @endforelse
+         <h4>  
+            <strong>Client Information</strong></h4>
+            <strong>  {{$abc->name}}  </strong>
+                <br />
+                    <b>Code :</b> {{$abc->customer_code}}
+                <br />
+                    <b>Address :</b> {{$abc->address}}
+                <br />
+                    <b>Phone :</b> {{$abc->phone}}
+                <br />
          </div>
           <div class="col-lg-6 col-md-6 col-sm-6">
             
                <h4>  <strong>Payment Details </strong></h4>
-            <b>Bill Amount :  Rp{{number_format($abc->total,0,".",".")}} </b>
+            <b>Bill Amount :  Rp {{$abc->grandtotal}} </b>
               <br />
                Bill Date :  {{$abc->date}}
               <br />
                Purchase Date :  {{$abc->date}}
          </div>
-        @empty
-        @endforelse
      </div>
      <div class="row">
          <div class="col-lg-12 col-md-12 col-sm-12">
@@ -107,7 +109,7 @@
                </div>
              <hr />
              <div class="ttl-amts">
-               <h5>  Total Amount :  Rp {{number_format($abc->total,0,".",".")}} </h5>
+               <h5>  Total Amount :  Rp {{$abc->grandtotal}} </h5>
              </div>
              <hr />
               <div class="ttl-amts">
@@ -115,7 +117,7 @@
              </div>
              <hr />
               <div class="ttl-amts">
-                  <h4> <strong>Bill Amount :  Rp {{number_format($abc->total,0,".",".")}}</strong> </h4>
+                  <h4> <strong>Bill Amount :  Rp {{$abc->grandtotal}}</strong> </h4>
              </div>
          </div>
      </div>
