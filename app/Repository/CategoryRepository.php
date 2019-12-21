@@ -7,7 +7,7 @@ class CategoryRepository{
 
 	public function GetCategory()
 	{
-		 return Category::orderBy('created_at', 'DESC')->paginate(10);
+		 return Category::orderBy('created_at', 'DESC')->paginate(5);
 	}
 
 	public function create_category($request)

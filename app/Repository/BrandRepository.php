@@ -7,7 +7,7 @@ class BrandRepository{
 
 	public function Getbrand()
 	{
-		 return brand::orderBy('created_at', 'DESC')->paginate(10);
+		 return brand::orderBy('created_at', 'DESC')->paginate(5);
 	}
 
 	public function create_brand($request)

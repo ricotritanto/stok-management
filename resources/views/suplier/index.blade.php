@@ -1,8 +1,8 @@
 @extends('layouts.master')
 ​
-@section('title')
+
     <title>Manajemen Suplier</title>
-@endsection
+
 ​
 @section('content')
     <div class="content-wrapper">
@@ -34,11 +34,12 @@
                             </a>
                             @endslot
                             
-                            @if (session('success'))
-                                @alert(['type' => 'success'])
-                                    {!! session('success') !!}
-                                @endalert
-                            @endif
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif   
                             
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -86,6 +87,10 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                    Halaman : {{ $suplier->currentPage() }} <br/>
+                                    Jumlah Data : {{ $suplier->total() }}                                 
+                                 
+                                    {{ $suplier->links() }}
                             </div>
                             @slot('footer')
 ​

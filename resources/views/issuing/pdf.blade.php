@@ -119,7 +119,7 @@
             <td colspan="1"></td>
             <td colspan="1"></td>
             <td style="border: 1px solid; padding:12px;" align="left"style="border: 1px solid; padding:12px;" >Total</td>
-            <td style="border: 1px solid; padding:12px;" align="left" class="gray"> Rp{{$abc->grandtotal)}}</td>
+            <td style="border: 1px solid; padding:12px;" align="left" class="gray"> Rp{{$abc->grandtotal}}</td>
         </tr>
         </tfoot>
     </table>

@@ -8,7 +8,7 @@ class CustomerRepository{
 
     public function getcustomer()
     {
-        return customer::orderBy('created_at', 'DESC')->paginate(10);
+        return customer::orderBy('created_at', 'DESC')->paginate(5);
     }
 
     public function insert($data)

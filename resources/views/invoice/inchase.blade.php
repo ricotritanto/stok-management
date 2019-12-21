@@ -59,10 +59,12 @@
         @endforelse
          <h4>  
             <strong>Client Information</strong></h4>
-            <strong>  {{$abc->name}}  </strong>
+            <strong>  {{$abc->suplier_name}}  </strong>
                 <br />
-                    <b>Code :</b> {{$abc->customer_code}}
+                    <b>Code :</b> {{$abc->suplier_code}}
                 <br />
+                    <b>email :</b> {{$abc->email}}
+                <br /><br />
                     <b>Address :</b> {{$abc->address}}
                 <br />
                     <b>Phone :</b> {{$abc->phone}}
@@ -71,7 +73,7 @@
           <div class="col-lg-6 col-md-6 col-sm-6">
             
               <h4>  <strong>Payment Details </strong></h4>
-              <b>No Facture : {{$abc->issuing_facture}}</b>
+              <b>No Facture : {{$abc->purchase_facture}}</b>
               </br>
               <b>Bill Amount :  Rp {{$abc->grandtotal}} </b>
               <br />
@@ -144,7 +146,7 @@
              <a href="#" class="btn btn-primary btn-lg" onclick="javascript:window.print();" data-abc="true">
                         <i class="fa fa-print">Print Invoice</a>
              &nbsp;&nbsp;&nbsp;
-              <a href="{{route('invoice.print_invis', $abc->issuing_facture) }}" target="_blank" class="btn btn-success btn-lg" >Download In Pdf</a>
+              <a href="{{route('invoice.print_purchase', $abc->purchase_facture) }}" target="_blank" class="btn btn-success btn-lg" >Download In Pdf</a>
 
              </div>
          </div>

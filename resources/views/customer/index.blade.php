@@ -38,11 +38,12 @@
                              </div>
                             @endslot
                             
-                            @if (session('success'))
-                                @alert(['type' => 'success'])
-                                    {!! session('success') !!}
-                                @endalert
-                            @endif
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif   
                             
                             <div class="table-responsive">
                                 <table id="customer-table" class="table table-hover">
@@ -91,6 +92,10 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                    Halaman : {{ $customer->currentPage() }} <br/>
+                                    Jumlah Data : {{ $customer->total() }}                                 
+                                 
+                                    {{ $customer->links() }}
                             </div>
                             @slot('footer')
 ​

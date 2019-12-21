@@ -48,7 +48,7 @@ class ProductRepository{
 	function getProduct()
 	{
 		// return transaction_detail::with('category')->with('category.kategoris')->with('transaction.transaction_status')
-		return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
+		return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->paginate(5);
 	}
 
 	function delete($id)

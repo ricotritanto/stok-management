@@ -73,7 +73,29 @@ class PurchaseRepository{
      {
         return purchase::Where('purchase_facture',$facture)->with('suplier')
         ->join('supliers','purchase.suplier_id','=','supliers.id')
-        ->join('purchase','purchase_detail.purchase_id','=','purchase.id')
+        ->join('purchase_detail','purchase_detail.purchase_id','=','purchase.id')
+        ->join('products','purchase_detail.product_id','=','products.id')
+        ->join('brands','products.brand_id','=','brands.id')->get();
+        // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
+        // $workers = Worker::with('result')->find($id);
+        // return issuing::with('customers')->Where('issuing_facture', $facture)->first();
+     }
+
+     function getinvoice($facture, $suplier, $tgl1, $tgl2)
+     {
+         $abc = purchase::Where('purchase_facture',$facture)->with('suplier')
+        ->join('supliers','purchase.suplier_id','=','supliers.id')
+        ->join('purchase_detail','purchase_detail.purchase_id','=','purchase.id')
+        ->join('products','purchase_detail.product_id','=','products.id')
+        ->join('brands','products.brand_id','=','brands.id')->orWhere('suplier_name','LIKE',"%{$suplier}%")->WhereBetween('date',[$tgl1, $tgl2] )->get();
+        return $abc;
+     }
+
+     function getbyid($purchase_facture)
+     {
+        return purchase::Where('purchase_facture',$purchase_facture)->with('suplier')
+        ->join('supliers','purchase.suplier_id','=','supliers.id')
+        ->join('purchase_detail','purchase_detail.purchase_id','=','purchase.id')
         ->join('products','purchase_detail.product_id','=','products.id')
         ->join('brands','products.brand_id','=','brands.id')->get();
         // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();

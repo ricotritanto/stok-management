@@ -7,6 +7,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use App\Repository\IssuingRepository;
+use App\Repository\PurchaseRepository;
 use App\Repository\CustomerRepository;
 use PDF;
 
@@ -60,13 +61,53 @@ class InvoiceController extends Controller
 
         $header = ['StarCCTV'];
         
-        $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
-        return $pdf->stream('laporan-issuing-pdf');
+        $pdf = PDF::loadview('invoice.invis',compact('header','datane','customer'));
+        return $pdf->stream('report-invoice-issuing-pdf');
 
     }
 
-    public function purchase(request $Request)
+    public function report_purchase()
     {
+        return view('invoice.report_purchase');
+    }
+
+    public function purchase(Request $request)
+    {
+        $facture =$request->facture;
+        $suplier =$request->suplier;
+        $tgl1 =$request->date1;
+        $tgl2 =$request->date2;
+
+        $purchaserepo =  new PurchaseRepository();
+        $datane = $purchaserepo->getinvoice($facture, $suplier, $tgl1, $tgl2);
+        if(count($datane) > 0)
+        {
+
+            return view('invoice.report_purchase', compact('datane'));
+        }
+        else 
+        {
+            return view ('invoice.report_purchase')->withMessage('No Details found. Try to search again !');
+        }
+    }
+
+    public function inchase($purchase_facture)
+    {
+        $purchaserepo =  new PurchaseRepository();
+        $datane = $purchaserepo->getbyid($purchase_facture);
+
+        return view('invoice.inchase', compact('datane'));
+    }
+
+    public function print_purchase($purchase_facture)
+    {
+        $purchaserepo =  new PurchaseRepository();
+        $datane = $purchaserepo->getbyid($purchase_facture);
         
+
+        $header = ['StarCCTV'];
+        
+        $pdf = PDF::loadview('invoice.inchase',compact('header','datane'));
+        return $pdf->stream('report-invoice-issuing-pdf');
     }
 }

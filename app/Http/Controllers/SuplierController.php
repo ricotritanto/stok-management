@@ -31,7 +31,7 @@ class SuplierController extends Controller
         try{
             $suplierrepo =  new SuplierRepository();
             $suplier = $suplierrepo->insert($name, $code, $email,$address,$phone);
-             return redirect(route('suplier.index'))->with(['success' => '<strong>'.$name.'</strong> added successfully']);
+             return redirect(route('suplier.index'))->with(['success' => ''.$name.' added successfully']);
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
@@ -42,7 +42,7 @@ class SuplierController extends Controller
     {
         $suplierrepo =  new SuplierRepository();
         $suplier = $suplierrepo->delete($id);
-        return redirect()->back()->with(['success'=>'<strong>'.''.'</strong> Delete Success']);
+        return redirect()->back()->with(['success'=>''.'Delete Success']);
     }
 
     public function edit($id)
@@ -63,7 +63,7 @@ class SuplierController extends Controller
         try{
             $suplierrepo =  new SuplierRepository();
             $suplier = $suplierrepo->update($name, $code, $email,$address,$phone,$id);
-             return redirect(route('suplier.index'))->with(['success' => '<strong>'.$name.'</strong> added successfully']);
+             return redirect(route('suplier.index'))->with(['success' => ''.$name.' added successfully']);
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
