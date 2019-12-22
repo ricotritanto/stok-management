@@ -96,6 +96,10 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                    Halaman : {{ $category->currentPage() }} <br/>
+                                    Jumlah Data : {{ $category->total() }}                                 
+                                 
+                                    {{ $category->links() }}
                             </div>
                             @slot('footer')
 ​

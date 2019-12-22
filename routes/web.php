@@ -96,6 +96,7 @@ Route::group(['prefix' => 'invoice'], function()
     Route::GET('/issuing','InvoiceController@issuing')->name('invoice.issuing');
     Route::get('/invis/{issuing_facture}','InvoiceController@invis')->name('invoice.invis');
     Route::get('/print_invis/{issuing_facture}','InvoiceController@print_invis')->name('invoice.print_invis');
+    Route::get('/download/{issuing_facture}','InvoiceController@download')->name('invoice.download');
     
     Route::get('/report_purchase','InvoiceController@report_purchase')->name('invoice.report_purchase');
     Route::GET('/purchase','InvoiceController@purchase')->name('invoice.purchase');

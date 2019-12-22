@@ -144,7 +144,7 @@
              <a href="#" class="btn btn-primary btn-lg" onclick="javascript:window.print();" data-abc="true">
                         <i class="fa fa-print">Print Invoice</a>
              &nbsp;&nbsp;&nbsp;
-              <a href="{{route('invoice.print_invis', $abc->issuing_facture) }}" target="_blank" class="btn btn-success btn-lg" >Download In Pdf</a>
+              <a href="{{route('invoice.download', $abc->issuing_facture) }}" target="_blank" class="btn btn-success btn-lg" >Download In Pdf</a>
 
              </div>
          </div>

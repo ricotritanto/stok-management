@@ -66,6 +66,20 @@ class InvoiceController extends Controller
 
     }
 
+    public function download($issuing_facture)
+    {
+        $issuingrepo =  new IssuingRepository();
+        $datane = $issuingrepo->getbyid($issuing_facture);
+        
+        $customerrepo =  new CustomerRepository();
+        $customer = $customerrepo->getcustomer();
+
+        $header = ['StarCCTV'];
+        
+        $pdf = PDF::loadview('invoice.invis',compact('header','datane','customer'));
+        return $pdf->download('report-invoice-issuing-pdf');
+    }
+
     public function report_purchase()
     {
         return view('invoice.report_purchase');
