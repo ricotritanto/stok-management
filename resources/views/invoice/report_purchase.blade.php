@@ -124,7 +124,7 @@
                                 <td>{{$key->date}}</td>
                                 <td>{{$key->purchase_facture}}</td>
                                 <td>{{$key->suplier_name}}</td>
-                                <td>{{$key->total}}</td>
+                                <td>{{number_format($key->total,0,".",".")}}</td>
                                 
                                 <td><a href="{{route('invoice.print_purchase', $key->purchase_facture) }}" target="_blank" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
                                 <a href="{{ route('invoice.inchase', $key->purchase_facture) }}" target="_blank" class="btn btn-warning"><i class="fa fa-book"></i>Details</a>

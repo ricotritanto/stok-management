@@ -95,10 +95,10 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                                    Halaman : {{ $product->currentPage() }} <br/>
-                                    Jumlah Data : {{ $product->total() }}                                 
-                                 
-                                    {{ $product->links() }}
+                                    <div class="clearfix">
+                                        <div class="hint-text">Showing <b>{{$product->count()}}</b> out of <b>{{$product->total()}}</b> entries</div>
+                                        {{ $product->links() }}
+                                    </div>
                             </div>
                             @slot('footer')
 ​
