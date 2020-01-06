@@ -1,63 +1,39 @@
-@extends('layouts.master')
-​
-@section('title')
-    <title>Update Category</title>
-@endsection
-​
-@section('content')
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Update category</h1>
+ <!-- Add Task Modal Form HTML -->
+<div class="modal" id="edit-form">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="frmEditCs">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Update Category
+                    </h4>
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="alert alert-danger" id="edit-error-bag">
+                            <ul id="edit-task-errors">
+                        </ul>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('category.index') }}">category</a></li>
-                            <li class="breadcrumb-item active">Update</li>
-                        </ol>
+
+                    <div class="form-group">
+                        <label>
+                            Category Name
+                        </label>
+                        <input class="form-control" id="category" name="category" type="text"  autofocus required=""> 
                     </div>
                 </div>
-            </div>
-        </div>
-​
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        @card
-                            @slot('title')
+                <div class="modal-footer">
+                <input id="id" name="id" type="hidden" value="0">
+                    <input class="btn btn-default" data-dismiss="modal" type="button" value="Cancel">
+                      <button class="btn btn-info" id="btn-edit" type="button" value="add">
                             Update
-                            @endslot
-                            
-                            @if (session('error'))
-                                @alert(['type' => 'danger'])
-                                    {!! session('error') !!}
-                                @endalert
-                            @endif
-​
-                            <form role="form" action="{{ route('category.update', $category->id) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="_method" value="PUT">
-                                <div class="form-group">
-                                    <label for="name">Category</label>
-                                    <input type="text" 
-                                        name="name"
-                                        value="{{ $category->category_name }}"
-                                        class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}" id="name" required>
-                                </div>                               
-                            @slot('footer')
-                                <div class="card-footer">
-                                    <button class="btn btn-info">Update</button>
-                                </div>
-                            </form>
-                            @endslot
-                        @endcard
-                    </div>
+                        </button>
+                        <span class="help-block with errors0"></span>
                 </div>
-            </div>
-        </section>
+            </form>
+        </div>
     </div>
-@endsection
+</div>
+</form>

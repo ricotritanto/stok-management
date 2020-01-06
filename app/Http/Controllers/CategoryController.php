@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repository\CategoryRepository;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -14,47 +15,57 @@ class CategoryController extends Controller
 	    return view('category.index', compact('category'));
     }
 
-    public function store(Request $Request)
+    public function store(Request $request)
     {
-    	$q = $Request->all();
-        $Request = $q['name'];
-    	try{
-    		$categoryrepo =new CategoryRepository;
-        	$category = $categoryrepo->create_category($Request)->paginate(5);
-        	return redirect()->back()->with(['success' => 'category: ' . 'berhasil' . ' Ditambahkan']);
-    	}
-       	catch (\Exception $e) 
-	    {
-	        return redirect()->back()->with(['error' => $e->getMessage()]);
-	    }
+        // $aa = $request['category'];
+         $validator = Validator::make($request->input(), array(
+            'category' => 'required',
+        ));
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+    	$categoryrepo =new CategoryRepository;
+        $category = $categoryrepo->create_category($request)->paginate(5);
+        return response()->json([
+            'success' => false,
+            'category'  => $category,
+        ], 200);
     }
 
     public function destroy($id)
     {
     	$categoryrepo =new CategoryRepository;
         $category = $categoryrepo->delete($id);
-        return redirect()->back()->with(['success' => 'category: ' . 'berhasil' . ' Telah Dihapus']);
+        return response()->json([
+            'success' => false,
+            'category'  => $category,
+        ], 200);
     }
 
-    public function edit($id)
+    public function show($id)
     {
     	$categoryrepo =new CategoryRepository;
         $category = $categoryrepo->getidcat($id);
-        return view('category.edit', compact('category'));
+         return response()->json([
+            'success' => false,
+            'category'  => $category,
+        ], 200);
     }
 
     public function update(Request $Request, $id)
     {
     	$q = $Request->all();
-        $Request = $q['name'];
-    	try{
-    		$categoryrepo =new CategoryRepository;
-        	$category = $categoryrepo->update_category($Request, $id);
-        	return redirect(route('category.index'))->with(['success' => 'category: ' . 'berhasil' . ' diupdate']);
-    	}
-       	catch (\Exception $e) 
-	    {
-	        return redirect()->back()->with(['error' => $e->getMessage()]);
-	    }
+        $Request = $q['category'];
+
+    	$categoryrepo =new CategoryRepository;
+    	$category = $categoryrepo->update_category($Request, $id);
+        return response()->json([
+        'success' => false,
+        'category'  => $category,
+        ], 200);
     }
 }

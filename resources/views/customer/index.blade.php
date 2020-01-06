@@ -28,13 +28,8 @@
                     <div class="col-md-12">
                         @card
                             @slot('title')
-                            <!-- <a href="{{ route('customer.create') }}" 
-                                class="btn btn-primary btn-sm">
-                                <i class="fa fa-edit"></i> ADD
-                            </a> -->
                             <div class="col-sm-6">
-                                <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a>                       
-                                <!-- <a onclick="addForm()" class="btn btn-success"  data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>New Customer</span></a> -->
+                                <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a>  
                              </div>
                             @endslot
                             
@@ -76,7 +71,7 @@
                                                         class="btn btn-warning btn-sm">
                                                         <i class="fa fa-edit"></i>
                                                     </a> -->
-                                                    <a onclick="event.preventDefault();editTaskForm({{$row->id}});" href="#" class="edit open-modal" data-toggle="modal" value="{{$row->id}}"> <i class="fa fa-edit"></i></a>
+                                                    <a onclick="event.preventDefault();editform({{$row->id}});" href="#" class="edit open-modal" data-toggle="modal" value="{{$row->id}}"> <i class="fa fa-edit"></i></a>
                                                     <a onclick="event.preventDefault();deleteTaskForm({{$row->id}});" href="#" class="edit open-modal" data-toggle="modal" value="{{$row->id}}"> <i class="fa fa-trash"></i></a>
                                                     <!-- <a onclick="editform('.$row->id.')" class="btn btn-warning btn-sm"> <i class="fa fa-edit"></i> -->
                                                     <!-- <button class="btn btn-danger btn-sm">
@@ -87,15 +82,15 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="7" class="text-center">DATA EMPTY</td>                                           </td>
+                                            <td colspan="7" class="text-center">DATA EMPTY</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
-                                    Halaman : {{ $customer->currentPage() }} <br/>
-                                    Jumlah Data : {{ $customer->total() }}                                 
-                                 
-                                    {{ $customer->links() }}
+                                    <div class="clearfix">
+                                        <div class="hint-text">Showing <b>{{$customer->count()}}</b> out of <b>{{$customer->total()}}</b> entries</div>
+                                        {{ $customer->links() }}
+                                    </div>
                             </div>
                             @slot('footer')
 ​
@@ -193,7 +188,8 @@
         });
         $.ajax({
             type: 'DELETE',
-            url: '/customer/' + $("#frmDeleteTask input[name=id]").val(),
+            // url: '/customer/' + $("#frmDeleteTask input[name=id]").val(),
+            url: '{{URL::to('/customer/ ')}}' + $("#frmDeleteTask input[name=id]").val(),
             dataType: 'json',
             success: function(data) {
                 $("#frmDeleteTask .close").click();
@@ -213,10 +209,11 @@ function addTaskForm() {
     });
 }
 
-function editTaskForm(id) {
+function editform(id) {
     $.ajax({
         type: 'GET',
-        url: '/customer/' + id,
+        // url: '/customer/' + id,
+         url: '{{URL::to('/customer/ ')}}' + id, //digunakan url ini saat tidak menggunakan artisan//
         success: function(data) {
             $("#edit-error-bag").hide();
             $("#frmEditCs input[name=code]").val(data.customer.customer_code);
@@ -235,7 +232,8 @@ function editTaskForm(id) {
 function deleteTaskForm(id) {
     $.ajax({
         type: 'GET',
-        url: '/customer/' + id,
+        // url: '/customer/' + id,
+        url: '{{URL::to('/customer/ ')}}' + id, 
         dataType:'json',
         success: function(data) {
             console.log(data);

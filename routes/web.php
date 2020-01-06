@@ -12,17 +12,40 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts/master');
 });
-Route::resource('/category', 'CategoryController')->except([
-    'create', 'show'
-]);
-Route::resource('/brand', 'BrandController')->except([
-    'create', 'show'
-]);
 
-Route::resource('/product', 'ProductController')->except([
-    'create', 'show']);
+Auth::routes();
+
+Route::get('/category', [
+    'uses' => 'CategoryController@index',
+    'as' => 'category.index',
+]);
+Route::group(['prefix' => 'category'], function()
+{
+    // Route::post('/store','CategoryController@store')->name('category.store');
+     Route::post('/', [
+        'uses' => 'CategoryController@store',
+        'as'   => 'category.store',
+    ]);
+
+    Route::delete('/{$id}','CategoryController@destroy')->name('category.destroy');
+    Route::get('/{$id}/show','CategoryController@show')->name('category.show');
+    Route::put('/{$id}','CategoryController@update')->name('category.update');    
+});
+
+Route::resource('/brand', 'BrandController')->except([
+    'create']);
+Route::group(['prefix' => 'brand'], function()
+{
+   
+    Route::get('/create','BrandController@create')->name('brand.create');
+    Route::post('/store','BrandController@store')->name('brand.store');
+    Route::delete('/{$id}','BrandController@destroy')->name('brand.destroy');
+    Route::get('/{$id}/show','BrandController@show')->name('brand.show');
+    Route::put('/{$id}','BrandController@update')->name('brand.update');    
+});
+
 Route::group(['prefix' => 'product'], function()
 {
 	Route::get('/','ProductController@index')->name('product.index');
@@ -53,7 +76,7 @@ Route::group(['prefix' => 'customer'], function()
 	Route::get('/create','CustomerController@create')->name('customer.create');
     Route::post('/store','CustomerController@store')->name('customer.store');
     Route::delete('/{$id}','CustomerController@destroy')->name('customer.destroy');
-    Route::get('/{$id}','CustomerController@show')->name('customer.show');
+    Route::get('/{$id}/show','CustomerController@show')->name('customer.show');
     Route::put('/{$id}','CustomerController@update')->name('customer.update');    
 });
 
@@ -103,4 +126,32 @@ Route::group(['prefix' => 'invoice'], function()
     Route::get('/inchase/{purchase_facture}','InvoiceController@inchase')->name('invoice.inchase');
     Route::get('/print_purchase/{purchase_facture}','InvoiceController@print_purchase')->name('invoice.print_purchase');
 
+});
+
+Route::get('/test', [
+    'uses' => 'TestController@index',
+    'as' => 'test.index',
+]);
+
+Route::group(['prefix' => 'test'], function () {
+    Route::get('/{id}', [
+        'uses' => 'TestController@show',
+        'as'   => 'test.show',
+    ]);
+
+    // Route::post('/store','TestController@store')->name('test.store');
+    Route::post('/', [
+        'uses' => 'TestController@store',
+        'as'   => 'test.store',
+    ]);
+
+    Route::put('/{id}', [
+        'uses' => 'TestController@update',
+        'as'   => 'test.update',
+    ]);
+
+    Route::delete('/{id}', [
+        'uses' => 'TestController@destroy',
+        'as'   => 'test.destroy',
+    ]);
 });
