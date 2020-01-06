@@ -77,11 +77,11 @@
             </ul>
         </nav>
 ​
-        @include('layouts.module.sidebar')
+        @include('layouts.sidebar')
 ​
         @yield('content')
         
-        @include('layouts.module.footer')
+        @include('layouts.footer')
     </div>
 ​
     <!-- jQuery -->
