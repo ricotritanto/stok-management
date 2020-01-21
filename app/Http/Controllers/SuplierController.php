@@ -7,6 +7,11 @@ use App\Repository\SuplierRepository;
 
 class SuplierController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $suplierrepo =  new SuplierRepository();

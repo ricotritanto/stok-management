@@ -12,6 +12,12 @@ use PDF;
 
 class PurchaseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     public function index()
     {
         $suplierrepo =  new SuplierRepository();

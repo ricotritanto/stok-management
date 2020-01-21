@@ -133,6 +133,15 @@
                         </li>
                     </ul>
                     </li>
+                    <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link">
+                        <i class="nav-icon fa fa-print"></i>
+                        <p>
+                            SIGN OUT
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    </li>
                 </li>
             </ul>
         </nav>
