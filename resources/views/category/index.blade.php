@@ -96,7 +96,7 @@
         });
         $.ajax({
             type: 'POST',
-            url: "{{route('category.store')}}",
+            url: '{{URL::to('/category/store ')}}' ,
             data: {
                 category: $("#modal-form input[name=category]").val(),
             },
@@ -109,7 +109,7 @@
             error: function(data) {
                 console.log(data);
                 var errors = $.parseJSON(data.responseText);
-                $('#add-task-errors').html('ERORR BONG');
+                $('#add-task-errors').html('ERORR ');
                 $.each(errors.messages, function(key, value) {
                     $('#add-task-errors').append('<li>' + value + '</li>');
                 });
@@ -155,7 +155,7 @@
         $.ajax({
             type: 'DELETE',
             // url: '/customer/' + $("#frmDeleteTask input[name=id]").val(),
-            url: '{{URL::to('/category/')}}' + $("#frmDeleteTask input[name=id]").val(),
+            url: '/category/' + $("#frmDeleteTask input[name=id]").val(),
             dataType:'json',
             success: function(data) {
                 $("#frmDeleteTask .close").click();

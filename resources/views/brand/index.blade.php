@@ -104,7 +104,7 @@
         });
         $.ajax({
             type: 'POST',
-            url: '/brand',
+            url: '{{URL::to('/brand/store ')}}' ,
             data: {
                 brand: $("#modal-form input[name=brand]").val(),
             },

@@ -20,25 +20,37 @@ class CategoryController extends Controller
 	    return view('category.index', compact('category'));
     }
 
-    public function store(Request $request)
+    public function store(request $Request)
     {
-        // $aa = $request['category'];
-         $validator = Validator::make($request->input(), array(
-            'category' => 'required',
-        ));
+        
+        // print_r($request);exit();
+        //  $validator = Validator::make($request->input(), array(
+        //     'category' => 'required',
+        // ));
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'error'    => true,
+        //         'messages' => $validator->errors(),
+        //     ], 422);
+        // }
+        $q = $Request->all();
+        $request = $q['category'];
+        $validator = Validator::make($q, [
+            'category' => 'required'
+        ]);
         if ($validator->fails()) {
             return response()->json([
                 'error'    => true,
                 'messages' => $validator->errors(),
             ], 422);
         }
-
-    	$categoryrepo =new CategoryRepository;
-        $category = $categoryrepo->create_category($request)->paginate(5);
-        return response()->json([
+            $categoryrepo =new CategoryRepository;
+            $category = $categoryrepo->create_category($request)->paginate(5);
+            return response()->json([
             'success' => false,
             'category'  => $category,
-        ], 200);
+            ], 200);
+    	
     }
 
     public function destroy($id)
