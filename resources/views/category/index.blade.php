@@ -28,8 +28,8 @@
                     <div class="col-md-12">
                         @card
                             @slot('title')
-                              <div class="col-sm-6">
-                                <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Category</span></a>  
+                             <div class="col-sm-6">
+                             <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add</span></a>
                              </div>
                             @endslot​                               
                                 
@@ -87,7 +87,7 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
+  $(document).ready(function() {
     $("#btn-add").click(function() {
         $.ajaxSetup({
             headers: {
@@ -96,9 +96,9 @@
         });
         $.ajax({
             type: 'POST',
-            url: '/category',
+            url: '{{URL::to('/category/store ')}}' ,
             data: {
-                brand: $("#modal-form input[name=category]").val(),
+                category: $("#modal-form input[name=category]").val(),
             },
             dataType: 'json',
             success: function(data) {
@@ -109,7 +109,7 @@
             error: function(data) {
                 console.log(data);
                 var errors = $.parseJSON(data.responseText);
-                $('#add-task-errors').html('ERORR BONG');
+                $('#add-task-errors').html('ERORR ');
                 $.each(errors.messages, function(key, value) {
                     $('#add-task-errors').append('<li>' + value + '</li>');
                 });
@@ -155,8 +155,8 @@
         $.ajax({
             type: 'DELETE',
             // url: '/customer/' + $("#frmDeleteTask input[name=id]").val(),
-            url: '{{URL::to('/category/ ')}}' + $("#frmDeleteTask input[name=id]").val(),
-            dataType: 'json',
+            url: '/category/' + $("#frmDeleteTask input[name=id]").val(),
+            dataType:'json',
             success: function(data) {
                 $("#frmDeleteTask .close").click();
                 window.location.reload();

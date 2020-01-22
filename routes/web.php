@@ -10,25 +10,20 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('layouts/master');
-});
-
 Auth::routes();
 
-Route::get('/category', [
-    'uses' => 'CategoryController@index',
-    'as' => 'category.index',
-]);
+Route::get('/', 'HomeController@index')->name('home.index');
+Route::get('/logout', 'HomeController@logout');
+// Route::get('/', function () {
+//     return view('layouts/master');
+// });
+
+Route::resource('/category', 'CategoryController')->except([
+    'create']);
 Route::group(['prefix' => 'category'], function()
 {
-    // Route::post('/store','CategoryController@store')->name('category.store');
-     Route::post('/', [
-        'uses' => 'CategoryController@store',
-        'as'   => 'category.store',
-    ]);
-
+    Route::get('/create','CategoryController@create')->name('category.create');
+    Route::post('/store','CategoryController@store')->name('category.store');
     Route::delete('/{$id}','CategoryController@destroy')->name('category.destroy');
     Route::get('/{$id}/show','CategoryController@show')->name('category.show');
     Route::put('/{$id}','CategoryController@update')->name('category.update');    
@@ -155,3 +150,5 @@ Route::group(['prefix' => 'test'], function () {
         'as'   => 'test.destroy',
     ]);
 });
+
+

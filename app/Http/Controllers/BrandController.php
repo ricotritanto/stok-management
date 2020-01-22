@@ -7,6 +7,11 @@ use App\Repository\BrandRepository;
 
 class BrandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
     	$brandrepo=new BrandRepository;
