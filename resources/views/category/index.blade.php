@@ -28,8 +28,8 @@
                     <div class="col-md-12">
                         @card
                             @slot('title')
-                             <div class="col-sm-6">
-                                <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add</span></a>  
+                              <div class="col-sm-6">
+                                <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Category</span></a>  
                              </div>
                             @endslot​                               
                                 
@@ -87,7 +87,7 @@
 
 
 <script type="text/javascript">
-   $(document).ready(function() {
+    $(document).ready(function() {
     $("#btn-add").click(function() {
         $.ajaxSetup({
             headers: {
@@ -96,8 +96,9 @@
         });
         $.ajax({
             type: 'POST',
-            url: "{{route('category.store')}}",
-                category: $("#modal-form input[name=category]").val(),
+            url: '/category',
+            data: {
+                brand: $("#modal-form input[name=category]").val(),
             },
             dataType: 'json',
             success: function(data) {
@@ -106,14 +107,16 @@
                 window.location.reload();
             },
             error: function(data) {
+                console.log(data);
                 var errors = $.parseJSON(data.responseText);
-                $('#add-task-errors').html('');
+                $('#add-task-errors').html('ERORR BONG');
                 $.each(errors.messages, function(key, value) {
                     $('#add-task-errors').append('<li>' + value + '</li>');
                 });
                 $("#add-error-bag").show();
             }
         });
+    });
     $("#btn-edit").click(function() {
         var id = $(this).data('id');
         $.ajaxSetup({
