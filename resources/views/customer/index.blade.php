@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('master')
 ​
 @section('title')
     <title>Manajemen Customer</title>
