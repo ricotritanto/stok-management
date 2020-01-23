@@ -1,4 +1,4 @@
-@extends('layouts.masterphp')
+@extends('master')
 @section('content')
 <div class="container">
 <div class="row">
