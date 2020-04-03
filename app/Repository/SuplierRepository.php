@@ -11,13 +11,15 @@ class SuplierRepository{
         return suplier::orderBy('created_at', 'DESC')->paginate(10);
     }
 
-    public function insert($name, $code, $email,$address,$phone)
+    public function insert($name, $code, $email,$address,$phone, $city, $postal_code)
     {
         return suplier::create(['suplier_name'=>$name,
 								'suplier_code' =>$code,
 								'email' =>$email,
 								'phone' =>$phone,
-								'address' =>$address]);	
+                                'address' =>$address,
+                                'city' => $city,
+                                'postal_code' => $postal_code]);	
     }
 
     public function delete($id)
@@ -30,13 +32,15 @@ class SuplierRepository{
         return suplier::where('id',$id)->first();
     }
 
-    public function update($name, $code, $email,$address,$phone,$id)
+    public function update($name, $code, $email,$address,$phone, $city, $postal_code, $id)
     {
         return suplier::where('id', $id)->update(['suplier_name'=>$name,
                                                 'suplier_code' =>$code,
                                                 'email' =>$email,
                                                 'phone' =>$phone,
-                                                'address' =>$address]);	
+                                                'address' =>$address,
+                                                'city' => $city,
+                                                'postal_code' => $postal_code]);	
     }
 
     function getcode()

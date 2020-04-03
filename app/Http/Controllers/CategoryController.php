@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repository\CategoryRepository;
+use App\Category;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -15,74 +15,56 @@ class CategoryController extends Controller
     
     public function index()
     {
-    	$categoryrepo=new CategoryRepository;
-	    $category = $categoryrepo->GetCategory();
-	    return view('category.index', compact('category'));
+    	// $categoryrepo=new CategoryRepository;
+	    // $category = $categoryrepo->GetCategory();
+        // return view('category.index', compact('category'));
+        $category = Category::with(['parent'])->orderBy('created_at', 'DESC')->paginate(10);
+        $parent = Category::getParent()->orderBy('name', 'ASC')->get();
+        return view('categories.index', compact('category','parent'));
     }
 
-    public function store(request $Request)
+    public function store(Request $request)
     {
-        
-        // print_r($request);exit();
-        //  $validator = Validator::make($request->input(), array(
-        //     'category' => 'required',
-        // ));
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'error'    => true,
-        //         'messages' => $validator->errors(),
-        //     ], 422);
-        // }
-        $q = $Request->all();
-        $request = $q['category'];
-        $validator = Validator::make($q, [
-            'category' => 'required'
+        $this->validate($request, [
+            'name' => 'required|string|max:50|unique:categories'
         ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'error'    => true,
-                'messages' => $validator->errors(),
-            ], 422);
-        }
-            $categoryrepo =new CategoryRepository;
-            $category = $categoryrepo->create_category($request)->paginate(5);
-            return response()->json([
-            'success' => false,
-            'category'  => $category,
-            ], 200);
-    	
+
+        $request->request->add(['slug'=> $request->name]);
+        Category::create($request->except('_token'));
+
+        return redirect(route('category.index'))->with(['success' => 'New Category Added']);
     }
 
     public function destroy($id)
     {
-    	$categoryrepo =new CategoryRepository;
-        $category = $categoryrepo->delete($id);
-        return response()->json([
-            'success' => false,
-            'category'  => $category,
-        ], 200);
+        $category = Category::withCount(['child', 'product'])->find($id);
+        if($category->child_count == 0 && $category->product_count == 0) {
+            $category->delete();
+            return redirect( route ('category.index'))->with(['success'=> 'Delete Category Success !!']);
+        }
+        return redirect(route('category.index'))->with(['error' => 'This Category have been child !!']);
     }
 
-    public function show($id)
+    public function edit($id)
     {
-    	$categoryrepo =new CategoryRepository;
-        $category = $categoryrepo->getidcat($id);
-         return response()->json([
-            'success' => false,
-            'category'  => $category,
-        ], 200);
+    	$category = Category::Find($id);
+        $parent = Category::getParent()->orderBy('name','ASC')->get();
+
+        return view('categories.edit', compact('category','parent'));
     }
 
-    public function update(Request $Request, $id)
+    public function update(Request $request, $id)
     {
-    	$q = $Request->all();
-        $Request = $q['category'];
+    	$this->validate($request, [
+            'name' => 'required|string|max:50|unique:categories'
+        ]);
+        
+        $category = Category::Find($id);
+        $category->update([
+            'name' => $request->name,
+            'parent_id' => $request->parent_id
+        ]);
 
-    	$categoryrepo =new CategoryRepository;
-    	$category = $categoryrepo->update_category($Request, $id);
-        return response()->json([
-        'success' => false,
-        'category'  => $category,
-        ], 200);
+        return redirect( route ('category.index'))->with(['success' => " Update Category Success!!"]);
     }
 }

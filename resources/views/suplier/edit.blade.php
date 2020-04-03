@@ -1,95 +1,69 @@
-@extends('layouts.master')
-​
+@extends('layouts.admin')
+
 @section('title')
-    <title>Update Suplier</title>
+    <title>Add Product</title>
 @endsection
-​
+
 @section('content')
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Update</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('suplier.index') }}">Suplier</a></li>
-                            <li class="breadcrumb-item active">Update</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-​
-        <section class="content">
-            <div class="container-fluid">
+<main class="main">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Suplier</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+          
+          	<!-- TAMBAHKAN ENCTYPE="" KETIKA MENGIRIMKAN FILE PADA FORM -->
+            <form action="{{ route('suplier.update', $suplier->id) }}" method="post" >
+                @csrf
+                <input type="hidden" name="_method" value="PUT">
                 <div class="row">
-                    <div class="col-md-12">
-                        @card
-                            @slot('title')
-                            
-                            @endslot
-                            
-                            @if (session('error'))
-                                @alert(['type' => 'danger'])
-                                    {!! session('error') !!}
-                                @endalert
-                            @endif
-                            <form action="{{ route('suplier.update', $suplier->id) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="_method" value="PUT">
-                                <div class="form-group">
-                                    <label for="">Code</label>
-                                    <input type="text" name="code" required 
-                                        maxlength="10" readonly
-                                        value="{{ $suplier->suplier_code }}"
-                                        class="form-control {{ $errors->has('code') ? 'is-invalid':'' }}">
-                                    <p class="text-danger">{{ $errors->first('code') }}</p>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Suplier Name</label>
-                                    <input type="text" name="name" required 
-                                        value="{{ $suplier->suplier_name }}"
-                                        class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}">
-                                    <p class="text-danger">{{ $errors->first('name') }}</p>
-                                </div> 
-                                <div class="form-group">
-                                    <label for="">Email</label>
-                                    <input type="email" name="email" required 
-                                        value="{{ $suplier->email }}"
-                                        class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}">
-                                    <p class="text-danger">{{ $errors->first('email') }}</p>
-                                </div>       
-                                <div class="form-group">
-                                    <label for="">Phone</label>
-                                    <input type="text" name="phone" required 
-                                        value="{{ $suplier->phone }}"
-                                        class="form-control {{ $errors->has('phone') ? 'is-invalid':'' }}">
-                                    <p class="text-danger">{{ $errors->first('phone') }}</p>
-                                </div>                               
-                                <div class="form-group">
-                                    <label for="">Address</label>
-                                    <textarea name="address" id="address" 
-                                        cols="5" rows="5" 
-                                        class="form-control {{ $errors->has('address') ? 'is-invalid':'' }}">{{ $suplier->address }}</textarea>
-                                    <p class="text-danger">{{ $errors->first('address') }}</p>
-                                </div>             
-                                                          
-                                <div class="form-group">
-                                    <button class="btn btn-info btn-sm">
-                                        <i class="fa fa-refresh"></i> Update
-                                    </button>
-                                </div>
-                            </form>
-                            @slot('footer')
-​
-                            @endslot
-                        @endcard
+                    <div class="col-sm-6">
+                    <div class="card">
+                    <div class="card-header">
+                        <strong>Supliers</strong>
+                        <small>Form</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="company">Code</label>
+                            <input class="form-control" id="code" name="code" type="text" maxlength="10" value="{{ $suplier->suplier_code }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="vat">Name</label>
+                            <input class="form-control" id="name" name="name" type="text" value="{{ $suplier->suplier_name }}" required >
+                        </div>
+                        <div class="form-group">
+                            <label for="vat">Email</label>
+                            <input class="form-control" id="email" name="email" type="text" value="{{ $suplier->email }}" required >
+                        </div>
+                        <div class="form-group">
+                            <label for="vat">Phone</label>
+                            <input class="form-control" id="phone" name="phone" type="text" value="{{ $suplier->phone }}" required >
+                        </div>
+                        <div class="form-group">
+                            <label for="street">Address</label>
+                            <input class="form-control" name="address" id="address"  type="text" value="{{ $suplier->address }}">
+                        </div>
+                        <div class="row">
+                        <div class="form-group col-sm-8">
+                            <label for="city">City</label>
+                            <input class="form-control" id="city" name="city" type="text" value="{{ $suplier->city }}" required>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="postal-code">Postal Code</label>
+                            <input class="form-control" id="postal" name="postal" type="text" value="{{ $suplier->postal_code }}">
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                    </div>
                     </div>
                 </div>
-            </div>
-        </section>
+                </div>
+            </form>
+        </div>
     </div>
+</main>
 @endsection
