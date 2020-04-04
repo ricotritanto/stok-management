@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Suplier;
 use App\Repository\SuplierRepository;
 
 class SuplierController extends Controller
@@ -28,14 +29,17 @@ class SuplierController extends Controller
 
     public function store(Request $request)
     {
+        
         $name = $request['name'];
         $code = $request['code'];
         $email = $request['email'];
         $address = $request['address'];
         $phone = $request['phone'];
+        $city = $request['city'];
+        $postal_code = $request['postal'];
         try{
             $suplierrepo =  new SuplierRepository();
-            $suplier = $suplierrepo->insert($name, $code, $email,$address,$phone);
+            $suplier = $suplierrepo->insert($name, $code, $email,$address,$phone, $city, $postal_code);
              return redirect(route('suplier.index'))->with(['success' => ''.$name.' added successfully']);
         }catch(\Exception $e)
         {
@@ -64,10 +68,12 @@ class SuplierController extends Controller
         $email = $request['email'];
         $address = $request['address'];
         $phone = $request['phone'];
+        $city = $request['city'];
+        $postal_code = $request['postal'];
 
         try{
             $suplierrepo =  new SuplierRepository();
-            $suplier = $suplierrepo->update($name, $code, $email,$address,$phone,$id);
+            $suplier = $suplierrepo->update($name, $code, $email,$address,$phone, $city, $postal_code,$id);
              return redirect(route('suplier.index'))->with(['success' => ''.$name.' added successfully']);
         }catch(\Exception $e)
         {

@@ -14,13 +14,13 @@
         <div class="animated fadeIn">
           
           	<!-- TAMBAHKAN ENCTYPE="" KETIKA MENGIRIMKAN FILE PADA FORM -->
-            <form action="{{ route('suplier.store') }}" method="post" enctype="multipart/form-data" >
+            <form action="{{ route('customer.store') }}" method="post" enctype="multipart/form-data" >
                 @csrf
                 <div class="row">
                     <div class="col-sm-6">
                     <div class="card">
                     <div class="card-header">
-                        <strong>Supliers</strong>
+                        <strong>Customers</strong>
                         <small>Form</small>
                     </div>
                     <div class="card-body">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label for="vat">Name</label>
-                            <input class="form-control" id="name" name="name" type="text" placeholder="nama suplier" required >
+                            <input class="form-control" id="name" name="name" type="text" placeholder="nama Customer" required >
                         </div>
                         <div class="form-group">
                             <label for="vat">Email</label>
