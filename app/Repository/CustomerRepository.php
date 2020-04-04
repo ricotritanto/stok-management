@@ -2,7 +2,7 @@
 namespace App\Repository;
 
 // use Illuminate\Support\Facades\DB;
-use App\Model\customer;
+use App\customer;
 
 class CustomerRepository{
 
@@ -11,9 +11,15 @@ class CustomerRepository{
         return customer::orderBy('created_at', 'DESC')->paginate(5);
     }
 
-    public function insert($data)
+    public function insert($name, $code, $email,$address,$phone, $city, $postal_code)
     {
-        return customer::create($data);	
+        return customer::create(['name'=>$name,
+                                'customer_code' =>$code,
+                                'email' =>$email,
+                                'phone' =>$phone,
+                                'address' =>$address,
+                                'city' => $city,
+                                'postal_code' => $postal_code]);    
     }
 
     public function delete($id)
@@ -26,12 +32,15 @@ class CustomerRepository{
         return customer::where('id',$id)->first();
     }
 
-    public function update($name, $code,$address,$phone,$id)
+    public function update($name, $code, $email,$address,$phone, $city, $postal_code,$id)
     {
         return customer::where('id', $id)->update(['name'=>$name,
-                                                'customer_code' =>$code,
-                                                'phone' =>$phone,
-                                                'address' =>$address]);	
+                                                    'customer_code' =>$code,
+                                                    'email' =>$email,
+                                                    'phone' =>$phone,
+                                                    'address' =>$address,
+                                                    'city' => $city,
+                                                    'postal_code' => $postal_code]);   
     }
 
     function getcode()

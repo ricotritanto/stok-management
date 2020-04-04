@@ -26,84 +26,60 @@ class CustomerController extends Controller
     public function create()
     {
         $customerrepo =  new CustomerRepository();
-        $cscode = $customerrepo->getcode();
-        return view('customer.create', compact('cscode'));
+        $code = $customerrepo->getcode();
+        return view('customer.create', compact('code'));
     }
 
     public function store(Request $request)
     {
-        $data = [
-            'customer_code' =>$request['code'],
-            'name' => $request['name'],
-            'phone' =>$request['phone'],
-            'address' => $request['address']
-        ];
-        $customerrepo =  new CustomerRepository();
-        $customer = $customerrepo->insert($data);
-
-        return response()->json([
-            'error' => false,
-            'customer'  => $customer,
-        ], 200);
-
-        // try{
-        //     $customerrepo =  new CustomerRepository();
-        //     $customer = $customerrepo->insert($data);
-        //         return redirect(route('customer.index'))->with(['success' => '<strong>'.$code.'</strong> added successfully']);
-        // }catch(\Exception $e)
-        // {
-        //     return redirect()->back()->with(['error'=>$e->getMessage()]);
-        // }
-       
+        $name = $request['name'];
+        $code = $request['code'];
+        $email = $request['email'];
+        $address = $request['address'];
+        $phone = $request['phone'];
+        $city = $request['city'];
+        $postal_code = $request['postal'];
+        try{
+            $customerrepo =  new CustomerRepository();
+            $customer = $customerrepo->insert($name, $code, $email,$address,$phone, $city, $postal_code);
+             return redirect(route('customer.index'))->with(['success' => ''.$name.' added successfully']);
+        }catch(\Exception $e)
+        {
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }       
     }
 
     public function destroy($id)
     {
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->delete($id);
-
-        return response()->json([
-            'error' => false,
-            'customer'  => $customer,
-        ], 200);
+        return redirect()->back()->with(['success'=>''.'Delete Success']);
     }
 
-    public function show($id)
+    public function edit($id)
     {
-        $customerrepo =  new CustomerRepository();
+        $customerrepo = new CustomerRepository();
         $customer = $customerrepo->getid($id);
-        return response()->json([
-            'success' => false,
-            'customer'  => $customer,
-        ], 200);
-
-
+        return view('customer.edit', compact('customer'));
     }
 
     public function update(Request $request, $id)
     {
         $name = $request['name'];
         $code = $request['code'];
+        $email = $request['email'];
         $address = $request['address'];
         $phone = $request['phone'];
-        $customerrepo =  new CustomerRepository();
-        $customer = $customerrepo->update($name, $code,$address,$phone,$id);
-        return response()->json([
-            'error' => false,
-            'customer'  => $customer,
-        ], 200);
-        // try{
-        //     $customerrepo =  new CustomerRepository();
-        //     $customer = $customerrepo->update($name, $code,$address,$phone,$id);
-        //     return response()->json([
-        //         'error' => false,
-        //         'customer'  => $customer,
-        //     ], 200);
-        //     //  return redirect(route('customer.index'))->with(['success' => '<strong>'.$code.'</strong> added successfully']);
-        // }catch(\Exception $e)
-        // {
-        //     return redirect()->back()->with(['error'=>$e->getMessage()]);
-        // }
+        $city = $request['city'];
+        $postal_code = $request['postal'];
+        try{
+            $customerrepo =  new CustomerRepository();
+            $customer = $customerrepo->update($name, $code, $email,$address,$phone, $city, $postal_code, $id);
+             return redirect(route('customer.index'))->with(['success' => ''.$name.' Update successfully']);
+        }catch(\Exception $e)
+        {
+            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        }       
         
     }
 }

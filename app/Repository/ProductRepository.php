@@ -2,9 +2,9 @@
 namespace App\Repository;
 
 // use Illuminate\Support\Facades\DB;
-use App\Model\Category;
+use App\Category;
 use App\Model\Brand;
-use App\Model\Products;
+use App\Product;
 
 class ProductRepository{
 
