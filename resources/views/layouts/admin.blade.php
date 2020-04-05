@@ -4,9 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-	<meta name="description" content="Daengweb - Aplikasi Ecommerce">
+	<meta name="description" content="StarCCTV - App Management">
 	<meta name="author" content="Daengweb">
-  <meta name="keyword" content="aplikasi ecommerce laravel, tutorial laravel basic, belajar laravel, panduan belajar laravel">
+    <meta name="keyword" content="cctv security HDD, DVR Semarang basic">
     
     @yield('title')
 
@@ -15,6 +15,11 @@
 	<link href="{{ asset('assets/css/simple-line-icons.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/vendors/pace-progress/css/pace.min.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">       
+    <link rel="stylesheet" href="{{ asset('plugins/datepicker/bootstrap-datepicker.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
   

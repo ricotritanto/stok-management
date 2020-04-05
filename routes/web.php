@@ -29,18 +29,8 @@ Route::group(['prefix' => 'category'], function()
     Route::put('/{$id}','CategoryController@update')->name('category.update');    
 });
 
-Route::resource('/brand', 'BrandController')->except([
-    'create']);
-Route::group(['prefix' => 'brand'], function()
-{
-   
-    Route::get('/create','BrandController@create')->name('brand.create');
-    Route::post('/store','BrandController@store')->name('brand.store');
-    Route::delete('/{$id}','BrandController@destroy')->name('brand.destroy');
-    Route::get('/{$id}/show','BrandController@show')->name('brand.show');
-    Route::put('/{$id}','BrandController@update')->name('brand.update');    
-});
-
+Route::resource('/product', 'ProductController')->except([
+    'create', 'show']);
 Route::group(['prefix' => 'product'], function()
 {
 	Route::get('/','ProductController@index')->name('product.index');

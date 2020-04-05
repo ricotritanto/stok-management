@@ -1,27 +1,16 @@
-@extends('master')
-​
+@extends('layouts.admin')
+
 @section('title')
-    <title>Manajemen Order</title>
+    <title>List Penjualan</title>
 @endsection
-​
+
 @section('content')
 <?PHP $tanggal= date('d-m-Y');?>
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Manajemen Order</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Purchase</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+<main class="main">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Penjualan</li>
+    </ol>
 ​
         <section class="content">
             <div class="container-fluid">
@@ -30,6 +19,7 @@
                         @card
                             @slot('title')
                             @endslot
+                            
                             
                             @if ($message = Session::get('error'))
                                 <div class="alert alert-danger alert-block">
@@ -153,7 +143,7 @@
                 </div>
             </div>
         </section>
-    </div>
+</main>
 @endsection
 <script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>

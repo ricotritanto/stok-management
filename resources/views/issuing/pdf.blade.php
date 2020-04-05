@@ -129,7 +129,7 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 50%;">
-                &copy; {{ date('Y') }} startcctv - All rights reserved.
+                &copy; {{ date('Y') }} starcctv - All rights reserved.
             </td>
             <td align="right" style="width: 50%;">
                 STARTCCTV

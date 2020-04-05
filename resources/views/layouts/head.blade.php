@@ -12,10 +12,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/morris/morris.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">       
-    <link rel="stylesheet" href="{{ asset('plugins/datepicker/bootstrap-datepicker.min.css')}}">
-    <!-- <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}"> -->
-    <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+    
 
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">

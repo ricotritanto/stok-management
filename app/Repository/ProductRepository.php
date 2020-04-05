@@ -33,7 +33,7 @@ class ProductRepository{
 
 	function create_product($name,$code,$serial,$brand,$category,$description,$stock,$price,$sell)
 	{
-		return products::create(['product_name'=>$name,
+		return product::create(['product_name'=>$name,
 								'product_kode' =>$code,
 								'serial' =>$serial,
 								'brand_id' =>$brand,
@@ -47,23 +47,22 @@ class ProductRepository{
 
 	function getProduct()
 	{
-		// return transaction_detail::with('category')->with('category.kategoris')->with('transaction.transaction_status')
-		return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->paginate(5);
+		return product::with('brand')->with('category')->orderBy('created_at', 'Desc')->paginate(5);
 	}
 
 	function delete($id)
 	{
-		return products::where('id', $id)->delete();
+		return product::where('id', $id)->delete();
 	}
 
 	function getproductid($id)
 	{
-		return products::where('id', $id)->first();
+		return product::where('id', $id)->first();
 	}
 
 	function update_product($id,$name,$code,$serial,$brand,$category,$description,$stock,$price,$sell)
 	{
-		return products::Where('id', $id)->update(['product_name'=>$name,
+		return product::Where('id', $id)->update(['product_name'=>$name,
 												   'product_kode' =>$code,
 												   'serial' =>$serial,
 												   'brand_id' =>$brand,
@@ -76,6 +75,6 @@ class ProductRepository{
 
 	public function getprocod($request)
 	{
-		 return products::Where('product_kode', $request['code'])->first();
+		 return product::Where('product_kode', $request['code'])->first();
 	}
 }

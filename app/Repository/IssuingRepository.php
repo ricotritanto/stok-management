@@ -78,7 +78,7 @@ class IssuingRepository{
         ->join('customers','issuings.customer_id','=','customers.id')
         ->join('issuing_details','issuing_details.issuing_id','=','issuings.id')
         ->join('products','issuing_details.product_id','=','products.id')
-        ->join('brands','products.brand_id','=','brands.id')->get();
+        ->join('categories','products.category_id','=','categories.id')->get();
         // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
         // $workers = Worker::with('result')->find($id);
         // return issuing::with('customers')->Where('issuing_facture', $facture)->first();
@@ -90,7 +90,7 @@ class IssuingRepository{
         ->join('customers','issuings.customer_id','=','customers.id')
         ->join('issuing_details','issuing_details.issuing_id','=','issuings.id')
         ->join('products','issuing_details.product_id','=','products.id')
-        ->join('brands','products.brand_id','=','brands.id')->orWhere('name','LIKE',"%{$customer}%")->WhereBetween('date',[$tgl1, $tgl2] )->get();
+        ->join('categories','products.category_id','=','categories.id')->orWhere('name','LIKE',"%{$customer}%")->WhereBetween('date',[$tgl1, $tgl2] )->get();
         return $abc;
      }
 
@@ -100,7 +100,7 @@ class IssuingRepository{
         ->join('customers','issuings.customer_id','=','customers.id')
         ->join('issuing_details','issuing_details.issuing_id','=','issuings.id')
         ->join('products','issuing_details.product_id','=','products.id')
-        ->join('brands','products.brand_id','=','brands.id')->get();
+        ->join('categories','products.category_id','=','categories.id')->get();
         // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
         // $workers = Worker::with('result')->find($id);
         // return issuing::with('customers')->Where('issuing_facture', $facture)->first();

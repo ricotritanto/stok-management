@@ -1,27 +1,16 @@
-@extends('master')
-​
+@extends('layouts.admin')
+
 @section('title')
-    <title>Manajemen Order</title>
+    <title>List Pembelian</title>
 @endsection
-​
+
 @section('content')
 <?PHP $tanggal= date('d-m-Y');?>
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Manajemen Order</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Issuing</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+<main class="main">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Pembelian</li>
+    </ol>
 ​     
         <section class="content">
             <div class="container-fluid">
@@ -89,9 +78,9 @@
                                     </select>
                                     <p class="text-danger">{{ $errors->first('customer_id') }}</p></td>
                                 <td>
-                                    <a onclick="event.preventDefault();addTaskForm();" href="#" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a></td>
+                                    <a href="{{route('customer.create')}}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a></td>
                                 <tr></tr>                 
-                                <td> <label for="name">Product Code</label></td>
+                                <td> <label for="code">Product Code</label></td>
                                 <td>:</td>
                                 <td> 
                                     <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
@@ -168,8 +157,8 @@
                 </div>
             </div>
         </section>    
-    </div>  @include('customer.cs_add')
     </div>  @include('issuing.nota')
+</main>
 @endsection
 <script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
@@ -340,38 +329,7 @@ function deleterow(e) // function untuk delete row pada list cart
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-    $("#btn-add").click(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: 'POST',
-            url: "{{route('customer.store')}}",
-            data: {
-                code: $("#modal-form input[name=code]").val(),
-                name: $("#modal-form input[name=name]").val(),
-                phone: $("#modal-form input[name=phone]").val(),
-                address: $("#modal-form input[name=address]").val(),
-            },
-            dataType: 'json',
-            success: function(data) {
-                $('#modal-form').trigger("reset");
-                $("#modal-form .close").click();
-                window.location.reload();
-            },
-            error: function(data) {
-                console.log(data);
-                // var errors = $.parseJSON(data.responseText);
-                // $('#add-task-errors').html('ERORR BONG');
-                // $.each(errors.messages, function(key, value) {
-                //     $('#add-task-errors').append('<li>' + value + '</li>');
-                // });
-                // $("#add-error-bag").show();
-            }
-        });
-    });  
+   
     $("#btn-nota").click(function() {
         $.ajaxSetup({
             headers: {

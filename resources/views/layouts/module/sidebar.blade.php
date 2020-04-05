@@ -37,10 +37,10 @@
             
             <ul class="nav-dropdown-items">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('issuing.index')}}">
+                    <a class="nav-link" href="{{ route('purchase.index')}}">
                         <i class="nav-icon icon-puzzle"></i> Pembelian
                     </a>
-                    <a class="nav-link" href="{{ route('purchase.index')}}">
+                    <a class="nav-link" href="{{ route('issuing.index')}}">
                         <i class="nav-icon icon-puzzle"></i> Penjualan
                     </a>
                 </li>
@@ -52,12 +52,12 @@
             </a>
             <ul class="nav-dropdown-items">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('invoice.index') }}">
+                    <a class="nav-link" href="{{ route('invoice.report_purchase') }}">
                         <i class="nav-icon icon-puzzle"></i> Pembelian
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('invoice.report_purchase') }}">
+                    <a class="nav-link" href="{{ route('invoice.index') }}">
                         <i class="nav-icon icon-puzzle"></i> Penjualan
                     </a>
                 </li>
