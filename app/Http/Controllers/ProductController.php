@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use File;
 use App\Product;
 use App\Category;
+
 class ProductController extends Controller
 {
     public function __construct()
@@ -16,7 +17,7 @@ class ProductController extends Controller
     
     public function index()
     {
-        $product = Product::with('Category')->orderBy('created_at', 'DESC');
+        $product = Product::with(['category'])->orderBy('created_at', 'DESC');
         if(request()->q != '') {
             $product = $product->where('name', 'like', '%'. request()->q.'%');
         }
@@ -96,7 +97,7 @@ class ProductController extends Controller
             'purchase' => 'required|integer',
             'sell'=> 'required|integer',
             'stock' => 'required|integer|max:30',
-            'description' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
             'code' => 'required|string|max:11',
             'serial' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:png,jpg,jpeg'

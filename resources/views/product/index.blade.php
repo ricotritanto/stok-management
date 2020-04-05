@@ -54,13 +54,10 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Code</th>
-                                            <th>Serial No</th>
-                                            <th>Product Name</th>
-                                            <th>Category</th>
+                                            <th>Product</th>
                                             <th>Purchase Price</th>
                                             <th>Sell Price</th>
                                             <th>Stock</th>
-                                            <th>Description</th>
                                             <th>image</th>
                                             <th>Status</th>
                                             <th>Last Update</th>
@@ -73,17 +70,20 @@
                                         <tr>
                                             <td>{{$no++}}</td>
                                             <td>{{$row->code}}</td>
-                                            <td>{{$row->serial}}</td>
-                                            <td>{{$row->name}}</td>
-                                            <td>{{$row->category->name}}</td>
+                                            <td>
+                                                <strong>{{ $row->name }}</strong><br>
+                                                <!-- ADAPUN NAMA KATEGORINYA DIAMBIL DARI HASIL RELASI PRODUK DAN KATEGORI -->
+                                                <label>Category: <span class="badge badge-info">{{ $row->category->name }}</span></label><br>
+                                                <label>Serial: <span class="badge badge-info">{{ $row->serial }}</span></label>
+                                            </td>
                                             <td>{{number_format($row->purchase_price,0,",",".")}}</td>
                                             <td>{{number_format($row->sell_price,0,",",".")}}</td>
                                             <td>{{$row->stocks}}</td>
-                                            <td>{{$row->description}}</td>
-                                            <!-- <td> <img src="{{ asset('storage/products/' . $row->image) }}" width="100px" height="100px" alt="{{ $row->name }}"</td> -->
-                                            <td><a href="#" data-toggle="modal" data-target="#product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> view</a></td>
+                                            <td>
+                                                <a href="#" data-toggle="modal" data-target="#product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> detail</a>
+                                            </td>
                                             <td>{!! $row->status_label !!}</td>
-                                            <td>{{$row->created_at}}</td>
+                                            <td>{{$row->created_at->format('d-m-Y')}}</td>
                                             <td>
                                                 <!-- FORM UNTUK MENGHAPUS DATA PRODUK -->
                                                 <form action="{{ route('product.destroy', $row->id) }}" method="post">
@@ -112,34 +112,39 @@
     </div>
 </main>
 @endsection
-
+@forelse($product as $row)
 <div class="modal video-modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="myModal2">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-				</div>
-				<section>
-					<div class="modal-body">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                        
+                </div>
+                <section>
+                    <div class="modal-body">
                         <div class="col-md-5 modal_body_left">
-                            <img src="{{ asset('storage/products/' . $row->image) }}" width="100px" height="100px" alt="{{ $row->name }}"/>
-						</div>
-						<div class="col-md-12 modal_body_right">
-							<h2>{{$row->name}}</h2>
-							<p>{{$row->description}}</p>
+                            <img src="{{ asset('storage/products/' . $row->image) }}" width="100px" height="100px" class="img-responsive" alt="{{ $row->name }}"/>
+                        </div>
+                        <div class="col-md-12 modal_body_right">
+                            <h2>{{$row->name}}</h2>
+                            <p>{{$row->description}}</p>
                         <div class="rating">
                             <strong> Serial Number : {{$row->serial}} <br>
                                       Code Product : {{$row->code}}
                             </strong>
                         </div>
-						<div class="color-quality">
+                        <div class="color-quality">
                             <strong>Stock : {{$row->stocks}}</strong>
-						</div>
-					</div>
-						<div class="clearfix"> </div>
-					</div>
-				</section>
-			</div>
-		</div>
-	</div>
+                        </div>
+                    </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 </div>
+  @empty
+                                        <tr>
+                                            <td colspan="13" class="text-center">Empty Data</td>
+                                        </tr>
+                                        @endforelse

@@ -3,8 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-use App\Product;
+use Illuminate\Support\Str;	
 
 class Category extends Model
 {
@@ -38,6 +37,6 @@ class Category extends Model
 	 public function product()//relasi dengan tabel product
 	 {
 		 // jenis relasi one to many, category bisa digunakan oleh banyak product
-		 return $this->hasMany(Product::class, 'id', 'category_id');  
+		 return $this->hasMany(Product::class);  
 	 }
 }

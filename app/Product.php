@@ -22,7 +22,7 @@ class Product extends Model
     //FUNGSI YANG MENG-HANDLE RELASI KE TABLE CATEGORY
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id','id');
+        return $this->belongsTo(Category::class);
     }
 
     public function purchase_detail()//relasi dengan tabel product
