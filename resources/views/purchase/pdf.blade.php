@@ -70,9 +70,9 @@
             </td>
             <td align="right" style="width: 40%;">
 
-                <h3>STARTCCTV</h3>
+                <h3>STARCCTV</h3>
                 <pre>
-                    www.startcctv.com
+                    www.starcctv.com
 
                     Street 26
                     Semarang City
@@ -94,16 +94,16 @@
         <tr>
             <th>Code</th>
             <th>Description</th>
-            <th>Brand</th>
+            <th>Category</th>
             <th>Quantity</th>
             <th>Total</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>{{$abc->product_kode}}</td>
-            <td>{{$abc->product_name}}</td>
-            <td>{{$abc->brand_name}}</td>
+            <td>{{$abc->code}}</td>
+            <td>{{$abc->name}}</td>
+            <td>{{$abc->category_name}}</td>
             <td>{{$abc->qty}}</td>
             <td align="left">Rp{{number_format($abc->sell_price,0,".",".")}}</td>
         </tr>
@@ -125,10 +125,10 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 50%;">
-                &copy; {{ date('Y') }} startcctv - All rights reserved.
+                &copy; {{ date('Y') }} starcctv - All rights reserved.
             </td>
             <td align="right" style="width: 50%;">
-                STARTCCTV
+                STARCCTV
             </td>
         </tr>
 

@@ -3,11 +3,9 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Products;
-use App\Model\category;
-use App\Model\brand;
-use App\Model\issuing_detail;
-use App\Model\issuing;
+use App\Products;
+use App\category;
+use App\issuing;
 
 class Issuing_detail extends Model
 {

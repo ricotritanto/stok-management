@@ -40,7 +40,7 @@
          <div class="col-lg-12 col-md-12 col-sm-12">
              <hr />
              <span>
-                 <strong>Email : </strong>  startcctv@gmail.com
+                 <strong>Email : </strong>  starcctv@gmail.com
              </span>
              <span>
                  <strong>Call : </strong>  +81 - 890- 789- 9087 
@@ -88,8 +88,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Code</th>
-                                    <th>Description</th>
-                                    <th>Brand</th>
+                                    <th>Product</th>
                                     <th>Quantity</th>
                                     <th>Sub Total</th>
                                 </tr>
@@ -99,9 +98,8 @@
                                 @foreach($datane as $abc)
                                 <tr>
                                     <td>{{$no++ }}</td>
-                                    <td>{{$abc->product_kode}}</td>
-                                    <td>{{$abc->product_name}}</td>
-                                    <td>{{$abc->brand_name}}</td>
+                                    <td>{{$abc->code}}</td>
+                                    <td>{{$abc->name}}</td>
                                     <td>{{$abc->qty}}</td>
                                     <td>Rp{{number_format($abc->sell_price,0,".",".")}}</td>
                                 </tr> 

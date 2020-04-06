@@ -33,7 +33,7 @@ class InvoiceController extends Controller
         $customer =$request->customer;
         $tgl1 =$request->date1;
         $tgl2 =$request->date2;
-
+        
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getinvoice($facture, $customer, $tgl1, $tgl2);
         if(count($datane) > 0)
@@ -100,6 +100,7 @@ class InvoiceController extends Controller
 
         $purchaserepo =  new PurchaseRepository();
         $datane = $purchaserepo->getinvoice($facture, $suplier, $tgl1, $tgl2);
+        
         if(count($datane) > 0)
         {
 
@@ -115,7 +116,7 @@ class InvoiceController extends Controller
     {
         $purchaserepo =  new PurchaseRepository();
         $datane = $purchaserepo->getbyid($purchase_facture);
-
+        // print_r($datane);exit();
         return view('invoice.inchase', compact('datane'));
     }
 

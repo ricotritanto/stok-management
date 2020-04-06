@@ -35,6 +35,7 @@ class PurchaseController extends Controller
         ]);
         
         try{
+            // $product = $product->where('name', 'like', '%'. request().'%');
             $productrepo = new ProductRepository;
             $product = $productrepo->getprocod($request);
 

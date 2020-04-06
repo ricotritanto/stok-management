@@ -45,7 +45,7 @@ class IssuingController extends Controller
         try{
             $productrepo = new ProductRepository;
             $product = $productrepo->getprocod($request);
-            if (empty($product['product_kode']))
+            if (empty($product['code']))
             {
                 echo '<script language="javascript">';
                 echo 'alert("Barang Tidak Ada.")';

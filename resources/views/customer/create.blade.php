@@ -20,7 +20,7 @@
                     <div class="col-sm-6">
                     <div class="card">
                     <div class="card-header">
-                        <strong>Supliers</strong>
+                        <strong>Customers</strong>
                         <small>Form</small>
                     </div>
                     <div class="card-body">

@@ -3,9 +3,9 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Model\issuing_detail;
-use App\Model\issuing;
-use App\Model\customer;
+use App\issuing_detail;
+// use App\issuing;
+use App\customer;
 
 
 class Issuing extends Model

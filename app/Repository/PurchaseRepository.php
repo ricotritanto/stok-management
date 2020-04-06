@@ -2,12 +2,11 @@
 namespace App\Repository;
 
 // use Illuminate\Support\Facades\DB;
-use App\Model\Category;
-use App\Model\Brand;
-use App\Model\Products;
-use App\Model\Suplier;
-use App\Model\Purchase;
-use App\Model\Purchase_detail;
+use App\Category;
+use App\Products;
+use App\Suplier;
+use App\Purchase;
+use App\Purchase_detail;
 
 
 class PurchaseRepository{
@@ -15,7 +14,7 @@ class PurchaseRepository{
     Public function getfacture()
     {
         $cek =  purchase_detail::max('purchase_facture');
-        $fak = (int) substr($cek, 6);
+        $fak = (int) substr($cek, 12);
         $day = date('d');
         $bulan = date('m');
         $tahun = date('Y'); 
@@ -74,8 +73,7 @@ class PurchaseRepository{
         return purchase::Where('purchase_facture',$facture)->with('suplier')
         ->join('supliers','purchase.suplier_id','=','supliers.id')
         ->join('purchase_detail','purchase_detail.purchase_id','=','purchase.id')
-        ->join('products','purchase_detail.product_id','=','products.id')
-        ->join('brands','products.brand_id','=','brands.id')->get();
+        ->join('products','purchase_detail.product_id','=','products.id')->get();
         // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
         // $workers = Worker::with('result')->find($id);
         // return issuing::with('customers')->Where('issuing_facture', $facture)->first();
@@ -86,8 +84,7 @@ class PurchaseRepository{
          $abc = purchase::Where('purchase_facture',$facture)->with('suplier')
         ->join('supliers','purchase.suplier_id','=','supliers.id')
         ->join('purchase_detail','purchase_detail.purchase_id','=','purchase.id')
-        ->join('products','purchase_detail.product_id','=','products.id')
-        ->join('brands','products.brand_id','=','brands.id')->orWhere('suplier_name','LIKE',"%{$suplier}%")->WhereBetween('date',[$tgl1, $tgl2] )->get();
+        ->join('products','purchase_detail.product_id','=','products.id')->orWhere('suplier_name','LIKE',"%{$suplier}%")->WhereBetween('date',[$tgl1, $tgl2] )->get();
         return $abc;
      }
 
@@ -96,8 +93,7 @@ class PurchaseRepository{
         return purchase::Where('purchase_facture',$purchase_facture)->with('suplier')
         ->join('supliers','purchase.suplier_id','=','supliers.id')
         ->join('purchase_detail','purchase_detail.purchase_id','=','purchase.id')
-        ->join('products','purchase_detail.product_id','=','products.id')
-        ->join('brands','products.brand_id','=','brands.id')->get();
+        ->join('products','purchase_detail.product_id','=','products.id')->get();
         // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
         // $workers = Worker::with('result')->find($id);
         // return issuing::with('customers')->Where('issuing_facture', $facture)->first();

@@ -71,9 +71,9 @@
             </td>
             <td align="right" style="width: 40%;">
 
-                <h3>STARTCCTV</h3>
+                <h3>STARCCTV</h3>
                 <pre>
-                    www.startcctv.com
+                    www.starcctv.com
 
                     Street 26
                     Semarang City
@@ -93,20 +93,18 @@
     <table width="100%" style="border-collapse: collapse; border: 0px;">
         <thead>
         <tr>
-            <th style="border: 1px solid; padding:12px;" width="15%">Code</th>
-            <th style="border: 1px solid; padding:12px;" width="15%">Description</th>
-            <th style="border: 1px solid; padding:12px;" width="15%">Brand</th>
-            <th style="border: 1px solid; padding:12px;" width="15%">Quantity</th>
-            <th style="border: 1px solid; padding:12px;" width="15%">Total</th>
+            <th style="border: 1px solid; padding:12px;" width="25%">Code</th>
+            <th style="border: 1px solid; padding:12px;" width="30%">Product</th>
+            <th style="border: 1px solid; padding:12px;" width="10%">Quantity</th>
+            <th style="border: 1px solid; padding:12px;" width="25%">Total</th>
         </tr>
         </thead>
         <tbody>
         <!-- @php $no = 1; @endphp -->
         @foreach($datane as $abc)
         <tr>
-            <td style="border: 1px solid; padding:12px;">{{$abc->product_kode}}</td>
-            <td style="border: 1px solid; padding:12px;">{{$abc->product_name}}</td>
-            <td style="border: 1px solid; padding:12px;">{{$abc->brand_name}}</td>
+            <td style="border: 1px solid; padding:12px;">{{$abc->code}}</td>
+            <td style="border: 1px solid; padding:12px;">{{$abc->name}}</td>
             <td style="border: 1px solid; padding:12px;">{{$abc->qty}}</td>
             <td style="border: 1px solid; padding:12px;" align="left">Rp{{number_format($abc->sell_price,0,".",".")}}</td>
         </tr>
@@ -115,7 +113,6 @@
 
         <tfoot>
         <tr>
-            <td colspan="1"></td>
             <td colspan="1"></td>
             <td colspan="1"></td>
             <td style="border: 1px solid; padding:12px;" align="left"style="border: 1px solid; padding:12px;" >Total</td>
@@ -129,10 +126,10 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 50%;">
-                &copy; {{ date('Y') }} startcctv - All rights reserved.
+                &copy; {{ date('Y') }} starcctv - All rights reserved.
             </td>
             <td align="right" style="width: 50%;">
-                STARTCCTV
+                STARCCTV
             </td>
         </tr>
 

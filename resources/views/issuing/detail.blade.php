@@ -8,10 +8,10 @@
     	<tr>
             <input type="hidden" name="idpro" id="idpro" value="{{$product->id}}">
             <!-- <td>Product Code  -->
-                <input type="hidden" name="kode" id="kode" value="{{$product->product_kode}}" style="width:50PX;margin-right:5px;" class="form-control input-sm" readonly>
+                <input type="hidden" name="kode" id="kode" value="{{$product->code}}" style="width:50PX;margin-right:5px;" class="form-control input-sm" readonly>
             <!-- </td> -->
             <td>Product Name
-                <input type="text" name="proname" id="proname" value="{{$product->product_name}}" style="width:175PX;margin-right:5px;" class="form-control input-sm" readonly>   
+                <input type="text" name="proname" id="proname" value="{{$product->name}}" style="width:175PX;margin-right:5px;" class="form-control input-sm" readonly>   
             </td>
             <td>Price
                 <input type="text" name="price" id="price" value="{{$product->sell_price}}" style="width:100PX;margin-right:5px;" class="form-control input-sm" readonly>    

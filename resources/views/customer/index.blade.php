@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>List Supliers</title>
+    <title>List Customers</title>
 @endsection
 
 @section('content')

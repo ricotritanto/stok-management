@@ -3,9 +3,8 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Products;
+use App\Product;
 use App\Model\category;
-use App\Model\brand;
 use App\Model\purchase_detail;
 use App\Model\purchase;
 

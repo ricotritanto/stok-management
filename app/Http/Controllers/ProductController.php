@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repository\CategoryRepository;
-use App\Repository\BrandRepository;
-use App\Repository\ProductRepository;
-
+use Illuminate\Support\Str;
+use File;
+use App\Product;
+use App\Category;
 class ProductController extends Controller
 {
     public function __construct()
@@ -16,115 +16,118 @@ class ProductController extends Controller
     
     public function index()
     {
-        $productrepo =new ProductRepository;
-        $product = $productrepo->getProduct();
-        // print_r($product);exit();
+        $product = Product::with('Category')->orderBy('created_at', 'DESC');
+        if(request()->q != '') {
+            $product = $product->where('name', 'like', '%'. request()->q.'%');
+        }
+        $product = $product->paginate(10);
         return view('product.index', compact('product'));
     }
 
     public function create()
     {
-    	$brandrepo=new BrandRepository;
-	    $brand = $brandrepo->Getbrand();
-    	$categoryrepo=new CategoryRepository;
-	    $category = $categoryrepo->GetCategory();
-        // $productrepo=new ProductRepository;
-        // $code = $productrepo->GenerateCode();
-    	return view('product.create', compact('category','brand'));
+    	$category = Category::orderBy('name','DESC')->get();
+    	return view('product.create', compact('category'));
 
     }
 
-    public function store(Request $Request)
+    public function store(Request $request)
     {
-        $this->validate($Request, [
+        $this->validate($request, [
             'name'  => 'required|max:100',
-            'brand_id' => 'required|integer',
             'category_id' => 'required|integer',
-            'pprice' => 'required',
-            'sprice'=> 'required',
-            'stock' => 'required|max:30',
-            'description' => 'nullable|string|max:255',
+            'purchase' => 'required|integer',
+            'sell'=> 'required|integer',
+            'stock' => 'required|integer|max:30',
+            'description' => 'nullable|string',
             'code' => 'required|string|max:11',
             'serial' => 'required|string|max:255',
+            'image' => 'image|mimes:png,jpg,jpeg'
         ]);
-        $pprice=$Request['pprice'];
-        $sprice=$Request['sprice'];
-        // konversi dari bilangan rupiah ke bilangan biasa
-        $price = str_replace(".", "", $pprice);
-        $sell = str_replace(".", "", $sprice);
-        $name = $Request['name'];
-        $code = $Request['code'];
-        $serial = $Request['serial'];
-        $brand = $Request['brand_id'];
-        $category = $Request['category_id'];
-        $description = $Request['description'];
-        $stock = $Request['stock'];
-        try{
-            $productrepo =new ProductRepository;
-            $product = $productrepo->create_product($name,$code,$serial,$brand,$category,$description,$stock,$price,$sell,$serial);
-             return redirect(route('product.index'))->with(['success' => '<strong>' . $name . '</strong> added successfully']);
-        }catch(\Exception $e)
-        {
-            return redirect()->back()->with(['error'=>$e->getMessage()]);
+
+         if($request->hasFile('image')){
+            $file = $request->file('image'); // simpan sementara divariabel file
+            //next nama filenya dibuat customer dgn gabungan time&slug fr product
+            $filename = time().Str::slug($request->name).'.'. $file->getClientOriginalExtension();
+            //save filenya ke folder public/products
+            $file->storeAs('public/products', $filename);
+
+            $product = Product::Create([
+                'name' => $request->name,
+                'slug' => $request->name,
+                'serial' => $request->serial,
+                'code' => $request->code,
+                'category_id' => $request->category_id,
+                'description' => $request->description,
+                'image' => $filename,
+                'purchase_price' => $request->purchase,
+                'sell_price' => $request->sell,
+                'stocks' => $request->stock,
+                'status' => $request->status
+            ]);
+
+            return redirect(route ('product.index'))->with(['success'=> 'Add products Success !']);
         }
+        
     }
 
     public function destroy($id)
     {
-        $productrepo =new ProductRepository;
-        $product = $productrepo->delete($id);
-        return redirect()->back()->with(['success'=>'<strong>'.''.'</strong> Delete Success']);
+        $product = Product::Find($id);
+        File::delete(storage_path('app/public/products'. $product->image)); //untuk delete image di storage
+        $product->delete();
+
+        return redirect(route('product.index'))->with(['success' => 'Delete Product Success !!']);
     }
 
     public function edit($id)
     {
-        $productrepo =new ProductRepository;
-        $product = $productrepo->getproductid($id);
-
-        $brandrepo=new BrandRepository;
-        $brand = $brandrepo->Getbrand();
-
-        $categoryrepo=new CategoryRepository;
-        $category = $categoryrepo->GetCategory();
+        $product = Product::Find($id);
+        $category = Category::orderBy('Name', 'DESC')->get();
         
-        return view('product.edit', compact('product','brand','category'));
+        return view('product.edit', compact('product', 'category'));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name'  => 'required|max:100',
-            'brand_id' => 'required|integer',
             'category_id' => 'required|integer',
-            'pprice' => 'required',
-            'sprice'=> 'required',
-            'stock' => 'required|max:30',
+            'purchase' => 'required|integer',
+            'sell'=> 'required|integer',
+            'stock' => 'required|integer|max:30',
             'description' => 'nullable|string|max:255',
             'code' => 'required|string|max:11',
             'serial' => 'required|string|max:255',
-        ]);
-        // $aa = $Request->all();
-        // print_r($aa);exit();
-        $pprice=$request['pprice'];
-        $sprice=$request['sprice'];
-        // konversi dari bilangan rupiah ke bilangan biasa
-        $price = str_replace(".", "", $pprice);
-        $sell = str_replace(".", "", $sprice);
-        $name = $request['name'];
-        $code = $request['code'];
-        $serial = $request['serial'];
-        $brand = $request['brand_id'];
-        $category = $request['category_id'];
-        $description = $request['description'];
-        $stock = $request['stock'];
+            'image' => 'nullable|image|mimes:png,jpg,jpeg'
 
-        try{
-            $productrepo =new ProductRepository;
-            $product = $productrepo->update_product($id,$name,$code,$serial,$brand,$category,$description,$stock,$price,$sell);
-             return redirect(route('product.index'))->with(['success' => '<strong>' . $name . '</strong> Update successfully']);
-        }catch(\Exception $e)
-        {
-            return redirect()->back()->with(['error'=>$e->getMessage()]);
+        ]);
+
+        $product = Product::find($id);
+        $filename = $product->image;
+        
+         //jika ada file gambar yg dikirim maka,
+        if($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . Str::slug($request->name). '.'. $file->getClientOriginalExtension();
+            $file->storeAs('public/products', $filename);
+            //dan hapus file gambar yg lama
+            File::delete(storage_path('app/public/products/' .$product->image));
         }
+
+        $product->update([
+            'name' => $request->name,
+            'slug' => $request->name,
+            'serial' => $request->serial,
+            'code' => $request->code,
+            'category_id' => $request->category_id,
+            'description' => $request->description,
+            'image' => $filename,
+            'purchase_price' => $request->purchase,
+            'sell_price' => $request->sell,
+            'stocks' => $request->stock,
+            'status' => $request->status
+        ]);
+        return redirect(route ('product.index'))->with(['success' => "Update Product Success..!!!"]);
     }
 }

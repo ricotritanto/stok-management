@@ -7,14 +7,14 @@
     <div class="wrapper">
         @include('layouts.header')
 ​
-        @include('layouts.sidebar')
+        @include('layouts.module.sidebar')
 ​
         @yield('content')
         
         
     </div>
 ​
-@include('layouts.footer')
+
 </body>
 </html>
 <!-- jQuery -->

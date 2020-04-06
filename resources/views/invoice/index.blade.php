@@ -1,35 +1,25 @@
-@extends('master')
+@extends('layouts.admin')
 ​
 @section('title')
-    <title>Manajemen Customer</title>
+    <title>Laporan</title>
 @endsection
 ​
 @section('content')
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Report Issuing</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Report Is</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                     <div class="col-md-6">
-                        <!-- Horizontal Form -->
-                        <div class="card card-info">
-                          <div class="card-header">
-                            <h3 class="card-title">Search</h3>
-                          </div>
+<main class="main">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Laporan Order</li>
+    </ol>
+     <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                Search 
+                            </h4>
+                        </div>
                           <!-- /.card-header -->
                           <!-- form start -->
                           <form class="form-horizontal" action="{{route('invoice.issuing')}}" method="GET">
@@ -123,7 +113,7 @@
                                 <td>{{$no++}} . </td>
                                 <td>{{$key->date}}</td>
                                 <td>{{$key->issuing_facture}}</td>
-                                <td>{{$key->name}}</td>
+                                <td>{{$key->customer_code}}</td>
                                 <td>{{$key->total}}</td>
                                 
                                 <td><a href="{{route('invoice.print_invis', $key->issuing_facture) }}" target="_blank" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
@@ -141,6 +131,7 @@
         </section>
     </div>
 </div>
+</main>
 @endsection
 <script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
