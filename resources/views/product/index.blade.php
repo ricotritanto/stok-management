@@ -144,7 +144,7 @@
     </div>
 </div>
   @empty
-                                        <tr>
-                                            <td colspan="13" class="text-center">Empty Data</td>
-                                        </tr>
-                                        @endforelse
+  <tr>
+    <td colspan="13" class="text-center">Empty Data</td>
+  </tr>
+  @endforelse
