@@ -14,6 +14,6 @@ class Customer extends Model
 
     public function issuing()
     {
-    	return $this->hasMany(issuings::class, 'id','customer_id');
+    	return $this->hasMany(issuing::class, 'id','customer_id');
     }
 }

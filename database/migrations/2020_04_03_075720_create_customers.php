@@ -19,7 +19,7 @@ class CreateCustomers extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('phone');
-            $table->String('email');
+            $table->String('email')->nullable();
             $table->String('city');
             $table->String('postal_code');
             $table->timestamps();

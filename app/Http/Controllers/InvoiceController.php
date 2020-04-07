@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repository\CategoryRepository;
-use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use App\Repository\IssuingRepository;
 use App\Repository\PurchaseRepository;
 use App\Repository\CustomerRepository;
+use App\Issuing;
+use App\Issuing_detail;
+use App\product;
+use App\customer;
 use PDF;
 
 
@@ -27,8 +30,7 @@ class InvoiceController extends Controller
 
     public function issuing(Request $request)
     {
-        // $a = $request->all();
-        // $facture =$a['facture'];
+
         $facture =$request->facture;
         $customer =$request->customer;
         $tgl1 =$request->date1;

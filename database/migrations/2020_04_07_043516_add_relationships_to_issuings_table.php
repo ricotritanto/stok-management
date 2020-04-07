@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchasesTable extends Migration
+class AddRelationshipsToIssuingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase', function (Blueprint $table) {
-            $table->increments('id');
-            $table->String('date');
-            $table->unsignedInteger('suplier_id');
-            $table->String('grandtotal');
-            $table->timestamps();
+        Schema::table('issuings', function (Blueprint $table) {
+            $table->foreign('customer_id')->references('id')->on('customers')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 
@@ -29,6 +27,6 @@ class CreatePurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase');
+        
     }
 }

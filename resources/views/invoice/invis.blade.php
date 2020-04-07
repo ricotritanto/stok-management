@@ -26,7 +26,7 @@
          </div>
           <div class="col-lg-6 col-md-6 col-sm-6">
             
-               <strong>   STARTCCTV </strong>
+               <strong>   STARCCTV </strong>
               <br />
                   <i>Address :</i> 245/908 , New York Lane,
               <br />

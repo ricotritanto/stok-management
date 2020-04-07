@@ -94,8 +94,5 @@ class PurchaseRepository{
         ->join('supliers','purchase.suplier_id','=','supliers.id')
         ->join('purchase_detail','purchase_detail.purchase_id','=','purchase.id')
         ->join('products','purchase_detail.product_id','=','products.id')->get();
-        // return products::with('brand')->with('category')->orderBy('created_at', 'Desc')->get();
-        // $workers = Worker::with('result')->find($id);
-        // return issuing::with('customers')->Where('issuing_facture', $facture)->first();
      }
 }

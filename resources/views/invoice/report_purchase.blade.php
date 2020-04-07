@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 ​
 @section('title')
-    <title>StartCCTV</title>
+    <title>StarCCTV</title>
 @endsection
 ​
 @section('content')

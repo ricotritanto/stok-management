@@ -27,22 +27,18 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-4 control-label">Facture</label>
-
                                 <div class="col-sm-10">
                                   <input type="text" class="form-control" id="facture" name="facture" placeholder="Facture">
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-4 control-label">Customer</label>
-
                                 <div class="col-sm-10">
                                   <input type="text" class="form-control" id="customer" name="customer" placeholder="Customer">
                                 </div>
                               </div>
                                     <button type="submit" id="search" class="btn btn-info">Search</button>
                             </div>
-                              
-                           
                           </form>
                         </div>
                           <!-- /.card-body -->
@@ -101,19 +97,19 @@
                                 <td>#</td>
                                 <td>Date</td>
                                 <td>Facture</td>
-                                <td>Customer</td>
+                                <td>Pelanggan</td>
                                 <td>Total</td>
                                 <td>Action</td>
                             </tr>
                         </thead>
                         <tbody id="tampilane">
                             @php $no = 1; @endphp
-                            @foreach($datane as $key)
+                            @forelse($datane as $key)
                             <tr>
                                 <td>{{$no++}} . </td>
                                 <td>{{$key->date}}</td>
                                 <td>{{$key->issuing_facture}}</td>
-                                <td>{{$key->customer_code}}</td>
+                                <td>{{$key->name}}</td>
                                 <td>{{$key->total}}</td>
                                 
                                 <td><a href="{{route('invoice.print_invis', $key->issuing_facture) }}" target="_blank" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
@@ -121,7 +117,8 @@
                                 
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            @endforelse
                         </tbody>                                    
                     </table>
                      @endif
