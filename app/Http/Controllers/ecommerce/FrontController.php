@@ -18,17 +18,28 @@ class FrontController extends Controller
 
     public function product()
     {
-
+        $product = Product::with(['category'])->orderBy('created_at', 'DESC');
+        if(request()->q != '') {
+            $products = $product->where('name', 'like', '%'. request()->q.'%');
+        }
+        $products = $product->paginate(10);
+        $products1 = Product::OrderBy('created_at','ASC')->paginate(12);
+    
+        return view('ecommerce.product', compact('products', 'products1'));
     }
 
     public function CategoryProduct($slug)
     {
-
+        $products1 = Product::OrderBy('created_at','ASC')->paginate(12);
+        $products = Category::where('slug', $slug)->first()->product()->orderBy('created_at','DESC')->paginate(12);
+        return view('ecommerce.product', compact('products', 'products1'));
     }
 
     public function show($slug)
     {
-
+        $products1 = Product::OrderBy('created_at','ASC')->paginate(12);
+        $products = Product::with(['category'])->where('slug', $slug)->first();
+        return view('ecommerce.show', compact('products', 'products1'));
     }
 
     public function contact()

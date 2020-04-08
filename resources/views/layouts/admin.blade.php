@@ -73,7 +73,6 @@
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
 
     <script src="{{asset('/plugins/input-mask/jquery.inputmask.js')}}"></script>
@@ -81,7 +80,7 @@
     <script src="{{asset('/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
 
     <script src="{{ asset('plugins/jquery/raphael-min.js') }}"></script>
-    <script src="{{ asset('plugins/morris/morris.min.js') }}"></script>
+    <!-- <script src="{{ asset('plugins/morris/morris.min.js') }}"></script> -->
     <script src="{{ asset('plugins/sparkline/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
     <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>

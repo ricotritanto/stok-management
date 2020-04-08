@@ -27,7 +27,7 @@
 						</div>
 						<h5><a href="{{ url('/product/' . $row->slug) }}">{{$row->name}}</a></h5>
 						<div class="simpleCart_shelfItem">
-							<p><i class="item_price">Rp {{ number_format($row->price) }}</i></p>
+							<p><i class="item_price">Rp {{ number_format($row->sell_price) }}</i></p>
 						</div>
 					</div>
 				</div>
