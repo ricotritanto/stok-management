@@ -48,12 +48,7 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
-        $a = $request->all();
-        // $this->validate($request, [
-        //         'product' => 'required',
-        //         'qty' => 'required',
-        //         'suplier' =>'required',
-        // ]);
+        $a = $request->all();\
         $idpro = $a['product'];
         $facture = $a['facture'];
         $total = $a['total'];

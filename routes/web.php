@@ -32,7 +32,7 @@ Auth::routes();
 //     return view('layouts/master');
 // });
 Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
-    Route::get('/home', 'HomeController@index')->name('home.index');
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/category', 'CategoryController')->except([
         'create']);
     Route::group(['prefix' => 'category'], function()

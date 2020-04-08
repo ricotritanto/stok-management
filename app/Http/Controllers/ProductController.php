@@ -43,7 +43,7 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'code' => 'required|string|max:11',
             'serial' => 'required|string|max:255',
-            'image' => 'image|mimes:png,jpg,jpeg'
+            'image' => 'nullable|image|mimes:png,jpg,jpeg'
         ]);
 
          if($request->hasFile('image')){
