@@ -29,26 +29,21 @@
 		<div class="container">	
 			<div class="w3ls_about_grids">
 				<div class="col-md-6 w3ls_about_grid_left">
-					<p>Duis aute irure dolor in reprehenderit in voluptate velit esse 
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-						cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-						anim id est laborum.</p>
+					<p>Di era modern saat ini dan tindakan kejahatan yang semakin meningkat membuat kami bergerak untuk memberi solusi keamanan di masyarakat.
+					</p>
 					<div class="col-xs-2 w3ls_about_grid_left1">
 						<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 					</div>
 					<div class="col-xs-10 w3ls_about_grid_left2">
-						<p>Sunt in culpa qui officia deserunt mollit 
-							anim id est laborum.Duis aute irure dolor in reprehenderit in voluptate velit esse 
-						cillum dolore eu fugiat nulla pariatur.</p>
+						<p>STARCCTV sebagai salah satu pusat CCTV di Semarang berdiri dengan tujuan memenuhi kebutuhan teknologi keamanan di masyarakat. Dengan menerapkan standar High Quality Product serta memiliki teknisi handal yang berpengalaman dibidang solusi keamanan dan teknologi, membuat kami percaya
+						 bahwa seiring berjalannya waktu STARCCTV.ID akan bertumbuh dan berkembang dengan mengedepankan unsur teknologi terbaru dibidangnya. </p>
 					</div>
 					<div class="clearfix"> </div>
 					<div class="col-xs-2 w3ls_about_grid_left1">
 						<span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
 					</div>
 					<div class="col-xs-10 w3ls_about_grid_left2">
-						<p>Sunt in culpa qui officia deserunt mollit 
-							anim id est laborum.Duis aute irure dolor in reprehenderit in voluptate velit esse 
-						cillum dolore eu fugiat nulla pariatur.</p>
+						<p>Sekarang ini STARCCTV telah berkembang dan memiliki beberapa client terutama wilayah kota Semarang.</p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
@@ -114,9 +109,9 @@
 					</div>
 				</div>
 				<div class="clearfix"> </div>
-				<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-					voluptatibus maiores alias consequatur aut perferendis doloribus asperiores 
-					repellat.</p>
+				<p>I have an idea of who I want to be, I have a vision of my own success.
+					– A. P. J. Abdul Kalam
+				</p>
 			</div>
 		</div>
 	</div>

@@ -75,6 +75,8 @@
                                             <td>{{$row->email}}</td>
                                             <td>{{$row->phone}}</td>
                                             <td>{{$row->address}}</td>
+                                            <td>{{$row->city}}</td>
+                                            <TD>{{$row->postal_code}}
                                             <td>{{$row->created_at}}</td>
                                             <td>
                                                 <!-- FORM UNTUK MENGHAPUS DATA PRODUK -->

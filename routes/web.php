@@ -35,6 +35,7 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/category', 'CategoryController')->except([
         'create']);
+    
     Route::group(['prefix' => 'category'], function()
     {
         Route::get('/create','CategoryController@create')->name('category.create');
