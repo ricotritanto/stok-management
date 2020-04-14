@@ -126,7 +126,7 @@
                         </div>
                         <div class="col-md-12 modal_body_right">
                             <h2>{{$row->name}}</h2>
-                            <p>{{$row->description}}</p>
+                            <p>{!!$row->description !!}</p>
                         <div class="rating">
                             <strong> Serial Number : {{$row->serial}} <br>
                                       Code Product : {{$row->code}}

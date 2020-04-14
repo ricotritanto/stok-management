@@ -38,7 +38,7 @@
 <!-- //end-smooth-scrolling --> 
 </head> 
 <body>
-	
+<script type="text/javascript" src="{{ asset('ecommerce/thema-b/js/bootstrap-3.1.1.min.js')}}"></script>
 	<!-- header modal -->
 	<!-- header -->
 	<div class="header" id="home1">

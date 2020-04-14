@@ -79,7 +79,7 @@ class PurchaseController extends Controller
         {
             $purchaserepo = new PurchaseRepository;
             $purchase = $purchaserepo->purchase($data);
-            return redirect('purchase')->with(['success' => 'Save Success']);
+            return redirect(route('purchase.index'))->with(['success' => 'Save Success']);
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);

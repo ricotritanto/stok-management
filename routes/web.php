@@ -26,11 +26,6 @@ Route::get('/faq', 'Ecommerce\FrontController@faq')->name('front.faq');
 //============================== BackEnd ===========================================//
 Auth::routes();
 
-// Route::get('/', 'HomeController@index')->name('home.index');
-// Route::get('/logout', 'HomeController@logout');
-// Route::get('/', function () {
-//     return view('layouts/master');
-// });
 Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/category', 'CategoryController')->except([

@@ -120,7 +120,7 @@ class IssuingController extends Controller
                 $d = $key['kembali'];
             }
             
-            return redirect('issuing')->with(['modal_message_error' => 'Save Success',
+            return redirect(route('issuing'))->with(['modal_message_error' => 'Save Success',
                                                 'facture' => $a,
                                                 'grandtot' => $b,
                                                 'bayar' => $c,

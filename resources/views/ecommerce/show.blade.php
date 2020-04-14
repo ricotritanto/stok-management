@@ -84,8 +84,7 @@
 						<div class="agile_ecommerce_tab_left mobiles_grid">
 							<div class="hs-wrapper hs-wrapper3">
 								<img src="{{ asset('storage/products/' . $row->image) }}" alt=" " class="img-responsive" />
-								<img src="{{ asset('storage/products/' . $row->image) }}" alt=" " class="img-responsive" />
-							
+								<img src="{{ asset('storage/products/' . $row->image) }}" alt=" " class="img-responsive" />							
 							</div>
 							<h5><a href="{{ url('/product/' . $row->slug) }}">{{$row->name}} </a></h5>
 							<div class="simpleCart_shelfItem"> 
