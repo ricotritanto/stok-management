@@ -77,11 +77,13 @@
                                     </select>
                                     <p class="text-danger">{{ $errors->first('suplier_id') }}</p>
                                 </td>
+                                <td><h3><label for="name">(F2)</label></h3></td>
                                 <tr></tr>                 
                                 <td> <label for="name">Product Code</label></td>
                                 <td>:</td>
                                 <td> <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
-                                <td><button type="submit" id="btn" class="btn btn-primary">Insert</button></td> 
+                                <td><button type="submit" id="btn" class="btn btn-primary">Insert</button></td>
+                                <td><h3><label for="name">(F1)</label></h3></td> 
                             </tbody>
                         </table>            
                         <div class="form-group" id="detailpro">
@@ -130,7 +132,7 @@
                                                 <td><label for="name">GRAND TOTAL</label></td>
                                                 <td>:</td>                                          
                                                 <td><input type="text" name="grandtot" class="form-control"  style="font-weight: bold; "  id="grandtot" readonly=""/></td>
-                                                <td><button class="btn btn-warning">Save</button></td> 
+                                                <td><button id="save" class="btn btn-warning">Save</button>&nbsp;&nbsp;  <i><strong> / (F4)</strong></i></td>
                                             </tbody>
                                     </table>
                             </div>
@@ -317,9 +319,13 @@ function deleterow(e) // function untuk delete row pada list cart
             case 113:
                $("#suplier").focus();
                 break;
-            // F3
-            case 114:
+            // F1
+            case 112:
                $("#code").focus();
+                break;
+            // F4
+            case 115:
+               $("#save").focus();
                 break;
             // F5
             case 116:

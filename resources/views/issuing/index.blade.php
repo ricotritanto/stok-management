@@ -48,12 +48,7 @@
                     <div class="col-md-8">
                         @card
                             @slot('title')                            
-                            @endslot                            
-                            <!-- @if (session('success'))
-                                @alert(['type' => 'success'])
-                                    {!! session('success') !!}
-                                @endalert
-                            @endif   -->                          
+                            @endslot                           
                             @if(session('modal_message_error'))
                                 <script type="text/javascript">
                                     $(document).ready(function() {
@@ -79,12 +74,14 @@
                                     <p class="text-danger">{{ $errors->first('customer_id') }}</p></td>
                                 <td>
                                     <a href="{{route('customer.create')}}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a></td>
+                                <td><h3><label for="name">(F2)</label></h3></td>
                                 <tr></tr>                 
                                 <td> <label for="code">Product Code</label></td>
                                 <td>:</td>
                                 <td> 
                                     <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
                                 <td><button type="submit" id="btn" class="btn btn-primary">To Cart</button></td> 
+                                <td><h3><label for="name">(F1)</label></h3></td>
                                 </tbody>
                         </table>
 
@@ -137,12 +134,15 @@
                                             <td><input type="text" name="kembali" class="form-control" id="kembali" style="font-weight: bold;color:red;"readonly="" /></td> 
 
                                             <tr></tr>                                           
-                                            <td> <label for="name">CASH</label></td>
+                                            <td> <label for="name">CASH</label> - <i> <strong>tekan (F10)</strong></i></td>
                                             <td>:</td>
                                             <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar" required="" /></td>
                                             <td></td>
                                             <td></td>
-                                            <td><button type="submit" id="payment" class="btn btn-warning"><i class="fa fa-credit-card"></i><b> Save Payment</b></button>
+                                            <td>
+                                                <button type="submit" id="payment" class="btn btn-warning">
+                                                <i class="fa fa-credit-card"></i><b> Save Payment</b></button>&nbsp;&nbsp;  <i><strong> / (F4)</strong></i>
+                                            </td>
                                             </tbody>
                                     </table>
                                     </div>
@@ -398,8 +398,8 @@ function printinvoice() {
             case 113:
                $("#customer").focus();
                 break;
-            // F3
-            case 114:
+            // F1
+            case 112:
                $("#code").focus();
                 break;
             // F4
