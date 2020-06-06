@@ -57,6 +57,7 @@ class PurchaseController extends Controller
         $date = $a['date'];
         $suplier = $a['suplier'];
         
+
         $data =array();
 
         $index=0;
