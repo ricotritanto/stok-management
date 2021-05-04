@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Barcode extends Model
 {
-    //
+    // public function barcode()
+    // {
+    //     return view('barcode');
+    // }
 }

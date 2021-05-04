@@ -28,6 +28,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function barcode()
+    {
+        return view('barcode');
+    }
+
     public function logout(){
         Session::flush();
         return redirect('login')->with('alert','Kamu sudah logout');
