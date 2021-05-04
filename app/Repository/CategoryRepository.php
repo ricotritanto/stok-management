@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use App\Category;
+// use App\User;
 
 class CategoryRepository{
 
