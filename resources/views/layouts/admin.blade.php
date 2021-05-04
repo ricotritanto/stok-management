@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
 
-    
+
 
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
     @yield('title')
@@ -32,31 +32,31 @@
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     @include('layouts.module.header')
-  
+
     <div class="app-body" id="dw">
         <div class="sidebar">
-            
+
             @include('layouts.module.sidebar')
-          
+
             <button class="sidebar-minimizer brand-minimizer" type="button"></button>
         </div>
-      
+
       	<!-- BAGIAN INI AKAN DI-REPLACE SESUAI ISI YANG DIAPIT DARI @SECTION('CONTENT') -->
         @yield('content')
-      
+
     </div>
 
     <footer class="app-footer">
         <div>
-            <a href="https://coreui.io">StarCCTV</a>
+            <!-- <a href="www.masjackdotcom.wordpress.com">masjackdotcom</a> -->
             <span>&copy; 2018 creativeLabs.</span>
         </div>
         <div class="ml-auto">
             <span>Powered by</span>
-            <a href="https://coreui.io">CoreUI</a>
+            <a href="https://www.masjackdotcom.wordpress.com">MasJackDotcom</a>
         </div>
     </footer>
-    
+
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
