@@ -17,6 +17,10 @@ class AddRelationshipsToProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+
+            $table->foreign('satuan_id')->references('id')->on('satuan')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 

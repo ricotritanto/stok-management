@@ -30,16 +30,29 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/category', 'CategoryController')->except([
         'create']);
-        
+
     Route::get('barcode', 'HomeController@barcode');
-    
+
+    // MASTER DATA
     Route::group(['prefix' => 'category'], function()
     {
         Route::get('/create','CategoryController@create')->name('category.create');
         Route::post('/store','CategoryController@store')->name('category.store');
         Route::delete('/{$id}','CategoryController@destroy')->name('category.destroy');
         Route::get('/{$id}/edit','CategoryController@edit')->name('category.edit');
-        Route::put('/{$id}','CategoryController@update')->name('category.update');    
+        Route::put('/{$id}','CategoryController@update')->name('category.update');
+    });
+
+    Route::resource('/satuan', 'SatuanController')->except([
+        'create','show']);
+    Route::group(['prefix' => 'satuan'], function()
+    {
+        Route::get('/','SatuanController@index')->name('satuan.index');
+        Route::get('/create','SatuanController@create')->name('satuan.create');
+        Route::post('/store','SatuanController@store')->name('satuan.store');
+        Route::delete('/{$id}','SatuanController@destroy')->name('satuan.destroy');
+        Route::get('/{$id}/edit','SatuanController@edit')->name('satuan.edit');
+        Route::put('/{$id}','SatuanController@update')->name('satuan.update');
     });
 
     Route::resource('/product', 'ProductController')->except([
@@ -54,6 +67,7 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
         Route::Put('/{$id}','ProductController@update')->name('product.update');
     });
 
+    // MASTER CONTACT
     Route::resource('/suplier', 'SuplierController')->except([
         'create', 'show']);
     Route::group(['prefix' => 'suplier'], function()
@@ -75,8 +89,10 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
         Route::post('/store','CustomerController@store')->name('customer.store');
         Route::delete('/{$id}','CustomerController@destroy')->name('customer.destroy');
         Route::get('/{$id}/edit','CustomerController@edit')->name('customer.edit');
-        Route::put('/{$id}','CustomerController@update')->name('customer.update');    
+        Route::put('/{$id}','CustomerController@update')->name('customer.update');
     });
+
+    // MASTER MANAJEMEN ORDER
 
     Route::resource('/purchase', 'PurchaseController')->except([
         'create', 'show']);
@@ -109,6 +125,8 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
 
     });
 
+    // MASTER MANAJEMEN LAPORAN
+
     Route::resource('/invoice', 'InvoiceController')->except([
         'create', 'show']);
     Route::group(['prefix' => 'invoice'], function()
@@ -118,7 +136,7 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
         Route::get('/invis/{issuing_facture}','InvoiceController@invis')->name('invoice.invis');
         Route::get('/print_invis/{issuing_facture}','InvoiceController@print_invis')->name('invoice.print_invis');
         Route::get('/download/{issuing_facture}','InvoiceController@download')->name('invoice.download');
-        
+
         Route::get('/report_purchase','InvoiceController@report_purchase')->name('invoice.report_purchase');
         Route::GET('/purchase','InvoiceController@purchase')->name('invoice.purchase');
         Route::get('/inchase/{purchase_facture}','InvoiceController@inchase')->name('invoice.inchase');

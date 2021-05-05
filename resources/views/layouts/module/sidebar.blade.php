@@ -18,7 +18,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('satuan.index')}}">
                         <i class="fa fa-check-circle-o nav-icon"></i> Satuan
                     </a>
                 </li>
@@ -64,7 +64,7 @@
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     <i class="nav-icon icon-settings"></i> Pembelian
                 </a>
-                
+
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('purchase.index')}}">

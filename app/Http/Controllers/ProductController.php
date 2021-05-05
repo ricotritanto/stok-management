@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use File;
 use App\Product;
 use App\Category;
+use App\Satuan;
 
 class ProductController extends Controller
 {
@@ -14,10 +15,10 @@ class ProductController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
-        $product = Product::with(['category'])->orderBy('created_at', 'DESC');
+        $product = Product::with(['category','satuan'])->orderBy('created_at', 'DESC');
         if(request()->q != '') {
             $product = $product->where('name', 'like', '%'. request()->q.'%');
         }
@@ -28,15 +29,17 @@ class ProductController extends Controller
     public function create()
     {
     	$category = Category::orderBy('name','DESC')->get();
-    	return view('product.create', compact('category'));
+        $satuan = Satuan::orderBy('name','DESC')->get();
+    	return view('product.create', compact('category','satuan'));
 
     }
 
     public function store(Request $request)
-    {
+    {print($request);
         $this->validate($request, [
             'name'  => 'required|max:100',
             'category_id' => 'required|integer',
+            'satuan_id' => 'required|integer',
             'purchase' => 'required|integer',
             'sell'=> 'required|integer',
             'stock' => 'required|integer|max:30',
@@ -59,6 +62,7 @@ class ProductController extends Controller
                 'serial' => $request->serial,
                 'code' => $request->code,
                 'category_id' => $request->category_id,
+                'satuan_id' => $request->satuan_id,
                 'description' => $request->description,
                 'image' => $filename,
                 'purchase_price' => $request->purchase,
@@ -69,7 +73,7 @@ class ProductController extends Controller
 
             return redirect(route ('product.index'))->with(['success'=> 'Add products Success !']);
         }
-        
+
     }
 
     public function destroy($id)
@@ -85,7 +89,7 @@ class ProductController extends Controller
     {
         $product = Product::Find($id);
         $category = Category::orderBy('Name', 'DESC')->get();
-        
+
         return view('product.edit', compact('product', 'category'));
     }
 
@@ -94,6 +98,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'name'  => 'required|max:100',
             'category_id' => 'required|integer',
+            'satuan_id' => 'required|integer',
             'purchase' => 'required|integer',
             'sell'=> 'required|integer',
             'stock' => 'required|integer|max:30',
@@ -106,7 +111,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         $filename = $product->image;
-        
+
          //jika ada file gambar yg dikirim maka,
         if($request->hasFile('image')) {
             $file = $request->file('image');
@@ -122,6 +127,7 @@ class ProductController extends Controller
             'serial' => $request->serial,
             'code' => $request->code,
             'category_id' => $request->category_id,
+            'satuan_id' => $request->satuan_id,
             'description' => $request->description,
             'image' => $filename,
             'purchase_price' => $request->purchase,

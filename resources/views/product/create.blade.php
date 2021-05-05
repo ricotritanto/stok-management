@@ -12,7 +12,7 @@
     </ol>
     <div class="container-fluid">
         <div class="animated fadeIn">
-          
+
           	<!-- TAMBAHKAN ENCTYPE="" KETIKA MENGIRIMKAN FILE PADA FORM -->
             <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data" >
                 @csrf
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Serial Number</label>
-                                    <input type="text" name="serial" id="serial" required 
+                                    <input type="text" name="serial" id="serial" required
                                         class="form-control" value="{{ old('serial') }}">
                                         <p class="text-danger">{{ $errors->first('serial') }}</p>
                                 </div>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                  
+
                                     <!-- TAMBAHKAN ID YANG NNTINYA DIGUNAKAN UTK MENGHUBUNGKAN DENGAN CKEDITOR -->
                                     <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
                                     <p class="text-danger">{{ $errors->first('description') }}</p>
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="category_id">Category</label>
-                                    
+
                                     <!-- DATA KATEGORI DIGUNAKAN DISINI, SEHINGGA SETIAP PRODUK USER BISA MEMILIH KATEGORINYA -->
                                     <select name="category_id" class="form-control">
                                         <option value="">Option</option>
@@ -71,6 +71,18 @@
                                         @endforeach
                                     </select>
                                     <p class="text-danger">{{ $errors->first('category_id') }}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category_id">Satuan</label>
+
+                                    <!-- DATA KATEGORI DIGUNAKAN DISINI, SEHINGGA SETIAP PRODUK USER BISA MEMILIH KATEGORINYA -->
+                                    <select name="category_id" class="form-control">
+                                        <option value="">Option</option>
+                                        @foreach ($satuan as $row)
+                                        <option value="{{ $row->id }}" {{ old('satuan_id') == $row->id ? 'selected':'' }}>{{ $row->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <p class="text-danger">{{ $errors->first('satuan') }}</p>
                                 </div>
                                 <div class="form-group">
                                     <label for="purchase">Purchase Price</label>
@@ -109,7 +121,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
    var tanpa_rupiah = document.getElementById('purchase');
-    
+
     tanpa_rupiah.addEventListener('keyup', function(e)
     {
         tanpa_rupiah.value = formatRupiah(this.value);
@@ -122,18 +134,18 @@ $(document).ready(function(){
             sisa    = split[0].length % 3,
             rupiah  = split[0].substr(0, sisa),
             ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
-            
+
         if (ribuan) {
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
-        
+
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 
-    
-    
+
+
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -143,7 +155,7 @@ $(document).ready(function(){
         abc.value = formatsell(this.value);
     });
 })
-    
+
     function formatsell(angka, prefix)
     {
         var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -151,12 +163,12 @@ $(document).ready(function(){
             sisa    = split[0].length % 3,
             rupiah  = split[0].substr(0, sisa),
             ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
-            
+
         if (ribuan) {
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
-        
+
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }

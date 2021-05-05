@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\category;
+use App\satuan;
 use App\purchase_detail;
 
 class Product extends Model
@@ -25,15 +26,20 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function satuan()
+    {
+        return $this->belongsTo(Satuan::class);
+    }
+
     public function purchase_detail()//relasi dengan tabel product
 	 {
 		 // jenis relasi one to many, category bisa digunakan oleh banyak product
-		 return $this->hasMany(Purchase_detail::class, 'id', 'purchase_detail');  
+		 return $this->hasMany(Purchase_detail::class, 'id', 'purchase_detail');
      }
-     
+
     public function setSlugAttribute($value)
     {
-        $this->attributes['slug'] = Str::slug($value); 
+        $this->attributes['slug'] = Str::slug($value);
     }
 
 
