@@ -15,7 +15,8 @@
 
           	<!-- TAMBAHKAN ENCTYPE="" KETIKA MENGIRIMKAN FILE PADA FORM -->
             <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data" >
-                @csrf
+                <!-- @csrf -->
+                {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
@@ -76,7 +77,7 @@
                                     <label for="category_id">Satuan</label>
 
                                     <!-- DATA KATEGORI DIGUNAKAN DISINI, SEHINGGA SETIAP PRODUK USER BISA MEMILIH KATEGORINYA -->
-                                    <select name="category_id" class="form-control">
+                                    <select name="satuan_id" class="form-control">
                                         <option value="">Option</option>
                                         @foreach ($satuan as $row)
                                         <option value="{{ $row->id }}" {{ old('satuan_id') == $row->id ? 'selected':'' }}>{{ $row->name }}</option>
@@ -86,12 +87,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="purchase">Purchase Price</label>
-                                    <input type="number" name="purchase" class="form-control" value="{{ old('purchase') }}" required>
+                                    <input type="text" name="purchase" id="purchase" class="form-control" value="{{ old('purchase') }}" required>
                                     <p class="text-danger">{{ $errors->first('purchase') }}</p>
                                 </div>
                                 <div class="form-group">
                                     <label for="sell">Sell Price</label>
-                                    <input type="number" name="sell" class="form-control" value="{{ old('sell') }}" required>
+                                    <input type="text" name="sell" id="sell" class="form-control" value="{{ old('sell') }}" required>
                                     <p class="text-danger">{{ $errors->first('sell') }}</p>
                                 </div>
                                 <div class="form-group">
@@ -101,7 +102,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="image">Picture Product</label>
-                                    <input type="file" name="image" class="form-control" value="{{ old('image') }}" required>
+                                    <input type="file" name="imagefile" id="imagefile" class="form-control" value="{{ old('image') }}" >
                                     <p class="text-danger">{{ $errors->first('image') }}</p>
                                 </div>
                                 <div class="form-group">

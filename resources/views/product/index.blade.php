@@ -19,7 +19,7 @@
                         <div class="card-header">
                             <h4 class="card-title">
                                 List Products
-                              
+
                                 <!-- BUAT TOMBOL UNTUK MENGARAHKAN KE HALAMAN ADD PRODUK -->
                                 <a href="#" class="btn btn-danger btn-sm">Mass Upload</a>
                                 <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm float-right">Tambah</a>
@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                             </form>
-                          
+
                             <!-- TABLE UNTUK MENAMPILKAN DATA PRODUK -->
                             <div class="table-responsive"  id="product">
                                 <table class="table table-hover table-bordered">
@@ -117,7 +117,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                        
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <section>
                     <div class="modal-body">

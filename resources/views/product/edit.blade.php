@@ -12,7 +12,7 @@
     </ol>
     <div class="container-fluid">
         <div class="animated fadeIn">
-          
+
           	<!-- PASTIKAN MENGIRIMKAN ID PADA ROUTE YANG DIGUNAKAN -->
             <form action="{{ route('product.update', $product->id) }}" method="post" enctype="multipart/form-data" >
                 @csrf
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Serial Number</label>
-                                    <input type="text" name="serial" id="serial" required 
+                                    <input type="text" name="serial" id="serial" required
                                         class="form-control" value="{{ $product->serial }}">
                                         <p class="text-danger">{{ $errors->first('serial') }}</p>
                                 </div>
@@ -74,12 +74,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="purchase">Purchase Price</label>
-                                    <input type="number" name="purchase" class="form-control" value="{{ $product->purchase_price }}" required>
+                                    <input type="text" name="purchase" id="purchase" class="form-control" value="{{ $product->purchase_price }}" required>
                                     <p class="text-danger">{{ $errors->first('purchase') }}</p>
                                 </div>
                                 <div class="form-group">
                                     <label for="Sell">Sell Price</label>
-                                    <input type="number" name="sell" class="form-control" value="{{ $product->sell_price }}" required>
+                                    <input type="text" name="sell" id="sell" class="form-control" value="{{ $product->sell_price }}" required>
                                     <p class="text-danger">{{ $errors->first('sell') }}</p>
                                 </div>
                                 <div class="form-group">
@@ -87,7 +87,7 @@
                                     <input type="number" name="stock" class="form-control" value="{{ $product->stocks }}" required>
                                     <p class="text-danger">{{ $errors->first('weigstockht') }}</p>
                                 </div>
-                              
+
                               	<!-- GAMBAR TIDAK LAGI WAJIB, JIKA DIISI MAKA GAMBAR AKAN DIGANTI, JIKA DIBIARKAN KOSONG MAKA GAMBAR TIDAK AKAN DIUPDATE -->
                                 <div class="form-group">
                                     <label for="image">Picture Product</label>
@@ -95,7 +95,7 @@
                                   	<!--  TAMPILKAN GAMBAR SAAT INI -->
                                     <img src="{{ asset('storage/products/' . $product->image) }}" width="100px" height="100px" alt="{{ $product->name }}">
                                     <hr>
-                                    <input type="file" name="image" class="form-control">
+                                    <input type="file" name="imagefile" class="form-control">
                                     <p><strong>Biarkan kosong jika tidak ingin mengganti gambar</strong></p>
                                     <p class="text-danger">{{ $errors->first('image') }}</p>
                                 </div>
@@ -115,8 +115,8 @@
 <script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-   var tanpa_rupiah = document.getElementById('pprice');
-    
+   var tanpa_rupiah = document.getElementById('purchase');
+
     tanpa_rupiah.addEventListener('keyup', function(e)
     {
         tanpa_rupiah.value = formatRupiah(this.value);
@@ -129,28 +129,28 @@ $(document).ready(function(){
             sisa    = split[0].length % 3,
             rupiah  = split[0].substr(0, sisa),
             ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
-            
+
         if (ribuan) {
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
-        
+
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 
-    
-    
+
+
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
-    var abc = document.getElementById('sprice');
+    var abc = document.getElementById('sell');
     abc.addEventListener('keyup', function(e)
     {
         abc.value = formatsell(this.value);
     });
 })
-    
+
     function formatsell(angka, prefix)
     {
         var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -158,12 +158,12 @@ $(document).ready(function(){
             sisa    = split[0].length % 3,
             rupiah  = split[0].substr(0, sisa),
             ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
-            
+
         if (ribuan) {
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
-        
+
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
