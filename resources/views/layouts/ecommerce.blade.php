@@ -10,17 +10,17 @@
 	function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
 <!-- Custom Theme files -->
-<link href="{{ asset('ecommerce/thema-b/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('ecommerce/thema-b/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('ecommerce/thema-b/css/fasthover.css')}}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('ecommerce/thema-b/css/popuo-box.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('public/ecommerce/thema-b/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('public/ecommerce/thema-b/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('public/ecommerce/thema-b/css/fasthover.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('public/ecommerce/thema-b/css/popuo-box.css')}}" rel="stylesheet" type="text/css" media="all" />
 <!-- //Custom Theme files -->
 <!-- font-awesome icons -->
-<link href="{{ asset('ecommerce/thema-b/css/font-awesome.css')}}" rel="stylesheet"> 
+<link href="{{ asset('public/ecommerce/thema-b/css/font-awesome.css')}}" rel="stylesheet"> 
 <!-- //font-awesome icons -->
 <!-- js -->
-<script src="{{ asset('ecommerce/thema-b/js/jquery.min.js')}}"></script>
-<link rel="stylesheet" href="{{ asset('ecommerce/thema-b/css/jquery.countdown.css')}}" /> <!-- countdown --> 
+<script src="{{ asset('public/ecommerce/thema-b/js/jquery.min.js')}}"></script>
+<link rel="stylesheet" href="{{ asset('public/ecommerce/thema-b/css/jquery.countdown.css')}}" /> <!-- countdown --> 
 <!-- //js -->  
 <!-- web fonts --> 
 <link href='//fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
@@ -38,7 +38,7 @@
 <!-- //end-smooth-scrolling --> 
 </head> 
 <body>
-<script type="text/javascript" src="{{ asset('ecommerce/thema-b/js/bootstrap-3.1.1.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('public/ecommerce/thema-b/js/bootstrap-3.1.1.min.js')}}"></script>
 	<!-- header modal -->
 	<!-- header -->
 	<div class="header" id="home1">
@@ -120,7 +120,7 @@
 		<div class="footer-copy">
 			<div class="footer-copy1">
 				<div class="footer-copy-pos">
-					<a href="#home1" class="scroll"><img src="{{ asset('ecommerce/thema-b/images/arrow.png')}}" alt=" " class="img-responsive" /></a>
+					<a href="#home1" class="scroll"><img src="{{ asset('public/ecommerce/thema-b/images/arrow.png')}}" alt=" " class="img-responsive" /></a>
 				</div>
 			</div>
 			<div class="container">
@@ -130,7 +130,7 @@
 	</div>
 	<!-- //footer --> 
 	<!-- cart-js -->
-	<script src="{{ asset('ecommerce/thema-b/js/minicart.js')}}"></script>
+	<script src="{{ asset('public/ecommerce/thema-b/js/minicart.js')}}"></script>
 	<script>
         w3ls.render();
 

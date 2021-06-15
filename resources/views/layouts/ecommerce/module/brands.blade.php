@@ -5,19 +5,19 @@
 			<div class="sliderfig">
 				<ul id="flexiselDemo1">			
 					<li>
-						<img src="{{ asset('ecommerce/thema-b/images/tb1.jpg')}}" alt=" " class="img-responsive" />
+						<img src="{{ asset('public/ecommerce/thema-b/images/tb1.jpg')}}" alt=" " class="img-responsive" />
 					</li>
 					<li>
-						<img src="{{ asset('ecommerce/thema-b/images/tb2.jpg')}}" alt=" " class="img-responsive" />
+						<img src="{{ asset('public/ecommerce/thema-b/images/tb2.jpg')}}" alt=" " class="img-responsive" />
 					</li>
 					<li>
-						<img src="{{ asset('ecommerce/thema-b/images/tb3.jpg')}}" alt=" " class="img-responsive" />
+						<img src="{{ asset('public/ecommerce/thema-b/images/tb3.jpg')}}" alt=" " class="img-responsive" />
 					</li>
 					<li>
-						<img src="{{ asset('ecommerce/thema-b/images/hikvision.jpg')}}" alt=" " class="img-responsive" />
+						<img src="{{ asset('public/ecommerce/thema-b/images/hikvision.jpg')}}" alt=" " class="img-responsive" />
 					</li>
 					<li>
-						<img src="{{ asset('ecommerce/thema-b/images/tb5.jpg')}}" alt=" " class="img-responsive" />
+						<img src="{{ asset('public/ecommerce/thema-b/images/tb5.jpg')}}" alt=" " class="img-responsive" />
 					</li>
 				</ul>
 			</div>
@@ -48,7 +48,7 @@
 						
 					});
 			</script>
-			<script type="text/javascript" src="{{ asset('ecommerce/thema-b/js/jquery.flexisel.js')}}"></script>
+			<script type="text/javascript" src="{{ asset('public/ecommerce/thema-b/js/jquery.flexisel.js')}}"></script>
 		</div>
 	</div>
 	<!-- //top-brands --> 
