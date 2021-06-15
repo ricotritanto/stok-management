@@ -15,8 +15,8 @@
 
           	<!-- TAMBAHKAN ENCTYPE="" KETIKA MENGIRIMKAN FILE PADA FORM -->
             <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data" >
-                <!-- @csrf -->
-                {{ csrf_field() }}
+                @csrf
+                <!-- {{ csrf_field() }} -->
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="image">Picture Product</label>
-                                    <input type="file" name="imagefile" id="imagefile" class="form-control" value="{{ old('image') }}" >
+                                    <input type="file" name="imagefile" class="form-control" value="{{ old('image') }}" >
                                     <p class="text-danger">{{ $errors->first('image') }}</p>
                                 </div>
                                 <div class="form-group">

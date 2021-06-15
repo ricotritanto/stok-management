@@ -34,6 +34,11 @@
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="#">
+                        <i class="fa fa-print nav-icon"></i> Barcode
+                    </a>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#">
                         <i class="fa fa-check-circle-o nav-icon"></i> Import Excel
                     </a>
                 </li> -->

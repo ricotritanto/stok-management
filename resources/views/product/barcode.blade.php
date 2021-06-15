@@ -73,18 +73,6 @@
                                     <p class="text-danger">{{ $errors->first('category_id') }}</p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="satuan_id">Satuan</label>
-
-                                    <!-- DATA KATEGORI DIGUNAKAN DISINI, SEHINGGA SETIAP PRODUK USER BISA MEMILIH KATEGORINYA -->
-                                    <select name="satuan_id" class="form-control">
-                                        <option value="">Option</option>
-                                        @foreach ($satuan as $row)
-                                        <option value="{{ $row->id }}" {{  $product->category_id == $row->id ? 'selected':'' }}>{{ $row->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <p class="text-danger">{{ $errors->first('satuan_id') }}</p>
-                                </div>
-                                <div class="form-group">
                                     <label for="purchase">Purchase Price</label>
                                     <input type="text" name="purchase" id="purchase" class="form-control" value="{{ $product->purchase_price }}" required>
                                     <p class="text-danger">{{ $errors->first('purchase') }}</p>
@@ -122,68 +110,4 @@
         </div>
     </div>
 </main>
-@endsection
-<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
-<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-   var tanpa_rupiah = document.getElementById('purchase');
-
-    tanpa_rupiah.addEventListener('keyup', function(e)
-    {
-        tanpa_rupiah.value = formatRupiah(this.value);
-    });
-})
-    function formatRupiah(angka, prefix)
-    {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split   = number_string.split(','),
-            sisa    = split[0].length % 3,
-            rupiah  = split[0].substr(0, sisa),
-            ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    }
-
-
-
-</script>
-<script type="text/javascript">
-    $(document).ready(function(){
-    var abc = document.getElementById('sell');
-    abc.addEventListener('keyup', function(e)
-    {
-        abc.value = formatsell(this.value);
-    });
-})
-
-    function formatsell(angka, prefix)
-    {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split   = number_string.split(','),
-            sisa    = split[0].length % 3,
-            rupiah  = split[0].substr(0, sisa),
-            ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    }
-    </script>
-@section('js')
-    <!-- <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script> -->
-    <script src="{{ asset('assets/ckeditor/ckeditor.js')}}"></script>
-    <script>
-        CKEDITOR.replace('description');
-    </script>
 @endsection

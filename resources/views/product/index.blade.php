@@ -69,7 +69,12 @@
                                         @forelse ($product as $row)
                                         <tr>
                                             <td>{{$no++}}</td>
-                                            <td>{{$row->code}}</td>
+                                            <td>
+                                                <div class="barcode">
+                                                    {!! DNS1D::getBarcodeHTML($row->code, "C128",1.4,22) !!}
+                                                </div>
+                                                <p>{{$row->code}}</p>
+                                            </td>
                                             <td>
                                                 <strong>{{ $row->name }}</strong><br>
                                                 <!-- ADAPUN NAMA KATEGORINYA DIAMBIL DARI HASIL RELASI PRODUK DAN KATEGORI -->
@@ -80,7 +85,8 @@
                                             <td>{{number_format($row->sell_price,0,",",".")}}</td>
                                             <td>{{$row->stocks}}</td>
                                             <td>
-                                                <a href="#" data-toggle="modal" data-target="#product"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> detail</a>
+                                                <img src="{{ asset('storage/products/' . $row->image) }}" width="50px" height="50px" class="img-responsive" alt="{{ $row->name }}"/>
+                                            <!-- <a href="#" data-toggle="modal" data-target="#product" data-id="{{ $row->id }}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> detail</a> -->
                                             </td>
                                             <td>{!! $row->status_label !!}</td>
                                             <td>{{$row->created_at->format('d-m-Y')}}</td>
@@ -91,6 +97,7 @@
                                                     @method('DELETE')
                                                     <a href="{{ route('product.edit', $row->id) }}" class="btn btn-warning btn-sm">Update</a>
                                                     <button class="btn btn-danger btn-sm">Delete</button>
+                                                    <a href="{{ route('product.barcode', $row->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-print" aria-hidden="true"></i>Barcode</a>
                                                 </form>
                                             </td>
                                         </tr>
@@ -112,7 +119,7 @@
     </div>
 </main>
 @endsection
-@forelse($product as $row)
+<!-- @forelse($product as $row)
 <div class="modal video-modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="myModal2">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -147,4 +154,4 @@
   <tr>
     <td colspan="13" class="text-center">Empty Data</td>
   </tr>
-  @endforelse
+  @endforelse -->

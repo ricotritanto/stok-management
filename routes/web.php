@@ -65,6 +65,7 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
         Route::delete('/{$id}','ProductController@destroy')->name('product.destroy');
         Route::get('/{$id}/edit','ProductController@edit')->name('product.edit');
         Route::Put('/{$id}','ProductController@update')->name('product.update');
+        Route::get('/{$id}/barcode','ProductController@barcode')->name('product.barcode');
     });
 
     // MASTER CONTACT

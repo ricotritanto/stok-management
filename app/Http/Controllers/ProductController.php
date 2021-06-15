@@ -9,6 +9,9 @@ use App\Category;
 use App\Satuan;
 use File;
 use Validator;
+use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Input;
 
 class ProductController extends Controller
 {
@@ -37,14 +40,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $file = $request->file('imagefile'); // simpan sementara divariabel file
-            //next nama filenya dibuat customer dgn gabungan time&slug fr product
-            $filename = time().Str::slug($request->name).'.'. $file->getClientOriginalExtension();
-            //save filenya ke folder public/products
-            $destinationPath = public_path('/products');
-            $file->move($destinationPath, $filename);
-
-            print_r($file);exit();
         $this->validate($request, [
             'name'  => 'required|max:100',
             'category_id' => 'required|integer',
@@ -56,17 +51,15 @@ class ProductController extends Controller
             'code' => 'required|string|max:11',
             'serial' => 'required|string|max:255',
             'status' => 'required',
-            'imagefile' => 'required|image|mimes:png,jpg,jpeg'
+            'imagefile' => 'required|file|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
-         if($request->hasFile('imagefile')){
+         if($request->hasFile(`imagefile`)){
             $file = $request->file('imagefile'); // simpan sementara divariabel file
             //next nama filenya dibuat customer dgn gabungan time&slug fr product
             $filename = time().Str::slug($request->name).'.'. $file->getClientOriginalExtension();
             //save filenya ke folder public/products
-            $destinationPath = public_path('/products');
-            $image->move($destinationPath, $filename);
-            // $file->storeAs('public/products', $filename);
+            $file->storeAs('public/products', $filename);
             $product = Product::create([
                 'name' => $request->name,
                 'slug' => $request->name,
@@ -98,8 +91,9 @@ class ProductController extends Controller
     {
         $product = Product::Find($id);
         $category = Category::orderBy('Name', 'DESC')->get();
+        $satuan = Satuan::orderBy('name','DESC')->get();
 
-        return view('product.edit', compact('product', 'category'));
+        return view('product.edit', compact('product', 'category','satuan'));
     }
 
     public function update(Request $request, $id)
@@ -114,21 +108,21 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'code' => 'required|string|max:11',
             'serial' => 'required|string|max:255',
-            'imagefile' => 'image|mimes:png,jpg,jpeg'
-
+            'status' => 'required',
+            'imagefile' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg'
         ]);
-
         $product = Product::find($id);
         $filename = $product->image;
-
          //jika ada file gambar yg dikirim maka,
-        if($request->hasFile('imagefile')) {
-            $file = $request->file('imagefile');
-            $filename = time() . Str::slug($request->name). '.'. $file->getClientOriginalExtension();
-            $file->storeAs('public/products', $filename);
-            //dan hapus file gambar yg lama
-            File::delete(storage_path('app/public/products/' .$product->image));
-        }
+        //  if($request->hasFile(`imagefile`)){
+        //     $file = $request->file('imagefile'); // simpan sementara divariabel file
+        //     // //next nama filenya dibuat customer dgn gabungan time&slug fr product
+        //     $filename = time().Str::slug($request->name).'.'. $file->getClientOriginalExtension();
+        //     // //save filenya ke folder public/products
+        //     $file->storeAs('public/products', $filename);
+        //     // //dan hapus file gambar yg lama
+        //     File::delete(storage_path('app/public/products/' .$product->image));
+        // }
 
         $product->update([
             'name' => $request->name,
@@ -145,5 +139,13 @@ class ProductController extends Controller
             'status' => $request->status
         ]);
         return redirect(route ('product.index'))->with(['success' => "Update Product Success..!!!"]);
+    }
+
+    public function barcode(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $category = Category::orderBy('Name', 'DESC')->get();
+
+        return view('product.barcode', compact('product', 'category'));
     }
 }
