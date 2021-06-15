@@ -19,17 +19,17 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;</button>
 					<!-- <h4 class="modal-title" id="myModalLabel">PROMO !!!</h4> -->
-					<img src="{{asset('ecommerce/thema-b/images/prom.jpg')}}" alt=" " class="img-responsive" />		
+					<img src="{{asset('public/ecommerce/thema-b/images/prom.jpg')}}" alt=" " class="img-responsive" />		
 				</div>
 				<div class="modal-body modal-body-sub">
 					<div class="row">
 						<div class="col-md-12 modal_body_left modal_body_left1" style="border-right: 0px dotted #C2C2C2;padding-right:3em;">
 							<div class="sap_tabs">	
 								<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
-									<img src="{{asset('ecommerce/thema-b/images/promo.jpg')}}" alt=" " class="img-responsive" />				            	      
+									<img src="{{asset('public/ecommerce/thema-b/images/promo.jpg')}}" alt=" " class="img-responsive" />				            	      
 								</div>	
 							</div>
-							<script src="{{ asset('ecommerce/thema-b/js/easyResponsiveTabs.js')}}" type="text/javascript"></script>
+							<script src="{{ asset('public/ecommerce/thema-b/js/easyResponsiveTabs.js')}}" type="text/javascript"></script>
 							<script type="text/javascript">
 								$(document).ready(function () {
 									$('#horizontalTab').easyResponsiveTabs({
