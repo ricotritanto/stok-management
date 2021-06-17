@@ -86,13 +86,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="purchase">Purchase Price</label>
-                                    <input type="text" name="purchase" id="purchase" class="form-control" value="{{ $product->purchase_price }}" required>
-                                    <p class="text-danger">{{ $errors->first('purchase') }}</p>
+                                        <input type="text" name="purchase" id="purchase" class="form-control" value="{{ $product->purchase_price }}" required/>
+                                        <!-- <input type="text" name="p_purchase" id="p_purchase" class="form-control col-sm-6" value="" readonly> -->
+                                        <p class="text-danger">{{ $errors->first('purchase') }}</p>
+                                        <b><span id="p_purchase" name="p_purchase" class="form-control text-danger" style="background:yellow;"></span></b>
                                 </div>
                                 <div class="form-group">
                                     <label for="Sell">Sell Price</label>
                                     <input type="text" name="sell" id="sell" class="form-control" value="{{ $product->sell_price }}" required>
                                     <p class="text-danger">{{ $errors->first('sell') }}</p>
+                                    <b><span id="s_sell" name="s_sell" class="form-control text-danger" style="background:yellow;"></span></b>
                                 </div>
                                 <div class="form-group">
                                     <label for="stock">Stocks</label>
@@ -127,12 +130,21 @@
 <script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-   var tanpa_rupiah = document.getElementById('purchase');
-
-    tanpa_rupiah.addEventListener('keyup', function(e)
-    {
-        tanpa_rupiah.value = formatRupiah(this.value);
-    });
+    var tanpa_rupiah = document.getElementById('purchase');
+    var callback = function(){
+        document.getElementById("p_purchase").innerHTML=formatRupiah(this.value);
+    };
+    if(tanpa_rupiah.addEventListener){
+        // tanpa_rupiah.addEventListener('keyup', function(e)
+        // {
+        //     tanpa_rupiah.value = formatRupiah(this.value);
+        //     document.getElementById("p_purchase").write= formatRupiah(this.value);
+        // });  
+        tanpa_rupiah.addEventListener('keyup', callback);
+    }else{
+        tanpa_rupiah.attachEvent('onkeyup', callback);
+    }
+    
 })
     function formatRupiah(angka, prefix)
     {
@@ -157,10 +169,18 @@ $(document).ready(function(){
 <script type="text/javascript">
     $(document).ready(function(){
     var abc = document.getElementById('sell');
-    abc.addEventListener('keyup', function(e)
-    {
-        abc.value = formatsell(this.value);
-    });
+    // abc.addEventListener('keyup', function(e)
+    // {
+    //     abc.value = formatsell(this.value);
+    // });
+    var callback = function(){
+        document.getElementById("s_sell").innerHTML=formatsell(this.value);
+    };
+    if(abc.addEventListener){
+        abc.addEventListener('keyup', callback);
+    }else{
+        abc.attachEvent('onkeyup', callback);
+    }
 })
 
     function formatsell(angka, prefix)
@@ -181,7 +201,7 @@ $(document).ready(function(){
     }
     </script>
 @section('js')
-    <!-- <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script> -->
+    <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
     <script src="{{ asset('assets/ckeditor/ckeditor.js')}}"></script>
     <script>
         CKEDITOR.replace('description');

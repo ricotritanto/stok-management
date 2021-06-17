@@ -148,7 +148,7 @@ $(document).ready(function(){
 
 
 </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).ready(function(){
     var abc = document.getElementById('sell');
     abc.addEventListener('keyup', function(e)
@@ -173,7 +173,7 @@ $(document).ready(function(){
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
-    </script>
+    </script> -->
 @section('js')
     <!-- LOAD CKEDITOR -->
     <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
