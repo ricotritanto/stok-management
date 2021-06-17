@@ -10,35 +10,35 @@
 	function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
 <!-- Custom Theme files -->
-<link href="{{ asset('public/ecommerce/thema-b/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('public/ecommerce/thema-b/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('public/ecommerce/thema-b/css/fasthover.css')}}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{ asset('public/ecommerce/thema-b/css/popuo-box.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('ecommerce/thema-b/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('ecommerce/thema-b/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('ecommerce/thema-b/css/fasthover.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('ecommerce/thema-b/css/popuo-box.css')}}" rel="stylesheet" type="text/css" media="all" />
 <!-- //Custom Theme files -->
 <!-- font-awesome icons -->
-<link href="{{ asset('public/ecommerce/thema-b/css/font-awesome.css')}}" rel="stylesheet"> 
+<link href="{{ asset('ecommerce/thema-b/css/font-awesome.css')}}" rel="stylesheet">
 <!-- //font-awesome icons -->
 <!-- js -->
-<script src="{{ asset('public/ecommerce/thema-b/js/jquery.min.js')}}"></script>
-<link rel="stylesheet" href="{{ asset('public/ecommerce/thema-b/css/jquery.countdown.css')}}" /> <!-- countdown --> 
-<!-- //js -->  
-<!-- web fonts --> 
+<script src="{{ asset('ecommerce/thema-b/js/jquery.min.js')}}"></script>
+<link rel="stylesheet" href="{{ asset('ecommerce/thema-b/css/jquery.countdown.css')}}" /> <!-- countdown -->
+<!-- //js -->
+<!-- web fonts -->
 <link href='//fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-<!-- //web fonts -->  
+<!-- //web fonts -->
 <!-- start-smooth-scrolling -->
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
+		$(".scroll").click(function(event){
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
 </script>
-<!-- //end-smooth-scrolling --> 
-</head> 
+<!-- //end-smooth-scrolling -->
+</head>
 <body>
-<script type="text/javascript" src="{{ asset('public/ecommerce/thema-b/js/bootstrap-3.1.1.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('ecommerce/thema-b/js/bootstrap-3.1.1.min.js')}}"></script>
 	<!-- header modal -->
 	<!-- header -->
 	<div class="header" id="home1">
@@ -59,12 +59,12 @@
 					</form>
 				</div>
 			</div>
-			<!-- <div class="cart cart box_1"> 
-				<form action="#" method="post" class="last"> 
+			<!-- <div class="cart cart box_1">
+				<form action="#" method="post" class="last">
 					<input type="hidden" name="cmd" value="_cart" />
 					<input type="hidden" name="display" value="1" />
 					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-				</form>   
+				</form>
 			</div>   -->
 		</div>
 	</div>
@@ -85,7 +85,7 @@
 				</div>
 				<div class="col-md-3 w3_footer_grid">
 					<h3>Information</h3>
-					<ul class="info"> 
+					<ul class="info">
 						<li><a href="{{ route('front.about') }}">About Us</a></li>
 						<li><a href="{{ route('front.contact') }}">Contact Us</a></li>
 						<li><a href="{{ route('front.faq') }}">FAQ's</a></li>
@@ -93,7 +93,7 @@
 				</div>
 				<div class="col-md-3 w3_footer_grid">
 					<h3>Category</h3>
-					<ul class="info"> 
+					<ul class="info">
 						@foreach ($categories as $category)
 						<li><a href="{{ route('front.product')}}">{{$category->name}}</a></li>
 						@endforeach
@@ -101,7 +101,7 @@
 				</div>
 				<div class="col-md-3 w3_footer_grid">
 					<h3>Profile</h3>
-					<ul class="info"> 
+					<ul class="info">
 						<li><a href="{{url('/')}}">Home</a></li>
 					</ul>
 					<h4>Follow Us</h4>
@@ -120,7 +120,7 @@
 		<div class="footer-copy">
 			<div class="footer-copy1">
 				<div class="footer-copy-pos">
-					<a href="#home1" class="scroll"><img src="{{ asset('public/ecommerce/thema-b/images/arrow.png')}}" alt=" " class="img-responsive" /></a>
+					<a href="#home1" class="scroll"><img src="{{ asset('ecommerce/thema-b/images/arrow.png')}}" alt=" " class="img-responsive" /></a>
 				</div>
 			</div>
 			<div class="container">
@@ -128,9 +128,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- //footer --> 
+	<!-- //footer -->
 	<!-- cart-js -->
-	<script src="{{ asset('public/ecommerce/thema-b/js/minicart.js')}}"></script>
+	<script src="{{ asset('ecommerce/thema-b/js/minicart.js')}}"></script>
 	<script>
         w3ls.render();
 
@@ -140,11 +140,11 @@
         	if (this.subtotal() > 0) {
         		items = this.items();
 
-        		for (i = 0, len = items.length; i < len; i++) { 
+        		for (i = 0, len = items.length; i < len; i++) {
         		}
         	}
         });
-    </script>  
-	<!-- //cart-js -->   
+    </script>
+	<!-- //cart-js -->
 </body>
 </html>

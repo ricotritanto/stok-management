@@ -65,7 +65,8 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
         Route::delete('/{$id}','ProductController@destroy')->name('product.destroy');
         Route::get('/{$id}/edit','ProductController@edit')->name('product.edit');
         Route::Put('/{$id}','ProductController@update')->name('product.update');
-        Route::get('/{$id}/barcode','ProductController@barcode')->name('product.barcode');
+        Route::get('/barcode/{id}','ProductController@barcode')->name('product.barcode');
+        Route::get('/cetakbarcode/{code}','ProductController@cetakbarcode')->name('product.cetakbarcode');
     });
 
     // MASTER CONTACT

@@ -7,11 +7,13 @@ use Illuminate\Support\Str;
 use App\Product;
 use App\Category;
 use App\Satuan;
+use App\Repository\ProductRepository;
 use File;
 use Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Input;
+use PDF;
 
 class ProductController extends Controller
 {
@@ -114,15 +116,15 @@ class ProductController extends Controller
         $product = Product::find($id);
         $filename = $product->image;
          //jika ada file gambar yg dikirim maka,
-        //  if($request->hasFile(`imagefile`)){
-        //     $file = $request->file('imagefile'); // simpan sementara divariabel file
+         if($request->hasFile(`imagefile`)){
+            $file = $request->file('imagefile'); // simpan sementara divariabel file
         //     // //next nama filenya dibuat customer dgn gabungan time&slug fr product
-        //     $filename = time().Str::slug($request->name).'.'. $file->getClientOriginalExtension();
+            $filename = time().Str::slug($request->name).'.'. $file->getClientOriginalExtension();
         //     // //save filenya ke folder public/products
-        //     $file->storeAs('public/products', $filename);
+            $file->storeAs('public/products', $filename);
         //     // //dan hapus file gambar yg lama
-        //     File::delete(storage_path('app/public/products/' .$product->image));
-        // }
+            File::delete(storage_path('app/public/products/' .$product->image));
+        }
 
         $product->update([
             'name' => $request->name,
@@ -147,5 +149,18 @@ class ProductController extends Controller
         $category = Category::orderBy('Name', 'DESC')->get();
 
         return view('product.barcode', compact('product', 'category'));
+    }
+
+    public function cetakbarcode($code)
+    {
+        $productrepo =  new ProductRepository();
+        $datane = $productrepo->getprocod($code);
+
+        $header = ['StarCCTV'];
+
+        $pdf = PDF::loadview('product.printbarcode',compact('header', 'datane'));
+        // return $pdf->download('cetak-barcode');
+        return $pdf->stream('cetak-barcode');
+        // return  view('barcode.printbarcode', compact())
     }
 }
