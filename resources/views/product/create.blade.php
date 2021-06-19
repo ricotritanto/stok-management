@@ -26,7 +26,7 @@
                             <div class="card-body">
                             	<div class="form-group">
                                     <label for="code">Product Code</label>
-                                    <input type="text" name="code" class="form-control" value="{{ old('code') }}" required>
+                                    <input type="text" name="code" class="form-control" value="{{$b_code}}" required readonly>
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 </div>
                                 <div class="form-group">
@@ -148,7 +148,7 @@ $(document).ready(function(){
 
 
 </script>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function(){
     var abc = document.getElementById('sell');
     abc.addEventListener('keyup', function(e)
@@ -173,7 +173,7 @@ $(document).ready(function(){
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
-    </script> -->
+    </script>
 @section('js')
     <!-- LOAD CKEDITOR -->
     <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>

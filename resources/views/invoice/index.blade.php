@@ -17,7 +17,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">
-                                Search 
+                                Search
                             </h4>
                         </div>
                           <!-- /.card-header -->
@@ -43,7 +43,7 @@
                         </div>
                           <!-- /.card-body -->
                     </div>
-        
+
 
 
                     <div class="col-md-4">
@@ -67,7 +67,7 @@
                                 <input type="text" class="form-control float-right" id="date1" name="date1">
                               </div>
                               <!-- /.input group -->
-                            </div>  
+                            </div>
                             <div class="form-group">
                               <label>To Date:</label>
 
@@ -111,15 +111,15 @@
                                 <td>{{$key->issuing_facture}}</td>
                                 <td>{{$key->name}}</td>
                                 <td>{{$key->total}}</td>
-                                
+
                                 <td><a href="{{route('invoice.print_invis', $key->issuing_facture) }}" target="_blank" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
                                 <a href="{{ route('invoice.invis', $key->issuing_facture) }}" target="_blank" class="btn btn-warning"><i class="fa fa-book"></i>Details</a>
-                                
+
                                 </td>
                             </tr>
                             @empty
                             @endforelse
-                        </tbody>                                    
+                        </tbody>
                     </table>
                      @endif
                 </div>

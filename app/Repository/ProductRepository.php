@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Satuan;
 use App\Product;
@@ -10,25 +10,22 @@ class ProductRepository{
 
 	public function generateCode()
 	{
-      	// $query = DB::table('product')
-       //               ->select(DB::raw('RIGHT as product_code, code'))
-       //               ->orderby('product_id','DESC')
-       //               ->limit(1)
-       //               ->get();
-      	// if($query->num_rows() <> 0)
-      	// {
-	      //  	//jika kode ternyata sudah ada.
-	      //  	$data = $query->row();
-	      //  	$kode = intval($data->kode) + 1;
-      	// }
-      	// else
-      	// {
-	      //  	//jika kode belum ada
-	      //  	$kode = 1;
-      	// }
-	      // 	$kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT);
-	      // 	$kodejadi = "BRG".$kodemax;   print_r($kodejadi);exit();
-	      // 	return $kodejadi;
+        $q=DB::table('products')->select(DB::raw('MAX(RIGHT(code,4)) as kd_max'));
+        $prx= "BRG";
+        if($q->count()>0)
+        {
+            foreach($q->get() as $k)
+            {
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = $prx.sprintf("%06s", $tmp);
+            }
+        }
+        else
+        {
+            $kd = $prx."000001";
+        }
+
+        return $kd;
 	}
 
 	function create_product($name,$code,$serial,$brand,$category,$satuan,$description,$stock,$price,$sell)

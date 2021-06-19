@@ -29,7 +29,7 @@
                             <div class="card-body">
                             	<div class="form-group">
                                     <label for="code">Product Code</label>
-                                    <input type="text" name="code" class="form-control" value="{{ $product->code }}" required>
+                                    <input type="text" name="code" class="form-control" value="{{ $product->code }}" readonly>
                                     <p class="text-danger">{{ $errors->first('code') }}</p>
                                 </div>
                                 <div class="form-group">
@@ -89,13 +89,11 @@
                                         <input type="text" name="purchase" id="purchase" class="form-control" value="{{ $product->purchase_price }}" required/>
                                         <!-- <input type="text" name="p_purchase" id="p_purchase" class="form-control col-sm-6" value="" readonly> -->
                                         <p class="text-danger">{{ $errors->first('purchase') }}</p>
-                                        <b><span id="p_purchase" name="p_purchase" class="form-control text-danger" style="background:yellow;"></span></b>
                                 </div>
                                 <div class="form-group">
                                     <label for="Sell">Sell Price</label>
                                     <input type="text" name="sell" id="sell" class="form-control" value="{{ $product->sell_price }}" required>
                                     <p class="text-danger">{{ $errors->first('sell') }}</p>
-                                    <b><span id="s_sell" name="s_sell" class="form-control text-danger" style="background:yellow;"></span></b>
                                 </div>
                                 <div class="form-group">
                                     <label for="stock">Stocks</label>
@@ -131,20 +129,19 @@
 <script type="text/javascript">
 $(document).ready(function(){
     var tanpa_rupiah = document.getElementById('purchase');
-    var callback = function(){
+    tanpa_rupiah.addEventListener('keyup', function(e)
+    {
+        tanpa_rupiah.value = formatRupiah(this.value);
+    });
+
+    /*var callback = function(){
         document.getElementById("p_purchase").innerHTML=formatRupiah(this.value);
     };
     if(tanpa_rupiah.addEventListener){
-        // tanpa_rupiah.addEventListener('keyup', function(e)
-        // {
-        //     tanpa_rupiah.value = formatRupiah(this.value);
-        //     document.getElementById("p_purchase").write= formatRupiah(this.value);
-        // });  
         tanpa_rupiah.addEventListener('keyup', callback);
     }else{
         tanpa_rupiah.attachEvent('onkeyup', callback);
-    }
-    
+    }*/
 })
     function formatRupiah(angka, prefix)
     {
@@ -169,18 +166,10 @@ $(document).ready(function(){
 <script type="text/javascript">
     $(document).ready(function(){
     var abc = document.getElementById('sell');
-    // abc.addEventListener('keyup', function(e)
-    // {
-    //     abc.value = formatsell(this.value);
-    // });
-    var callback = function(){
-        document.getElementById("s_sell").innerHTML=formatsell(this.value);
-    };
-    if(abc.addEventListener){
-        abc.addEventListener('keyup', callback);
-    }else{
-        abc.attachEvent('onkeyup', callback);
-    }
+    abc.addEventListener('keyup', function(e)
+    {
+        abc.value = formatsell(this.value);
+    });
 })
 
     function formatsell(angka, prefix)

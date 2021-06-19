@@ -19,15 +19,15 @@
                         @card
                             @slot('title')
                             @endslot
-                            
-                            
+
+
                             @if ($message = Session::get('error'))
                                 <div class="alert alert-danger alert-block">
-                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
                                     <strong>{{ $message }}</strong>
                                 </div>
-                            @endif                        
-                            
+                            @endif
+
                             @csrf
                             <div class="form-group">
                                 <label for="name">No Facture</label>
@@ -41,55 +41,55 @@
                                 </div>
                                 <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
                             </div>
-                        </div>                            
-                            
-                                                         
-                            @slot('footer')  
+                        </div>
+
+
+                            @slot('footer')
                             @endslot
                         @endcard
                     </div>
                     <div class="col-md-8">
                         @card
-                            @slot('title')                            
+                            @slot('title')
                             @endslot
                             @if ($message = Session::get('success'))
                                 <div class="alert alert-success alert-block">
-                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
                                     <strong>{{ $message }}</strong>
                                 </div>
-                            @endif     
+                            @endif
 
                             @if ($message = Session::get('error'))
                                 <div class="alert alert-danger alert-block">
-                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
                                     <strong>{{ $message }}</strong>
                                 </div>
-                            @endif                 
-                        <table class="table">                            
+                            @endif
+                        <table class="table">
                             <tbody>
                                 <td><label for="name">Suplier</label></td>
-                                <td>:</td>                                          
+                                <td>:</td>
                                 <td><select class="form-control select2" name="suplier" id="suplier" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
                                 <option value="">Pilih Suplier</option>
                                     @foreach ($suplier as $row)
                                         <option value="{{ $row->id }}">{{ ucfirst($row->suplier_name) }}</option>
-                                    @endforeach                                        
+                                    @endforeach
                                     </select>
                                     <p class="text-danger">{{ $errors->first('suplier_id') }}</p>
                                 </td>
                                 <td><h3><label for="name">(F2)</label></h3></td>
-                                <tr></tr>                 
+                                <tr></tr>
                                 <td> <label for="name">Product Code</label></td>
                                 <td>:</td>
                                 <td> <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
                                 <td><button type="submit" id="btn" class="btn btn-primary">Insert</button></td>
-                                <td><h3><label for="name">(F1)</label></h3></td> 
+                                <td><h3><label for="name">(F10)</label></h3></td>
                             </tbody>
-                        </table>            
+                        </table>
                         <div class="form-group" id="detailpro">
 
                         </div>
-                           
+
                          @slot('footer')​
                             @endslot
                         @endcard
@@ -100,9 +100,9 @@
                             @slot('title')
                             List Purchase
                             @endslot
-                           
-                            <form action="{{ route('purchase.store')}}" method="post">        
-                            @csrf                        
+
+                            <form action="{{ route('purchase.store')}}" method="post">
+                            @csrf
                             <div class="table-responsive">
                                 <table class="table table-hover" id="aa">
                                     <thead>
@@ -117,9 +117,9 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tampilane">
-                                        
+
                                     </tbody>
-                                    
+
                                 </table>
                                  <div class="col-md-auto">
                                     <div class="table-responsive">
@@ -128,9 +128,9 @@
                                             <tr>
                                             </tr>
                                         </thead>
-                                        <tbody>        
+                                        <tbody>
                                                 <td><label for="name">GRAND TOTAL</label></td>
-                                                <td>:</td>                                          
+                                                <td>:</td>
                                                 <td><input type="text" name="grandtot" class="form-control"  style="font-weight: bold; "  id="grandtot" readonly=""/></td>
                                                 <td><button id="save" class="btn btn-warning">Save</button>&nbsp;&nbsp;  <i><strong> / (F4)</strong></i></td>
                                             </tbody>
@@ -147,10 +147,10 @@
         </section>
 </main>
 @endsection
-<script src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script>
@@ -180,12 +180,12 @@
                    url : "{{route('purchase.product')}}",
                    type: "POST",
                    data: data,
-                   success: function(msg){                    
+                   success: function(msg){
                     // $("#detailpro").empty();
                    $('#detailpro').html(msg);
-                   },                 
+                   },
                 });
-            }); 
+            });
 
         $("#code").keypress(function(e){
             if(e.which==13){
@@ -197,7 +197,7 @@
 
 <!-- JS PAY -->
 <script type="text/javascript">
-    $(document).ready(function(){        
+    $(document).ready(function(){
         $('#btn').click(function (e) {
         e.preventDefault();
         $("#pay").keyup(function(){
@@ -209,9 +209,9 @@
       });
           $('.amount').change(function() {
                     reloadtotal();
-                });     
+                });
         })
-    });    
+    });
 </script>
 <!-- END PAY-->
 <script>
@@ -219,10 +219,10 @@
     $(document).ready(function(){
         $('#btn').click(function (e) {
         e.preventDefault();
-        
+
         // var count = 0;
-        var idpro = $("#idpro").val();  
-        var code = $("#code").val();             
+        var idpro = $("#idpro").val();
+        var code = $("#code").val();
         var name = $("#proname").val();
         var qty = $("#qty").val();
         var price = $("#price").val();
@@ -249,18 +249,18 @@
                     return;
                 }
         }
-        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier, Id:idpro, price:price, Total:total}; 
+        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier, Id:idpro, price:price, Total:total};
           tampung.push(item);
           showCart();
     }
 
     function showCart(){
         $("#tampilane").empty();
-          for (var i in tampung) 
-          { 
+          for (var i in tampung)
+          {
             var item = tampung[i];
             var count = 0;
-       
+
             count = count + 1;
             output = '<tr class="records" id="row_'+count+'">';
             output += '<input type="hidden" required name="product[]" id="product" value="'+item.Id+'"/>';
@@ -273,30 +273,30 @@
             output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly required /></td>';
             output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
             output += '<td><input type="button" class="sifucker btn-default" name="x" value="Delete" onclick="deleterow(this)"  readonly/></td>';
-        
+
             output += '</tr>';
-            $("#tampilane").append(output); 
+            $("#tampilane").append(output);
           }
             reloadtotal();
           $("#code").focus();
-        }     
-   })   
+        }
+   })
 
 
-function reloadtotal() // function untuk menghitung grandtotal 
+function reloadtotal() // function untuk menghitung grandtotal
 {
     var arr = document.getElementsByName('total[]'); // mengambil value dari  function showcart() dengan name=total[]
-    var tot=0; // default tot 0 
+    var tot=0; // default tot 0
     for(var i=0;i<arr.length;i++){
         if(parseInt(arr[i].value))
             tot += parseInt(arr[i].value);
     }
     var number_string = tot.toString(), //merubah value tot ke string
     split   = number_string.split(','), // split dengan koma
-    sisa    = split[0].length % 3, 
+    sisa    = split[0].length % 3,
     rupiah  = split[0].substr(0, sisa),
     ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
-            
+
     if (ribuan) {
         separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
@@ -319,8 +319,8 @@ function deleterow(e) // function untuk delete row pada list cart
             case 113:
                $("#suplier").focus();
                 break;
-            // F1
-            case 112:
+            // F10
+            case 121:
                $("#code").focus();
                 break;
             // F4
@@ -331,7 +331,7 @@ function deleterow(e) // function untuk delete row pada list cart
             case 116:
               window.reload();
                 break;
-        
+
             // F8
             case 119 :
                $("#print").focus();
@@ -342,7 +342,7 @@ function deleterow(e) // function untuk delete row pada list cart
     };
 </script>
 <!-- END SHORTCUT KEY -->
-<style type='text/css'> 
+<style type='text/css'>
 input.untukInput1 { /* function disable border table*/
   border-bottom: 0px solid #ccc;
   border-left:none;
@@ -359,11 +359,11 @@ input.untukInput1 { /* function disable border table*/
   font-size:30Px;
  }
 </style>
-<script>  
+<script>
     function runPopup(){
     var respond = prompt("Masukkan No Facture: ");
-    
+
       window.alert("Hai, " + respond + "!");
-   
+
     };
   </script>

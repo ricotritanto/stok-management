@@ -34,10 +34,12 @@ class ProductController extends Controller
 
     public function create()
     {
+        $coderepo = new ProductRepository();
+        $b_code = $coderepo->generatecode();
+
     	$category = Category::orderBy('name','DESC')->get();
         $satuan = Satuan::orderBy('name','DESC')->get();
-    	return view('product.create', compact('category','satuan'));
-
+    	return view('product.create', compact('category','satuan', 'b_code'));
     }
 
     public function store(Request $request)
@@ -56,6 +58,9 @@ class ProductController extends Controller
             'imagefile' => 'required|file|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
+        $conv_purchase = intval(preg_replace('/,.*|[^0-9]/', '', $request->purchase));
+        $conv_sell = intval(preg_replace('/,.*|[^0-9]/', '', $request->sell));
+
          if($request->hasFile(`imagefile`)){
             $file = $request->file('imagefile'); // simpan sementara divariabel file
             //next nama filenya dibuat customer dgn gabungan time&slug fr product
@@ -71,8 +76,8 @@ class ProductController extends Controller
                 'satuan_id' => $request->satuan_id,
                 'description' => $request->description,
                 'image' => $filename,
-                'purchase_price' => $request->purchase,
-                'sell_price' => $request->sell,
+                'purchase_price' => $conv_purchase,
+                'sell_price' => $conv_sell,
                 'stocks' => $request->stock,
                 'status' => $request->status
             ]);
@@ -125,6 +130,8 @@ class ProductController extends Controller
         //     // //dan hapus file gambar yg lama
             File::delete(storage_path('app/public/products/' .$product->image));
         }
+        $conv_purchase = intval(preg_replace('/,.*|[^0-9]/', '', $request->purchase));
+        $conv_sell = intval(preg_replace('/,.*|[^0-9]/', '', $request->sell));
 
         $product->update([
             'name' => $request->name,
@@ -135,8 +142,8 @@ class ProductController extends Controller
             'satuan_id' => $request->satuan_id,
             'description' => $request->description,
             'image' => $filename,
-            'purchase_price' => $request->purchase,
-            'sell_price' => $request->sell,
+            'purchase_price' => $conv_purchase,
+            'sell_price' => $conv_sell,
             'stocks' => $request->stock,
             'status' => $request->status
         ]);
