@@ -63,6 +63,8 @@
     <script src="{{ asset('assets/js/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/coreui.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom-tooltips.min.js') }}"></script>
+    
+<script src="{{ asset('js/app.js') }}"></script>
     @yield('js')
 </body>
 </html>

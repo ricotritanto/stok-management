@@ -37,7 +37,7 @@ class PurchaseController extends Controller
         try{
             // $product = $product->where('name', 'like', '%'. request().'%');
             $productrepo = new ProductRepository;
-            $product = $productrepo->getprocod($request);
+            $product = $productrepo->getprocod($request->code);
 
             return view('purchase.detail', compact('product'));
         }catch(\Exception $e)

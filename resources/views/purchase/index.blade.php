@@ -150,7 +150,7 @@
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<!-- <script src="{{ asset('js/app.js') }}"></script> -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script>
