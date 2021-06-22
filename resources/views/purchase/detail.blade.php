@@ -42,7 +42,12 @@
         var harga  = parseInt($("#price").val());
         var qty  = parseInt($("#qty").val());
         var total = harga*qty;
-        
+        if(isNaN(total)){
+            total = 0;
+        }
+        else{
+            total
+        }
         // var total = harga - (harga*(diskon/100));
         $("#total").val(total);
       });

@@ -9,7 +9,7 @@
 <main class="main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item active">Penjualan</li>
+        <li        <li class="breadcrumb-item active">Pembelian</li>
     </ol>
 ​
         <section class="content">
@@ -84,7 +84,6 @@
                                 <td> <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
                                 <td><h3><label for="name">(F10)</label></h3></td>
                                 <td><button type="submit" id="btn" class="btn btn-primary">Insert</button></td>
-
                             </tbody>
                         </table>
                         <div class="form-group" id="detailpro">
@@ -172,22 +171,22 @@
         reloadtotal();
         $("#code").focus();
         $("#code").keyup(function(){
-
-        var data = {code:$(this).val()};
-            $.ajax({
-               headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                   url : "{{route('purchase.product')}}",
-                   type: "POST",
-                   data: data,
-                   success: function(msg){
-                    // $("#detailpro").empty();
-                    console.log(msg)
-                   $('#detailpro').html(msg);
-                   },
+            var data = {code:$(this).val()};
+            if(this.value.length==9) {
+                $.ajax({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    url : "{{route('purchase.product')}}",
+                    type: "POST",
+                    data: data,
+                    success: function(msg){
+                        // $("#detailpro").empty();
+                        $('#detailpro').html(msg);
+                    },
                 });
-            });
+            }
+        });
 
         $("#code").keypress(function(e){
             if(e.which==13){
@@ -217,85 +216,81 @@
 </script>
 <!-- END PAY-->
 <script>
+var DataAwal = null;
+var DataArray = [];
 var tampung = [];
 $(document).ready(function(){
     $('#btn').click(function (e) {
     e.preventDefault();
 
-        var idpro = $("#idpro").val();
-        var code = $("#code").val();
-        var name = $("#proname").val();
-        var qty = $("#qty").val();
-        var price = $("#price").val();
-        var facture = $("#facture").val();
-        var date = $("#date").val();
-        var suplier = $("#suplier").val();
-        var total = $("#total").val();
+    // var count = 0;
+    var idpro = $("#idpro").val();
+    var code = $("#code").val();
+    var name = $("#proname").val();
+    var qty = $("#qty").val();
+    var price = $("#price").val();
+    var facture = $("#facture").val();
+    var date = $("#date").val();
+    var suplier = $("#suplier").val();
+    var total = $("#total").val();
 
-        addToCart(code, name, qty, facture, date, suplier, idpro,price, total);
-    })
-
-    function addToCart(code, name, qty, facture, date, suplier, idpro, price, total){
-        if(qty=="" || suplier=="")
-        {
-            alert('Data belum lengkap')
-            return false;
-        }else
-        {
-            for (var i in tampung)
-                if(tampung[i].Id ==idpro)
-                {
-                    tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
-                    tampung[i].Total = parseInt(tampung[i].Qty) * parseInt(price);
-                    showCart();
-                    return;
-                }
-        }
-        var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier, Id:idpro, price:price, Total:total};
-          tampung.push(item);
-          showCart();
+    DataAwal = {
+        id : idpro
     }
 
-    function showCart(){
-        $("#tampilane").empty();
-          for (var i in tampung)
-          {
-            var item = tampung[i];
-            var count = 0;
+    DataArray.push(DataAwal)
 
-            count = count + 1;
-            output = '<tr class="records" id="row_'+count+'">';
-            output += '<input type="hidden" required name="product[]" id="product" value="'+item.Id+'"/>';
-            output += '<input type="hidden" required name="facture" id="facture'+count+'"" value="'+item.facture+'"/>';
-            output += '<input type="hidden" required name="date" id="date'+count+'"" value="'+item.date+'"/>';
-            output += '<input type="hidden" required name="suplier" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
-            output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly required /></td>';
-            output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly  required /></td>';
-            output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="form-control input-sm" readonly  required /></td>';
-            output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly required /></td>';
-            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+(item.Total == NaN?'0':item.Total)+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
-            output += '<td><input type="button" class="sifucker btn-default" name="x" value="Delete" onclick="deleterow(this,'+item.Id+')"  readonly/></td>';
+    addToCart(code, name, qty, facture, date, suplier, idpro,price, total);
+})
 
-            output += '</tr>';
-            $("#tampilane").append(output);
-          }
-            reloadtotal();
-          $("#code").focus();
+function addToCart(code, name, qty, facture, date, suplier, idpro, price, total){
+    if(qty=="" || suplier=="")
+    {
+        alert('Data belum lengkap')
+        return false;
+    }else
+    {
+        for (var i in tampung)
+            if(tampung[i].Id ==idpro)
+            {
+                tampung[i].Qty = parseInt(tampung[i].Qty) + parseInt(qty);
+                tampung[i].Total = parseInt(tampung[i].Qty) * parseInt(price);
+                showCart();
+                return;
+            }
+    }
+    var item = { code: code, name:name, Qty:qty, facture:facture, date:date, suplier:suplier, Id:idpro, price:price, Total:total};
+        tampung.push(item);
+        showCart();
     }
 })
 
+function showCart(){
+    $("#tampilane").empty();
+        for (var i in tampung)
+        {
+        var item = tampung[i];
+        var count = 0;
 
-function deleterow(e,idne) // function untuk delete row pada list cart
-    {
-        // $(e).parent().parent().remove();
-        // $(e).parents(".records").fadeOut();
-        // $(e).parents(".records").remove();
-        var arr = tampung.filter(datane=>{
-            return datane.idpro !== idne;
-        });
-        console.log(arr)
+        count = count + 1;
+        output = '<tr class="records" id="row_'+count+'">';
+        output += '<input type="hidden" required name="product[]" id="product" value="'+item.Id+'"/>';
+        output += '<input type="hidden" required name="facture" id="facture'+count+'"" value="'+item.facture+'"/>';
+        output += '<input type="hidden" required name="date" id="date'+count+'"" value="'+item.date+'"/>';
+        output += '<input type="hidden" required name="suplier" id="suplier'+count+'" value="'+item.suplier+'"/></td>';
+        output += '<td><input type="text" name="code[]" id="code'+count+'"" value="'+item.code+'" class="form-control input-sm" readonly required /></td>';
+        output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly  required /></td>';
+        output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="form-control input-sm" readonly  required /></td>';
+        output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly required /></td>';
+        output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
+        output += '<td><input type="button" class="sifucker btn-default" name="x" value="Delete" onclick="deleterow(this,'+item.Id+')"  readonly/></td>';
+
+        output += '</tr>';
+        $("#tampilane").append(output);
+        }
         reloadtotal();
-    }
+        $("#code").focus();
+}
 
 function reloadtotal() // function untuk menghitung grandtotal
 {
@@ -319,37 +314,21 @@ function reloadtotal() // function untuk menghitung grandtotal
     document.getElementById('grandtot').value = rupiah; // hasil perhitungan (value = tot) ditampilkan di kolom dengan name=grandtot
 }
 
+function deleterow(e,idne) // function untuk delete row pada list cart
+{
+    // $(e).parents(".records").fadeOut();
+    // $(e).parents(".records").remove();
+    DataArray = DataArray.filter(datane=>{
+        return datane.id != idne;
+    });
+    tampung = tampung.filter(datane=>{
 
-</script>
-<!-- SHORTCUT KEY -->
-<script>
-    document.onkeydown = function (e) {
-        switch (e.keyCode) {
-            // F2
-            case 113:
-               $("#suplier").focus();
-                break;
-            // F10
-            case 121:
-               $("#code").focus();
-                break;
-            // F4
-            case 115:
-               $("#save").focus();
-                break;
-            // F5
-            case 116:
-              window.reload();
-                break;
+        return datane.Id != idne;
+    });
 
-            // F8
-            case 119 :
-               $("#print").focus();
-                break;
-        }
-        //menghilangkan fungsi default tombol
-        // e.preventDefault();
-    };
+    $(e).closest('tr').remove();
+    reloadtotal();
+}
 </script>
 <!-- END SHORTCUT KEY -->
 <style type='text/css'>

@@ -39,7 +39,22 @@ class PurchaseController extends Controller
             $productrepo = new ProductRepository;
             $product = $productrepo->getprocod($request->code);
 
-            return view('purchase.detail', compact('product'));
+            if (empty($product['code']))
+            {
+                echo '<script language="javascript">';
+                echo 'alert("Barang Tidak Ada.")';
+                echo '</script>';
+            }
+            else if($product['stocks']<=0 )
+            {
+                echo '<script language="javascript">';
+                echo 'alert("Out Of Stock!")';
+                echo '</script>';
+            }
+            else
+            {
+                return view('purchase.detail', compact('product'));
+            }
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);

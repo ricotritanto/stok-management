@@ -145,6 +145,16 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
         Route::get('/print_purchase/{purchase_facture}','InvoiceController@print_purchase')->name('invoice.print_purchase');
 
     });
+
+    // MASTER MANAJEMEN LAPORAN Data barang
+
+    Route::resource('/report', 'ReportController')->except([
+        'create', 'show']);
+    Route::group(['prefix' => 'report'], function()
+    {
+        Route::get('/data_barang','ReportController@data_barang')->name('report.data_barang');
+
+    });
 });
 
 // Route::get('/test', [

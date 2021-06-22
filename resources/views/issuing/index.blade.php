@@ -9,9 +9,9 @@
 <main class="main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item active">Pembelian</li>
+        <li class="breadcrumb-item active">Penjualan</li>
     </ol>
-​     
+​
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -19,18 +19,18 @@
                         @card
                             @slot('title')
                             @endslot
-                            
+
                             @if (session('error'))
                                 @alert(['type' => 'danger'])
                                     {!! session('error') !!}
                                 @endalert
-                            @endif  
-                           
+                            @endif
+
                             @csrf
                             <div class="form-group">
                                 <label for="name">Nota /No.Facture</label>
                                 <input type="text" name="facture" id="facture" readonly value="{{$code}}" class="form-control {{ $errors->has('facture') ? 'is-invalid':'' }}" required>
-                            </div>       
+                            </div>
 
                              <div class="form-group">
                             <label for="name">Date</label>
@@ -41,48 +41,48 @@
                                 <input type="text" name="datepicker" class="form-control" id='date' value="{{ $tanggal}}" required>
                             </div>
                             </div>
-                            @slot('footer')  
+                            @slot('footer')
                             @endslot
                         @endcard
                     </div>
                     <div class="col-md-8">
                         @card
-                            @slot('title')                            
-                            @endslot                           
+                            @slot('title')
+                            @endslot
                             @if(session('modal_message_error'))
                                 <script type="text/javascript">
                                     $(document).ready(function() {
                                     $("#add-error-bag").hide();
                                     $('#modal-print').modal('show');
-                                    
+
                                 });
                                </script>
-                                @endif   
-                               
+                                @endif
 
-                        <table class="table">                            
-                            <tbody>                                        
+
+                        <table class="table">
+                            <tbody>
                                 <td><label for="name">Customer</label></td>
-                                <td>:</td>                                          
+                                <td>:</td>
                                 <td>
                                     <select class="form-control select2" name="customer" id="customer" required class="form-control {{ $errors->has('id') ? 'is-invalid':'' }}">
                                         <option value="">Pilih customer</option>
                                     @foreach ($customer as $row)
                                         <option value="{{ $row->id }}">{{ucfirst($row->customer_code)}}- - {{ucfirst($row->name) }}</option>
-                                    @endforeach                                        
+                                    @endforeach
                                     </select>
                                     <p class="text-danger">{{ $errors->first('customer_id') }}</p></td>
                                 <td>
                                     <a href="{{route('customer.create')}}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add Customer</span></a></td>
                                 <td><h3><label for="name">(F2)</label></h3></td>
-                                <tr></tr>                 
+                                <tr></tr>
                                 <td> <label for="code">Product Code</label></td>
                                 <td>:</td>
-                                <td> 
+                                <td>
                                     <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
-                                <td><button type="submit" id="btn" class="btn btn-primary">To Cart</button></td> 
-                                <td><h3><label for="name">(F1)</label></h3></td>
-                                </tbody>
+                                <td><h3><label for="name">(F10)</label></h3></td>
+                                <td><button type="submit" id="btn" class="btn btn-primary">To Cart</button></td>
+                            </tbody>
                         </table>
 
                         <div class="form-group" id="detailpro">
@@ -91,10 +91,10 @@
                          @slot('footer')​
                             @endslot
                         @endcard
-                    </div>      
-                    <div class="col-md-12">   
-                    <form action="{{ route('issuing.store')}}" method="post" >        
-                    @csrf                  
+                    </div>
+                    <div class="col-md-12">
+                    <form action="{{ route('issuing.store')}}" method="post" >
+                    @csrf
                         @card
                             @slot('title')
                             Record Data
@@ -113,11 +113,11 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tampilane">
-                                        
-                                    </tbody>                                    
+
+                                    </tbody>
                                 </table>
 
-                                
+
                                 <div class="col-md-auto">
                                     <div class="table-responsive">
                                     <table class="table table-hover" id="aa">
@@ -125,15 +125,15 @@
                                             <tr>
                                             </tr>
                                         </thead>
-                                        <tbody>                                        
+                                        <tbody>
                                             <td><label for="name">GRAND TOTAL</label></td>
-                                            <td>:</td>                                          
+                                            <td>:</td>
                                             <td><input type="text" name="grandtot" class="form-control"  style="font-weight: bold; "  id="grandtot" readonly=""/></td>
                                             <td><label for="name">KEMBALI</label></td>
-                                            <td>:</td>                                
-                                            <td><input type="text" name="kembali" class="form-control" id="kembali" style="font-weight: bold;color:red;"readonly="" /></td> 
+                                            <td>:</td>
+                                            <td><input type="text" name="kembali" class="form-control" id="kembali" style="font-weight: bold;color:red;"readonly="" /></td>
 
-                                            <tr></tr>                                           
+                                            <tr></tr>
                                             <td> <label for="name">CASH</label> - <i> <strong>tekan (F10)</strong></i></td>
                                             <td>:</td>
                                             <td> <input type="text" name="bayar" class="form-control" style="font-weight: bold;"  id="bayar" required="" /></td>
@@ -156,11 +156,11 @@
                     </div>
                 </div>
             </div>
-        </section>    
+        </section>
     </div>  @include('issuing.nota')
 </main>
 @endsection
-<script src="{{ asset('js/app.js') }}"></script>
+<!-- <script src="{{ asset('js/app.js') }}"></script> -->
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
@@ -184,32 +184,33 @@
         reloadtotal();
         $("#code").focus();
         $("#code").keyup(function(){
-        var data = {code:$(this).val()};
-        if(this.value.length==7) {
+            var data = {code:$(this).val()};
+            if(this.value.length==9) {
             $.ajax({
-               headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                   url : "{{route('issuing.product')}}",
-                   type: "POST",
-                   data:data,
-                   success: function(data){
-                    $('#detailpro').html(data);
-                }
-                   
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    url : "{{route('issuing.product')}}",
+                    type: "POST",
+                    data:data,
+                    success: function(data){
+                        $('#detailpro').html(data);
+                    }
+
                 });
-        }   }); 
+            }
+        });
 
         $("#code").keypress(function(e){
             if(e.which==13){
                 $("#qty").focus();
-            }        
+            }
         });
     });
 </script>
 <!-- JS PAY -->
 <script type="text/javascript">
-    $(document).ready(function(){        
+    $(document).ready(function(){
         $('#btn').click(function (e) {
         e.preventDefault();
         $("#pay").keyup(function(){
@@ -221,9 +222,9 @@
       });
           $('.amount').change(function() {
                     reloadtotal();
-                });     
+                });
         })
-    });    
+    });
 </script>
 <!-- END JS PAY -->
 <script>
@@ -231,11 +232,11 @@
     $(document).ready(function(){
         $('#btn').click(function (e) {
         e.preventDefault();
-        
+
         var idpro = $("#idpro").val();
         var facture = $("#facture").val();
-        var date = $("#date").val();  
-        var code = $("#kode").val();             
+        var date = $("#date").val();
+        var code = $("#kode").val();
         var name = $("#proname").val();
         var customer = $("#customer").val();
         var price = $("#price").val();
@@ -260,7 +261,7 @@
                     return;
                 }
         }
-        var item = { facture:facture, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total, Id:idpro}; 
+        var item = { facture:facture, date:date, code: code, name:name,price:price, Qty:qty, customer:customer, Total:total, Id:idpro};
         tampung.push(item);
         showCart();
     }
@@ -268,8 +269,8 @@
     function showCart(){
         $("#tampilane").empty();
         var a =1;
-          for (var i in tampung ) 
-          { 
+          for (var i in tampung )
+          {
             var item = tampung[i];
             var count = 0;
 
@@ -285,32 +286,32 @@
             output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="untukInput1" style="width:100PX;margin-right:5px;" readonly /></td>';
             output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="untukInput1" style="width:80PX;margin-right:5px;"  /></td>';
             output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
-            
-            output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="deleterow(this)"  readonly/></td>';
+
+            output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="deleterow(this,'+item.Id+')"  readonly/></td>';
             output += '</tr>';
 
-            $("#tampilane").append(output); 
-          }                
+            $("#tampilane").append(output);
+          }
           reloadtotal();
           $("#code").focus(); // memanggil function reloadtotal() untuk melihat hasil grandtotal
-        }  
- 
-   })   
+        }
 
-function reloadtotal() // function untuk menghitung grandtotal 
+   })
+
+function reloadtotal() // function untuk menghitung grandtotal
 {
     var arr = document.getElementsByName('total[]'); // mengambil value dari  function showcart() dengan name=total[]
-    var tot=0; // default tot 0 
+    var tot=0; // default tot 0
     for(var i=0;i<arr.length;i++){
         if(parseInt(arr[i].value))
             tot += parseInt(arr[i].value);
     }
     var number_string = tot.toString(), //merubah value tot ke string
     split   = number_string.split(','), // split dengan koma
-    sisa    = split[0].length % 3, 
+    sisa    = split[0].length % 3,
     rupiah  = split[0].substr(0, sisa),
     ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
-            
+
     if (ribuan) {
         separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
@@ -319,17 +320,21 @@ function reloadtotal() // function untuk menghitung grandtotal
     document.getElementById('grandtot').value = rupiah; // hasil perhitungan (value = tot) ditampilkan di kolom dengan name=grandtot
 }
 
-function deleterow(e) // function untuk delete row pada list cart
+function deleterow(e, idne) // function untuk delete row pada list cart
 {
-    $(e).parents(".records").fadeOut();
-    $(e).parents(".records").remove();
+    // $(e).parents(".records").fadeOut();
+    // $(e).parents(".records").remove();
+    tampung = tampung.filter(datane=>{
+        return datane.Id != idne;
+    });
+    $(e).closest('tr').remove();
     reloadtotal();
 }
 
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-   
+
     $("#btn-nota").click(function() {
         $.ajaxSetup({
             headers: {
@@ -398,8 +403,8 @@ function printinvoice() {
             case 113:
                $("#customer").focus();
                 break;
-            // F1
-            case 112:
+            // F10
+            case 121:
                $("#code").focus();
                 break;
             // F4
@@ -425,8 +430,8 @@ function printinvoice() {
 </script>
 <!-- END SHORTCUT KEY -->
 <script type="text/javascript">
-    $(document).ready(function(){        
-        // $("#bayar").focus();      
+    $(document).ready(function(){
+        // $("#bayar").focus();
         $("#bayar").keypress(function(e){
             if(e.which==13){
                 $("#kembali").focus();
@@ -436,26 +441,26 @@ function printinvoice() {
         var grandtot  = convertToAngka($("#grandtot").val());
         var bayar  = convertToAngka($("#bayar").val());
         var kembali = bayar-grandtot;
-        
+
         // var total = harga - (harga*(diskon/100));
         var number_string = kembali.toString(), //merubah value tot ke string
         split   = number_string.split(','), // split dengan koma
-        sisa    = split[0].length % 3, 
+        sisa    = split[0].length % 3,
         rupiah  = split[0].substr(0, sisa),
         ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
-                
+
         if (ribuan) {
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        document.getElementById('kembali').value = rupiah; 
+        document.getElementById('kembali').value = rupiah;
       });
     function convertToAngka(rupiah)
     {
         return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
     }
-    });    
+    });
 </script>
 <script>
     $(document).ready(function(){
@@ -463,7 +468,7 @@ function printinvoice() {
         bayar.addEventListener('keyup', function(e)
         {
             bayar.value = formatRupiah(this.value);
-        });  
+        });
     })
     function formatRupiah(angka, prefix)
     {
@@ -472,17 +477,17 @@ function printinvoice() {
             sisa    = split[0].length % 3,
             rupiah  = split[0].substr(0, sisa),
             ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
-            
+
         if (ribuan) {
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
-        
+
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 </script>
-<style type='text/css'> 
+<style type='text/css'>
 input.untukInput1 { /* function disable border table*/
   border-bottom: 0px solid #ccc;
   border-left:none;
