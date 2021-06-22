@@ -115,36 +115,36 @@
                         <i class="nav-icon icon-puzzle"></i>Laporan Pembelian
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="nav-icon icon-puzzle"></i>Return Pembelian
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('invoice.index') }}">
                         <i class="nav-icon icon-puzzle"></i>Laporan Penjualan
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="nav-icon icon-puzzle"></i>Return Penjualan
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="nav-icon icon-puzzle"></i>In / Out Barang
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="nav-icon icon-puzzle"></i>Pendapatan
                     </a>
-                </li>
-                <li class="nav-item">
+                </li> -->
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="nav-icon icon-puzzle"></i>Product Terlaris
                     </a>
-                </li>
+                </li> -->
             </ul>
         </li>
     </ul>

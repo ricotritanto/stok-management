@@ -9,7 +9,7 @@
 <main class="main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item active">Pembelian</li>
+        <li class="breadcrumb-item active">Penjualan</li>
     </ol>
 ​     
         <section class="content">
@@ -80,9 +80,9 @@
                                 <td>:</td>
                                 <td> 
                                     <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
+                                <td><h3><label for="name">(F10)</label></h3></td>
                                 <td><button type="submit" id="btn" class="btn btn-primary">To Cart</button></td> 
-                                <td><h3><label for="name">(F1)</label></h3></td>
-                                </tbody>
+                            </tbody>
                         </table>
 
                         <div class="form-group" id="detailpro">
@@ -160,7 +160,7 @@
     </div>  @include('issuing.nota')
 </main>
 @endsection
-<script src="{{ asset('js/app.js') }}"></script>
+<!-- <script src="{{ asset('js/app.js') }}"></script> -->
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
 <script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
@@ -184,21 +184,22 @@
         reloadtotal();
         $("#code").focus();
         $("#code").keyup(function(){
-        var data = {code:$(this).val()};
-        if(this.value.length==7) {
+            var data = {code:$(this).val()};
+            if(this.value.length==7) {
             $.ajax({
-               headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                   url : "{{route('issuing.product')}}",
-                   type: "POST",
-                   data:data,
-                   success: function(data){
-                    $('#detailpro').html(data);
-                }
-                   
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    url : "{{route('issuing.product')}}",
+                    type: "POST",
+                    data:data,
+                    success: function(data){
+                        $('#detailpro').html(data);
+                    }
+                    
                 });
-        }   }); 
+            }   
+        }); 
 
         $("#code").keypress(function(e){
             if(e.which==13){
@@ -286,7 +287,7 @@
             output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="untukInput1" style="width:80PX;margin-right:5px;"  /></td>';
             output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
             
-            output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="deleterow(this)"  readonly/></td>';
+            output += '<td><input type="button" class="sifucker" name="x" value="Delete" onclick="deleterow(this,'+item.Id+')"  readonly/></td>';
             output += '</tr>';
 
             $("#tampilane").append(output); 
@@ -319,10 +320,14 @@ function reloadtotal() // function untuk menghitung grandtotal
     document.getElementById('grandtot').value = rupiah; // hasil perhitungan (value = tot) ditampilkan di kolom dengan name=grandtot
 }
 
-function deleterow(e) // function untuk delete row pada list cart
+function deleterow(e, idne) // function untuk delete row pada list cart
 {
-    $(e).parents(".records").fadeOut();
-    $(e).parents(".records").remove();
+    // $(e).parents(".records").fadeOut();
+    // $(e).parents(".records").remove();
+    tampung = tampung.filter(datane=>{
+        return datane.Id != idne;
+    });
+    $(e).closest('tr').remove();
     reloadtotal();
 }
 
@@ -398,8 +403,8 @@ function printinvoice() {
             case 113:
                $("#customer").focus();
                 break;
-            // F1
-            case 112:
+            // F10
+            case 121:
                $("#code").focus();
                 break;
             // F4

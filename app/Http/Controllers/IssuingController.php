@@ -44,7 +44,7 @@ class IssuingController extends Controller
         
         try{
             $productrepo = new ProductRepository;
-            $product = $productrepo->getprocod($request);
+            $product = $productrepo->getprocod($request->code);
             if (empty($product['code']))
             {
                 echo '<script language="javascript">';
