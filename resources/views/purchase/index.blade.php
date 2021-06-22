@@ -82,8 +82,9 @@
                                 <td> <label for="name">Product Code</label></td>
                                 <td>:</td>
                                 <td> <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
-                                <td><button type="submit" id="btn" class="btn btn-primary">Insert</button></td>
                                 <td><h3><label for="name">(F10)</label></h3></td>
+                                <td><button type="submit" id="btn" class="btn btn-primary">Insert</button></td>
+
                             </tbody>
                         </table>
                         <div class="form-group" id="detailpro">
@@ -182,6 +183,7 @@
                    data: data,
                    success: function(msg){
                     // $("#detailpro").empty();
+                    console.log(msg)
                    $('#detailpro').html(msg);
                    },
                 });
@@ -215,12 +217,11 @@
 </script>
 <!-- END PAY-->
 <script>
-    var tampung = [];
-    $(document).ready(function(){
-        $('#btn').click(function (e) {
-        e.preventDefault();
+var tampung = [];
+$(document).ready(function(){
+    $('#btn').click(function (e) {
+    e.preventDefault();
 
-        // var count = 0;
         var idpro = $("#idpro").val();
         var code = $("#code").val();
         var name = $("#proname").val();
@@ -230,6 +231,7 @@
         var date = $("#date").val();
         var suplier = $("#suplier").val();
         var total = $("#total").val();
+
         addToCart(code, name, qty, facture, date, suplier, idpro,price, total);
     })
 
@@ -271,17 +273,29 @@
             output += '<td><input type="text" name="name[]" id="name'+count+'" value="'+item.name+'" class="form-control input-sm" readonly  required /></td>';
             output += '<td><input type="text" name="price[]" id="price'+count+'" value="'+item.price+'" class="form-control input-sm" readonly  required /></td>';
             output += '<td class="ikibakaltakupdate"><input type="text" name="qty[]" id="qty'+count+'" value="'+item.Qty+'" class="form-control input-sm" readonly required /></td>';
-            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+item.Total+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
-            output += '<td><input type="button" class="sifucker btn-default" name="x" value="Delete" onclick="deleterow(this)"  readonly/></td>';
+            output += '<td><input type="text" name="total[]" id="total'+count+'"  value="'+(item.Total == NaN?'0':item.Total)+'" class="untukInput1" onblur="reloadtotal()" readonly /></td>';
+            output += '<td><input type="button" class="sifucker btn-default" name="x" value="Delete" onclick="deleterow(this,'+item.Id+')"  readonly/></td>';
 
             output += '</tr>';
             $("#tampilane").append(output);
           }
             reloadtotal();
           $("#code").focus();
-        }
-   })
+    }
+})
 
+
+function deleterow(e,idne) // function untuk delete row pada list cart
+    {
+        // $(e).parent().parent().remove();
+        // $(e).parents(".records").fadeOut();
+        // $(e).parents(".records").remove();
+        var arr = tampung.filter(datane=>{
+            return datane.idpro !== idne;
+        });
+        console.log(arr)
+        reloadtotal();
+    }
 
 function reloadtotal() // function untuk menghitung grandtotal
 {
@@ -304,12 +318,8 @@ function reloadtotal() // function untuk menghitung grandtotal
     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
     document.getElementById('grandtot').value = rupiah; // hasil perhitungan (value = tot) ditampilkan di kolom dengan name=grandtot
 }
-function deleterow(e) // function untuk delete row pada list cart
-{
-    $(e).parents(".records").fadeOut();
-    $(e).parents(".records").remove();
-    reloadtotal();
-}
+
+
 </script>
 <!-- SHORTCUT KEY -->
 <script>
