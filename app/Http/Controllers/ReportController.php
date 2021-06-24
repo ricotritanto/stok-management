@@ -29,13 +29,15 @@ class ReportController extends Controller
         //  return view('invoice.index');
     }
 
-    public function data_barang()
+    public function data_barang(Request $request)
     {
+
         $product = Product::with(['category','satuan'])->orderBy('created_at', 'DESC');
         $category = Category::orderBy('name','DESC')->get();
-        // print_r($product);exit();
-        // if(request()->q != '') {
-        //     $product = $product->where('name', 'like', '%'. request()->q.'%');
+        // var a = $request()->q()
+        // print_r($request()->q);exit();
+        // if($a != '') {
+        //     $product = $product->where('code', 'like', '%'. $a.'%');
         // }
         $product = $product->paginate(10);
         return view('report.data_barang', compact('product','category'));

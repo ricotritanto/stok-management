@@ -76,4 +76,12 @@ class ProductRepository{
 	{
 		 return product::Where('code', $code)->first();
 	}
+
+    function filterProduct($code)
+    {
+        $abc = Product::Where('code',$code)->with('categories')
+    //    ->join('category','product.category_id','=','categories.id')->orWhere('name','LIKE',"%{$category}%")->get();
+       ->join('categories','products.category_id','=','categories.id')->get();
+       return $abc;
+    }
 }
