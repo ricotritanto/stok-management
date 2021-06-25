@@ -38,6 +38,7 @@
 
                             <!-- BUAT FORM UNTUK PENCARIAN, METHODNYA ADALAH GET -->
                             <form action="{{ route('product.index') }}" method="get">
+                            @csrf
                                 <div class="input-group mb-3 col-md-3 float-right">
                                     <!-- KEMUDIAN NAME-NYA ADALAH Q YANG AKAN MENAMPUNG DATA PENCARIAN -->
                                     <input type="text" name="q" class="form-control" placeholder="Cari..." value="{{ request()->q }}">

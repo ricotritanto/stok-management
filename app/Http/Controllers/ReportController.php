@@ -11,6 +11,7 @@ use App\Repository\PurchaseRepository;
 use App\Repository\CustomerRepository;
 use App\Issuing;
 use App\Issuing_detail;
+use App\Purchase_detail;
 use App\product;
 use App\customer;
 use App\Category;
@@ -34,12 +35,16 @@ class ReportController extends Controller
 
         $product = Product::with(['category','satuan'])->orderBy('created_at', 'DESC');
         $category = Category::orderBy('name','DESC')->get();
-        // var a = $request()->q()
-        // print_r($request()->q);exit();
-        // if($a != '') {
-        //     $product = $product->where('code', 'like', '%'. $a.'%');
-        // }
         $product = $product->paginate(10);
         return view('report.data_barang', compact('product','category'));
+    }
+
+    public function inout(){
+        $product = Product::with(['category','satuan','purchase_detail'])->orderBy('created_at', 'DESC');
+        if(request()->q != '') {
+            $product = $product->where('name', 'like', '%'. request()->q.'%');
+        }
+        $product = $product->paginate(10);
+        return view('report.in_out', compact('product'));
     }
 }

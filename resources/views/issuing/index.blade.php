@@ -80,7 +80,7 @@
                                 <td>:</td>
                                 <td>
                                     <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
-                                <td><h3><label for="name">(F10)</label></h3></td>
+                                <td><h3><label for="name">(shift)</label></h3></td>
                                 <td><button type="submit" id="btn" class="btn btn-primary">To Cart</button></td>
                             </tbody>
                         </table>
@@ -116,8 +116,6 @@
 
                                     </tbody>
                                 </table>
-
-
                                 <div class="col-md-auto">
                                     <div class="table-responsive">
                                     <table class="table table-hover" id="aa">
@@ -140,7 +138,7 @@
                                             <td></td>
                                             <td></td>
                                             <td>
-                                                <button type="submit" id="payment" class="btn btn-warning">
+                                                <button type="submit" id="payment" name="payment" class="btn btn-warning">
                                                 <i class="fa fa-credit-card"></i><b> Save Payment</b></button>&nbsp;&nbsp;  <i><strong> / (F4)</strong></i>
                                             </td>
                                             </tbody>
@@ -211,19 +209,22 @@
 <!-- JS PAY -->
 <script type="text/javascript">
     $(document).ready(function(){
+        $("#bayar").prop('disabled', true);
+        $("#payment").prop('disabled', true);
         $('#btn').click(function (e) {
         e.preventDefault();
-        $("#pay").keyup(function(){
-        var harga  = parseInt($("#price").val());
-        var qty  = parseInt($("#qty").val());
-        var total = harga*qty;
-        // var total = harga - (harga*(diskon/100));
-        $("#pay").val(total);
-      });
-          $('.amount').change(function() {
-                    reloadtotal();
-                });
+            $("#pay").keyup(function(){
+                var harga  = parseInt($("#price").val());
+                var qty  = parseInt($("#qty").val());
+                var total = harga*qty;
+                // var total = harga - (harga*(diskon/100));
+                $("#pay").val(total);
+            });
+            $('.amount').change(function() {
+                reloadtotal();
+            });
         })
+        // $("#bayar").prop('disabled', false);
     });
 </script>
 <!-- END JS PAY -->
@@ -292,8 +293,9 @@
 
             $("#tampilane").append(output);
           }
-          reloadtotal();
-          $("#code").focus(); // memanggil function reloadtotal() untuk melihat hasil grandtotal
+            reloadtotal();
+            $("#code").focus(); // memanggil function reloadtotal() untuk melihat hasil grandtotal
+            $("#bayar").prop('disabled', false);
         }
 
    })
@@ -368,8 +370,11 @@ function deleterow(e, idne) // function untuk delete row pada list cart
 
 function addTaskForm() {
     $(document).ready(function() {
-        $("#add-error-bag").hide();
-        $('#modal-form').modal('show');
+        $('#payment').click(function (e) {
+        e.preventDefault();
+            $("#add-error-bag").hide();
+            $('#modal-form').modal('show');
+        });
     });
 }
 
@@ -403,8 +408,8 @@ function printinvoice() {
             case 113:
                $("#customer").focus();
                 break;
-            // F10
-            case 121:
+            // shift
+            case 16:
                $("#code").focus();
                 break;
             // F4
@@ -455,6 +460,7 @@ function printinvoice() {
         }
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         document.getElementById('kembali').value = rupiah;
+        $("#payment").prop('disabled', false);
       });
     function convertToAngka(rupiah)
     {

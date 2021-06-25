@@ -93,7 +93,7 @@
                         <a class="nav-link" href="#">
                             <i class="nav-icon icon-puzzle"></i> Return Penjualan
                         </a>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{route('issuing.print_nota')}}">
                             <i class="nav-icon icon-puzzle"></i> Print Nota
                         </a>
                     </li>
@@ -131,7 +131,7 @@
                     </a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{route('report.in_out')}}">
                         <i class="nav-icon icon-puzzle"></i>In / Out Barang
                     </a>
                 </li>

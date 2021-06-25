@@ -29,7 +29,7 @@ class IssuingController extends Controller
         $code = $issuingrepo->getfacture();
 
         //untuk forelse di nota
-        $facture =''; 
+        $facture ='';
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
 
@@ -41,7 +41,7 @@ class IssuingController extends Controller
         $this->validate($request, [
             'code' => 'required',
         ]);
-        
+
         try{
             $productrepo = new ProductRepository;
             $product = $productrepo->getprocod($request->code);
@@ -69,15 +69,15 @@ class IssuingController extends Controller
     }
 
     public function store(Request $request)
-    {  
-       
+    {
+
         $a = $request->all();
 
         $facture = $a['facture'];
         $date = $a['date'];
         $customer = $a['customer'];
         $grandtot = $a['grandtot'];
-        $idpro = $a['product'];      
+        $idpro = $a['product'];
         $qty = $a['qty'];
         $total = $a['total'];
         $bayar = $a['bayar'];
@@ -86,7 +86,7 @@ class IssuingController extends Controller
         $data =array();
 
         $index=0;
-        foreach ($idpro as $key ) 
+        foreach ($idpro as $key )
         {
             array_push($data, array(
                         'issuing_facture'=>$facture,
@@ -102,36 +102,36 @@ class IssuingController extends Controller
                 $index++;
         }
 
-        
+
 
         try
-        {     
+        {
             $issuingrepo = new IssuingRepository;
             $issuing = $issuingrepo->issuing($data);
 
-        
+
             $issuingrepo =  new IssuingRepository();
             $datane = $issuingrepo->getnota($facture);
-            foreach ($datane as $key ) 
+            foreach ($datane as $key )
             {
                 $a = $key['issuing_facture'];
                 $b = $key['grandtotal'];
                 $c = $key['bayar'];
                 $d = $key['kembali'];
             }
-            
+
             return redirect(route('issuing'))->with(['modal_message_error' => 'Save Success',
                                                 'facture' => $a,
                                                 'grandtot' => $b,
                                                 'bayar' => $c,
                                                 'kembali' => $d]);
-               
+
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
         }
 
-        
+
     }
 
     public function generatepdf(Request $request)
@@ -141,13 +141,18 @@ class IssuingController extends Controller
         $facture = $a['facture'];
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
-        
+
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
 
         $header = ['StarCCTV'];
-        
+
         $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
-        return $pdf->stream('laporan-issuing-pdf');
+        return $pdf->download($facture.".pdf");
+    }
+
+    public function printnota()
+    {
+        return view('issuing.print_nota');
     }
 }

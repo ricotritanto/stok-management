@@ -82,7 +82,7 @@
                                 <td> <label for="name">Product Code</label></td>
                                 <td>:</td>
                                 <td> <input type="text" name="code" id="code" class="form-control input-sm" onfocus="this.value=''"  required></td>
-                                <td><h3><label for="name">(F10)</label></h3></td>
+                                <td><h3><label for="name">(F7)</label></h3></td>
                                 <td><button type="submit" id="btn" class="btn btn-primary">Insert</button></td>
                             </tbody>
                         </table>
@@ -329,6 +329,38 @@ function deleterow(e,idne) // function untuk delete row pada list cart
     $(e).closest('tr').remove();
     reloadtotal();
 }
+</script>
+<script>
+    document.onkeydown = function (e) {
+        switch (e.keyCode) {
+            // F2
+            case 113:
+               $("#suplier").focus();
+                break;
+            // F7
+            case 118:
+               $("#code").focus();
+                break;
+            // F4
+            case 115:
+               $("#save").focus();
+                break;
+            // F5
+            case 116:
+              window.reload();
+                break;
+            // f10
+            case 121:
+                $("#bayar").focus();
+                break;
+            // F8
+            case 119 :
+               $("#print").focus();
+                break;
+        }
+        //menghilangkan fungsi default tombol
+        // e.preventDefault();
+    };
 </script>
 <!-- END SHORTCUT KEY -->
 <style type='text/css'>

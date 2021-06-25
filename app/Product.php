@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\category;
 use App\satuan;
 use App\purchase_detail;
+use App\Issuing_detail;
 
 class Product extends Model
 {
@@ -34,7 +35,13 @@ class Product extends Model
     public function purchase_detail()//relasi dengan tabel product
 	 {
 		 // jenis relasi one to many, category bisa digunakan oleh banyak product
-		 return $this->hasMany(Purchase_detail::class, 'id', 'purchase_detail');
+		 return $this->hasMany(Purchase_detail::class, 'product_id', 'purchase_detail');
+     }
+
+     public function issuing_detail()//relasi dengan tabel product
+	 {
+		 // jenis relasi one to many, category bisa digunakan oleh banyak product
+		 return $this->hasMany(Issuing_detail::class, 'satuan_id', 'issuing_detail');
      }
 
     public function setSlugAttribute($value)

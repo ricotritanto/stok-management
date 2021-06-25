@@ -124,6 +124,7 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
         Route::post('/getnota','IssuingController@invoice')->name('issuing.invoice');
         Route::Put('/{$id}','IssuingController@update')->name('issuing.update');
         Route::post('/generatepdf','IssuingController@generatepdf')->name('issuing.pdf');
+        Route::get('/printnota','IssuingController@printnota')->name('issuing.print_nota');
 
     });
 
@@ -153,6 +154,7 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
     Route::group(['prefix' => 'report'], function()
     {
         Route::get('/data_barang','ReportController@data_barang')->name('report.data_barang');
+        Route::get('/','ReportController@inout')->name('report.in_out');
 
     });
 });
