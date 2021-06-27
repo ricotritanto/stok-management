@@ -69,16 +69,16 @@
                                                 <div class="barcode">
                                                     {!! DNS1D::getBarcodeHTML($row->code, "C128",1.4,22) !!}
                                                 </div>
-                                                <p>{{$row->code}}</p>
+                                                <p>{{$row->product->code}}</p>
                                             </td>
                                             <td>
-                                                <strong>{{ $row->name }}</strong><br>
+                                                <strong>{{ $row->product->name }}</strong><br>
                                                 <!-- ADAPUN NAMA KATEGORINYA DIAMBIL DARI HASIL RELASI PRODUK DAN KATEGORI -->
-                                                <label>Category: <span class="badge badge-info">{{ $row->category->name }}</span></label><br>
+                                                <label>Category: <span class="badge badge-info">{{ $row->product->category->name }}</span></label><br>
                                             </td>
-                                            <td>{{$row->satuan->name}}</td>
-                                            <td>{{$row->stocks}}</td>
-                                            <td>{!! $row->status_label !!}</td>
+                                            <td>{{$row->product->name}}</td>
+                                            <td>{{$row->product->stocks}}</td>
+                                            <td>{{$row->qty}}</td>
                                             <td>{{$row->created_at->format('d-m-Y')}}</td>
                                         </tr>
                                         @empty
@@ -90,7 +90,6 @@
                                 </table>
                             </div>
                             <!-- MEMBUAT LINK PAGINASI JIKA ADA -->
-                            {!! $product->links() !!}
                         </div>
                     </div>
                 </div>

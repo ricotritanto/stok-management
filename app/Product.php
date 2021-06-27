@@ -35,13 +35,16 @@ class Product extends Model
     public function purchase_detail()//relasi dengan tabel product
 	 {
 		 // jenis relasi one to many, category bisa digunakan oleh banyak product
-		 return $this->hasMany(Purchase_detail::class, 'product_id', 'purchase_detail');
+		//  return $this->hasMany(Purchase_detail::class, 'product_id', 'purchase_detail');
+        return $this->hasMany(Purchase_detail::class);
      }
 
      public function issuing_detail()//relasi dengan tabel product
 	 {
 		 // jenis relasi one to many, category bisa digunakan oleh banyak product
-		 return $this->hasMany(Issuing_detail::class, 'satuan_id', 'issuing_detail');
+		//  return $this->hasMany(Issuing_detail::class, 'satuan_id', 'issuing_detail');
+        return $this->hasMany('App\Issuing_detail');
+
      }
 
     public function setSlugAttribute($value)

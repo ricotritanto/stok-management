@@ -40,11 +40,17 @@ class ReportController extends Controller
     }
 
     public function inout(){
-        $product = Product::with(['category','satuan','purchase_detail'])->orderBy('created_at', 'DESC');
-        if(request()->q != '') {
-            $product = $product->where('name', 'like', '%'. request()->q.'%');
-        }
-        $product = $product->paginate(10);
+        $product = Purchase_detail::all();
+        // foreach($product as $row)
+        // {
+        //     $a = $row->product->serial;
+        // }
+        // print_r($a);exit();
+        // $product = Product::with(['category','satuan','purchase_detail'])->orderBy('created_at', 'DESC');
+        // if(request()->q != '') {
+        //     $product = $product->where('name', 'like', '%'. request()->q.'%');
+        // }
+        // $product = $product->paginate(10);
         return view('report.in_out', compact('product'));
     }
 }
