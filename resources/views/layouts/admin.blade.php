@@ -15,10 +15,13 @@
     <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
-
-
-
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+
+    <!-- Datatables -->
+
+    <link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+
     @yield('title')
 
   <!-- UNTUK ME-LOAD ASSET DARI PUBLIC, KITA GUNAKAN HELPER ASSET() -->
@@ -28,6 +31,7 @@
 	<link href="{{ asset('assets/vendors/pace-progress/css/pace.min.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     @include('layouts.module.header')

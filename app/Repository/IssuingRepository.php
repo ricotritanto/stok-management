@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Products;
 use App\Customer;
@@ -17,7 +17,7 @@ class IssuingRepository{
         $fak = (int) substr($cek, 12);
         $day = date('d');
         $bulan = date('m');
-        $tahun = date('Y'); 
+        $tahun = date('Y');
         $kd ="FS-";
         $no = 1;
         if($fak)
@@ -26,13 +26,15 @@ class IssuingRepository{
             $a = $kd.$day.$bulan."".$tahun."-".sprintf("%05d",$sum);
         }else{
             $a = $kd.$day.$bulan."".$tahun."-".sprintf("%05d",$no);
-        }      
+        }
         return $a;
     }
 
      public function issuing($data)
      {
-       
+        $idprod ='';
+        $qtyne = '';
+
         $transId=$this->issuing_details($data);
         for($i=0;$i<count($data);$i++)
         {
@@ -45,17 +47,24 @@ class IssuingRepository{
             $bb[$i]['created_at'] = date('Y-m-d H:i:s');
             $bb[$i]['updated_at'] = date('Y-m-d H:i:s');
             unset($bb[$i]['id']);
+
+            $idprod = $bb[$i]['product_id'];
+            $qtyne = $bb[$i]['qty'];
         }
+
+        $aa = DB::table('products')
+        ->where('id', '=', $idprod)
+        ->update(['stocks' => DB::raw('stocks-'.$qtyne.'')]);
         return issuing_detail::insert($bb);
 
      }
 
     public function issuing_details($data)
     {
-     
-         foreach ($data as $key) 
-        {   
-           
+
+         foreach ($data as $key)
+        {
+
             $aa['date']=$key['date'];
             $aa['customer_id']=$key['customer_id'];
             $aa['bayar']=$key['bayar'];
@@ -64,12 +73,12 @@ class IssuingRepository{
             $aa['created_at'] =date('Y-m-d H:i:s');
             $aa['updated_at'] = date('Y-m-d H:i:s');
         }
-        
+
         $id = issuing::insertGetId($aa);
         return $id;
     }
-       
-    
+
+
 
      function getnota($facture)
      {
@@ -84,7 +93,7 @@ class IssuingRepository{
 
      function getinvoice($facture, $customer, $tgl1, $tgl2)
      {
-         $abc = issuing::Where('issuing_facture',$facture)->with('customer')        
+         $abc = issuing::Where('issuing_facture',$facture)->with('customer')
         ->join('issuing_details','issuing_details.issuing_id','=','issuings.id')
         ->join('products','issuing_details.product_id','=','products.id')
         ->join('customers','issuings.customer_id','=','customers.id')->orWhere('customers.name','LIKE',"%$customer%")->WhereBetween('date',[$tgl1, $tgl2] )->get();

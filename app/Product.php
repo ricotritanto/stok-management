@@ -43,7 +43,7 @@ class Product extends Model
 	 {
 		 // jenis relasi one to many, category bisa digunakan oleh banyak product
 		//  return $this->hasMany(Issuing_detail::class, 'satuan_id', 'issuing_detail');
-        return $this->hasMany('App\Issuing_detail');
+        return $this->hasMany(Issuing_detail::class);
 
      }
 

@@ -15,9 +15,9 @@ class Issuing_detail extends Model
     protected $table = 'issuing_details';
 
     public function product()
-    { 
+    {
     	// return $this->belongsTo(Product::class, 'product_id', 'id');
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
      public function issuing()

@@ -36,8 +36,8 @@
                                     <th>Nama Barang</th>
                                     <th>SN</th>
                                     <th>Kategori</th>
-                                    <th>Qty</th>
                                     <th>Satuan</th>
+                                    <th>Stok Qty</th>
                                     <th>H.Beli</th>
                                     <th>H.Jual</th>
                                     <th>Last Update</th>

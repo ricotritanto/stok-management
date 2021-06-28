@@ -154,7 +154,8 @@ Route::group(['prefix' => 'administrator', 'middleware'=> 'auth'], function(){
     Route::group(['prefix' => 'report'], function()
     {
         Route::get('/data_barang','ReportController@data_barang')->name('report.data_barang');
-        Route::get('/','ReportController@inout')->name('report.in_out');
+        Route::get('/in','ReportController@initem')->name('report.in_item');
+        Route::get('/out','ReportController@outitem')->name('report.out_item');
 
     });
 });

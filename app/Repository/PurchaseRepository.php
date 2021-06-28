@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Products;
 use App\Suplier;
@@ -17,7 +17,7 @@ class PurchaseRepository{
         $fak = (int) substr($cek, 12);
         $day = date('d');
         $bulan = date('m');
-        $tahun = date('Y'); 
+        $tahun = date('Y');
         $kd ="PF";
         $no = 1;
         if($fak)
@@ -26,13 +26,14 @@ class PurchaseRepository{
             $a = $kd."-".$day."".$bulan."".$tahun."-".sprintf("%05d",$sum);
         }else{
             $a = $kd."-".$day."".$bulan."".$tahun."-".sprintf("%05d",$no);
-        }      
+        }
         return $a;
     }
 
      public function purchase($data)
      {
-
+        $idprod ='';
+        $qtyne = '';
         $transId=$this->purchase_details($data);
         for($i=0;$i<count($data);$i++)
         {
@@ -42,26 +43,31 @@ class PurchaseRepository{
             $bb[$i]['qty'] = $data[$i]['qty'];
             $bb[$i]['total'] = $data[$i]['total'];
             $bb[$i]['created_at'] = date('Y-m-d H:i:s');
-            $bb[$i]['updated_at'] = date('Y-m-d H:i:s');   
+            $bb[$i]['updated_at'] = date('Y-m-d H:i:s');
   			unset($bb[$i]['id']);
+            $idprod = $bb[$i]['product_id'];
+            $qtyne = $bb[$i]['qty'];
+
   		}
-    	
-        // print_r($bb);exit();
+
+        $aa = DB::table('products')
+        ->where('id', '=', $idprod)
+        ->update(['stocks' => DB::raw('stocks+'.$qtyne.'')]);
         return purchase_detail::insert($bb);
      }
 
      public function purchase_details($data)
      {
-        foreach ($data as $key) 
+        foreach ($data as $key)
         {
-            // $aa['purchase_id']=$id;          
+            // $aa['purchase_id']=$id;
             $aa['date']=$key['date'];
             $aa['suplier_id']=$key['suplier'];
             $aa['grandtotal'] =$key['grandtotal'];
             $aa['created_at'] =date('Y-m-d H:i:s');
             $aa['updated_at'] = date('Y-m-d H:i:s');
 
-            
+
         }
         $id = purchase::insertGetId($aa);
         return $id;

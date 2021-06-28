@@ -131,7 +131,7 @@
                     </a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('report.in_out')}}">
+                    <a class="nav-link" href="{{route('report.in_item')}}">
                         <i class="nav-icon icon-puzzle"></i>In / Out Barang
                     </a>
                 </li>

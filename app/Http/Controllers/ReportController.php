@@ -39,18 +39,14 @@ class ReportController extends Controller
         return view('report.data_barang', compact('product','category'));
     }
 
-    public function inout(){
+    public function initem(){
         $product = Purchase_detail::all();
-        // foreach($product as $row)
-        // {
-        //     $a = $row->product->serial;
-        // }
-        // print_r($a);exit();
-        // $product = Product::with(['category','satuan','purchase_detail'])->orderBy('created_at', 'DESC');
-        // if(request()->q != '') {
-        //     $product = $product->where('name', 'like', '%'. request()->q.'%');
-        // }
-        // $product = $product->paginate(10);
-        return view('report.in_out', compact('product'));
+        return view('report.in_item', compact('product'));
+    }
+
+    public function outitem(){
+        $product = Issuing_detail::all();
+        // print_r($product);exit();
+        return view('report.out_item', compact('product'));
     }
 }
