@@ -49,7 +49,7 @@
                         @card
                             @slot('title')
                             @endslot
-                            @if(session('modal_message_error'))
+                            @if(session('modal_message'))
                                 <script type="text/javascript">
                                     $(document).ready(function() {
                                     $("#add-error-bag").hide();
@@ -57,9 +57,7 @@
 
                                 });
                                </script>
-                                @endif
-
-
+                            @endif
                         <table class="table">
                             <tbody>
                                 <td><label for="name">Customer</label></td>
@@ -357,12 +355,6 @@ function deleterow(e, idne) // function untuk delete row pada list cart
             },
             error: function(data) {
                 console.log(data);
-                // var errors = $.parseJSON(data.responseText);
-                // $('#add-task-errors').html('ERORR BONG');
-                // $.each(errors.messages, function(key, value) {
-                //     $('#add-task-errors').append('<li>' + value + '</li>');
-                // });
-                // $("#add-error-bag").show();
             }
         });
     });
@@ -443,29 +435,29 @@ function printinvoice() {
             }
         });
         $("#bayar").keyup(function(){
-        var grandtot  = convertToAngka($("#grandtot").val());
-        var bayar  = convertToAngka($("#bayar").val());
-        var kembali = bayar-grandtot;
+            var grandtot  = convertToAngka($("#grandtot").val());
+            var bayar  = convertToAngka($("#bayar").val());
+            var kembali = bayar-grandtot;
 
-        // var total = harga - (harga*(diskon/100));
-        var number_string = kembali.toString(), //merubah value tot ke string
-        split   = number_string.split(','), // split dengan koma
-        sisa    = split[0].length % 3,
-        rupiah  = split[0].substr(0, sisa),
-        ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
+            // var total = harga - (harga*(diskon/100));
+            var number_string = kembali.toString(), //merubah value tot ke string
+            split   = number_string.split(','), // split dengan koma
+            sisa    = split[0].length % 3,
+            rupiah  = split[0].substr(0, sisa),
+            ribuan  = split[0].substr(sisa).match(/\d{1,3}/gi);
 
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            document.getElementById('kembali').value = rupiah;
+            $("#payment").prop('disabled', false);
+        });
+        function convertToAngka(rupiah)
+        {
+            return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
         }
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        document.getElementById('kembali').value = rupiah;
-        $("#payment").prop('disabled', false);
-      });
-    function convertToAngka(rupiah)
-    {
-        return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
-    }
     });
 </script>
 <script>

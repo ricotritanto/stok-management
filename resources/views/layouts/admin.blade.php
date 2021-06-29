@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 
     <!-- Datatables -->
-
-    <link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+  <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
 
     @yield('title')
@@ -73,12 +73,25 @@
 </body>
 </html>
 <!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery/jquery-ui.min.js') }}"></script>
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
     <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+
+    <!-- DataTables -->
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" defer></script> -->
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+    <!-- SlimScroll -->
+
 
     <script src="{{asset('plugins/input-mask/jquery.inputmask.js')}}"></script>
     <script src="{{asset('plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
@@ -106,3 +119,4 @@
     <script src="{{ asset('plugins/input-mask/jquery.inputmask.js')}}"></script>
     <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
     <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
+

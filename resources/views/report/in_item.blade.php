@@ -39,7 +39,7 @@
                             <!-- JIKA TERDAPAT FLASH SESSION, MAKA TAMPILAKAN -->
                             <!-- TABLE UNTUK MENAMPILKAN DATA PRODUK -->
                             <div class="table-responsive"  id="product">
-                                <table class="table table-hover table-bordered" id="example" name="example">
+                                <table class="table table-striped table-bordered" id="example" name="example">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -47,7 +47,7 @@
                                             <th>Product</th>
                                             <th>Satuan</th>
                                             <th>Qty Masuk</th>
-                                            <th>Action</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,41 +89,30 @@
 @endsection
 
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
-<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
-<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
 <!-- <script src="{{ asset('js/app.js') }}"></script> -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- DataTables -->
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" defer></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
-<!-- SlimScroll -->
-<script src="{{ asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
-<!-- FastClick -->
-<script src="{{ asset('plugins/fastclick/fastclick.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.min.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js')}}"></script>
+<script type="text/javascript" src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script>
 $(document).ready(function() {
-    $('#example').DataTable({
+    var table = $('#example').DataTable({
         "paging": true,
-        "lengthChange": true,
+        "lengthChange": false,
         "searching": true,
         "ordering": true,
         "info": true,
         "autoWidth": true,
-        // dom: 'Bfrtip',
+        dom: 'Bfrtip',
         buttons: [
-        {
-            extend: 'print',
-            text: 'Print current page',
-            autoPrint: false
-        }
-    ]
+            {
+                extend: 'print',
+                text: 'Cetak',
+                autoPrint: true
+            }
+        ]
     });
+    table.buttons().container()
+        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
   });
 </script>

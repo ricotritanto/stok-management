@@ -76,36 +76,31 @@
 </main>
 @endsection
 <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
-<script src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
-<script src="{{ asset('plugins/jQuery/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('plugins/jQuery/jquery.3-3-1.min.js') }}"></script>
 <!-- <script src="{{ asset('js/app.js') }}"></script> -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-<!-- <script src="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" type="text/css"></script> -->
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" defer  type="text/javascript"></script>
-<script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- DataTables -->
-<!-- <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js')}}" defer></script> -->
-<!-- <script src="{{ asset('plugins/datatables/dataTables.bootstrap4.min.js')}}"></script> -->
-<!-- SlimScroll -->
-<script src="{{ asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
-<!-- FastClick -->
-<script src="{{ asset('plugins/fastclick/fastclick.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.min.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js')}}"></script>
+<script type="text/javascript" src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script>
- $(function () {
-    // $("#example").DataTable();
-    $('#example').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true
+ $(document).ready(function() {
+    var table = $('#example').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                text: 'Cetak',
+                autoPrint: true
+            }
+        ]
     });
+    table.buttons().container()
+        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
   });
 </script>
+
