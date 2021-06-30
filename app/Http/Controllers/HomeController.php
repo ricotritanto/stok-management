@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Auth;
-use App\Model\User;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -25,10 +25,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user['rows'] = User::all();
-        // print_r($user['row']);exit();
-        return view('home',$user);
+        $role = Auth::user()->level;
+        // $user['rows'] = User::all();
+        // print_r($email);exit();
+        return view('home', compact('role'));
     }
 }

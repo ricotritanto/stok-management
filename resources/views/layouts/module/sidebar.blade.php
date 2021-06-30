@@ -5,7 +5,7 @@
                 <i class="nav-icon icon-speedometer"></i> Dashboard
             </a>
         </li>
-
+        @if($role =='admin')
         <li class="nav-title">MANAJEMEN PRODUCTS</li>
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#">
@@ -44,7 +44,8 @@
                 </li> -->
             </ul>
         </li>
-
+        @endif
+        @if($role == 'admin')
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#">
                 <i class="nav-icon icon-settings"></i> Contact
@@ -63,7 +64,8 @@
                 </li>
             </ul>
         </li>
-
+        @endif
+        @if($role =='user')
         <li class="nav-title">MANAJEMEN ORDER</li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
@@ -99,7 +101,9 @@
                     </li>
                 </ul>
             </li>
-        @if($row['level'] =='admin')
+        </li>
+        @endif
+        @if($role =='admin')
         <li class="nav-title">MANAJEMEN LAPORAN</li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="javascript">
