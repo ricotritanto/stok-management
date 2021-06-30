@@ -99,53 +99,56 @@
                     </li>
                 </ul>
             </li>
+        @if($row['level'] =='admin')
         <li class="nav-title">MANAJEMEN LAPORAN</li>
-        <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="javascript">
-                <i class="nav-icon icon-settings"></i> Laporan
-            </a>
-            <ul class="nav-dropdown-items">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('report.data_barang') }}">
-                        <i class="nav-icon icon-puzzle"></i>Laporan Data Barang
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('invoice.report_purchase') }}">
-                        <i class="nav-icon icon-puzzle"></i>Laporan Pembelian
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon icon-puzzle"></i>Return Pembelian
-                    </a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('invoice.index') }}">
-                        <i class="nav-icon icon-puzzle"></i>Laporan Penjualan
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon icon-puzzle"></i>Return Penjualan
-                    </a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('report.in_item')}}">
-                        <i class="nav-icon icon-puzzle"></i>In / Out Barang
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon icon-puzzle"></i>Pendapatan
-                    </a>
-                </li> -->
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon icon-puzzle"></i>Product Terlaris
-                    </a>
-                </li> -->
-            </ul>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="javascript">
+                    <i class="nav-icon icon-settings"></i> Laporan
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('report.data_barang') }}">
+                            <i class="nav-icon icon-puzzle"></i>Laporan Data Barang
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('invoice.report_purchase') }}">
+                            <i class="nav-icon icon-puzzle"></i>Laporan Pembelian
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="nav-icon icon-puzzle"></i>Return Pembelian
+                        </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('invoice.index') }}">
+                            <i class="nav-icon icon-puzzle"></i>Laporan Penjualan
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="nav-icon icon-puzzle"></i>Return Penjualan
+                        </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('report.in_item')}}">
+                            <i class="nav-icon icon-puzzle"></i>In / Out Barang
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="nav-icon icon-puzzle"></i>Pendapatan
+                        </a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="nav-icon icon-puzzle"></i>Product Terlaris
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
         </li>
+        @endif
     </ul>
 </nav>

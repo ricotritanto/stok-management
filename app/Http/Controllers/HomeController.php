@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use Auth;
+use App\Model\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user['rows'] = User::all();
+        // print_r($user['row']);exit();
+        return view('home',$user);
     }
 }
