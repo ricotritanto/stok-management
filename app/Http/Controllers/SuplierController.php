@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Suplier;
 use App\Repository\SuplierRepository;
+use Auth;
 
 class SuplierController extends Controller
 {
@@ -12,24 +13,26 @@ class SuplierController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
+        $role = Auth::user()->level;
         $suplierrepo =  new SuplierRepository();
         $suplier = $suplierrepo->getsuplier();
-        return view('suplier.index', compact('suplier'));
+        return view('suplier.index', compact('suplier','role'));
     }
 
     public function create()
     {
+        $role = Auth::user()->level;
         $suplierrepo =  new SuplierRepository();
         $code = $suplierrepo->getcode();
-        return view('suplier.create', compact('code'));
+        return view('suplier.create', compact('code','role'));
     }
 
     public function store(Request $request)
     {
-        
+
         $name = $request['name'];
         $code = $request['code'];
         $email = $request['email'];
@@ -56,9 +59,10 @@ class SuplierController extends Controller
 
     public function edit($id)
     {
+        $role = Auth::user()->level;
         $suplierrepo = new SuplierRepository();
         $suplier = $suplierrepo->getid($id);
-        return view('suplier.edit', compact('suplier'));
+        return view('suplier.edit', compact('suplier','role'));
     }
 
     public function update(Request $request, $id)

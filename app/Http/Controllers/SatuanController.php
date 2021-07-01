@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use yajra\DataTables\Datatables;
 use App\Repository\SatuanRepository;
+use Auth;
 
 
 class SatuanController extends Controller
@@ -16,9 +17,10 @@ class SatuanController extends Controller
     }
 
     public function index(){
+        $role = Auth::user()->level;
         $satuanrepo =  new SatuanRepository();
         $satuan = $satuanrepo->getsatuan();
-        return view('satuan.index', compact('satuan'));
+        return view('satuan.index', compact('satuan','role'));
     }
 
     public function create()
@@ -49,9 +51,10 @@ class SatuanController extends Controller
 
     public function edit($id)
     {
+        $role = Auth::user()->level;
         $satuanrepo = new SatuanRepository();
         $satuan = $satuanrepo->getid($id);
-        return view('satuan.edit', compact('satuan'));
+        return view('satuan.edit', compact('satuan'.'role'));
     }
 
     public function update(Request $request, $id)

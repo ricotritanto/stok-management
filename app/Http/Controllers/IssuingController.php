@@ -9,6 +9,7 @@ use App\Repository\ProductRepository;
 use App\Repository\IssuingRepository;
 use App\Repository\CustomerRepository;
 use PDF;
+use Auth;
 
 class IssuingController extends Controller
 {
@@ -19,6 +20,7 @@ class IssuingController extends Controller
 
     public function index()
     {
+        $role = Auth::user()->level;
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
 
@@ -33,7 +35,7 @@ class IssuingController extends Controller
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
 
-        return view('issuing.index', compact('code','customer','cscode','datane'));
+        return view('issuing.index', compact('code','customer','cscode','datane','role'));
     }
 
     public function getproduct(Request $request)
@@ -136,6 +138,7 @@ class IssuingController extends Controller
 
     public function generatepdf(Request $request)
     {
+        $role = Auth::user()->level;
         $a = $request->all();
 
         $facture = $a['facture'];
@@ -146,13 +149,13 @@ class IssuingController extends Controller
         $customer = $customerrepo->getcustomer();
 
         $header = ['StarCCTV'];
-
-        $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer'));
+        $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer','role'));
         return $pdf->download($facture.".pdf");
     }
 
     public function printnota()
     {
-        return view('issuing.print_nota');
+        $role = Auth::user()->level;
+        return view('issuing.print_nota',compact('role'));
     }
 }

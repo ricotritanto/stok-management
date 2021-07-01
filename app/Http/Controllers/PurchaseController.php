@@ -9,6 +9,7 @@ use App\Repository\ProductRepository;
 use App\Repository\PurchaseRepository;
 use App\Repository\SuplierRepository;
 use PDF;
+use Auth;
 
 class PurchaseController extends Controller
 {
@@ -17,15 +18,16 @@ class PurchaseController extends Controller
         $this->middleware('auth');
     }
 
-    
+
     public function index()
     {
+        $role = Auth::user()->level;
         $suplierrepo =  new SuplierRepository();
         $suplier = $suplierrepo->getsuplier();
 
         $purchaserepo =  new PurchaseRepository();
         $code = $purchaserepo->getfacture();
-        return view('purchase.index', compact('code','suplier'));
+        return view('purchase.index', compact('code','suplier','role'));
     }
 
     public function getproduct(Request $request)
@@ -33,7 +35,7 @@ class PurchaseController extends Controller
         $this->validate($request, [
             'code' => 'required',
         ]);
-        
+
         try{
             // $product = $product->where('name', 'like', '%'. request().'%');
             $productrepo = new ProductRepository;
@@ -71,12 +73,12 @@ class PurchaseController extends Controller
         $qty = $a['qty'];
         $date = $a['date'];
         $suplier = $a['suplier'];
-        
+
 
         $data =array();
 
         $index=0;
-        foreach ($idpro as $key ) 
+        foreach ($idpro as $key )
         {
             array_push($data, array(
                         'purchase_facture'=>$facture,
@@ -87,7 +89,7 @@ class PurchaseController extends Controller
                         'grandtotal' => $grandtotal,
                         'qty'=>$qty[$index],  // Ambil dan set data nama sesuai index array dari $index
                       ));
-      
+
                 $index++;
         }
         // print_r($data);exit();
@@ -114,7 +116,7 @@ class PurchaseController extends Controller
         $suplier = $suplierrepo->getsuplier();
 
         $header = ['StarCCTV'];
-        
+
         $pdf = PDF::loadview('purchase.pdf',compact('header','datane','suplier'));
         return $pdf->download('generate-purchase');
     }

@@ -16,6 +16,7 @@ use App\product;
 use App\customer;
 use App\Category;
 use PDF;
+use Auth;
 
 class ReportController extends Controller
 {
@@ -32,21 +33,22 @@ class ReportController extends Controller
 
     public function data_barang(Request $request)
     {
-
+        $role = Auth::user()->level;
         $product = Product::with(['category','satuan'])->orderBy('created_at', 'DESC');
         $category = Category::orderBy('name','DESC')->get();
         $product = $product->paginate(10);
-        return view('report.data_barang', compact('product','category'));
+        return view('report.data_barang', compact('product','category','role'));
     }
 
     public function initem(){
+        $role = Auth::user()->level;
         $product = Purchase_detail::all();
-        return view('report.in_item', compact('product'));
+        return view('report.in_item', compact('product','role'));
     }
 
     public function outitem(){
+        $role = Auth::user()->level;
         $product = Issuing_detail::all();
-        // print_r($product);exit();
-        return view('report.out_item', compact('product'));
+        return view('report.out_item', compact('product','role'));
     }
 }

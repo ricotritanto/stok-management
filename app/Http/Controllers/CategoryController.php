@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -12,15 +13,16 @@ class CategoryController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
     	// $categoryrepo=new CategoryRepository;
 	    // $category = $categoryrepo->GetCategory();
         // return view('category.index', compact('category'));
+        $role = Auth::user()->level;
         $category = Category::with(['parent'])->orderBy('created_at', 'DESC')->paginate(10);
         $parent = Category::getParent()->orderBy('name', 'ASC')->get();
-        return view('categories.index', compact('category','parent'));
+        return view('categories.index', compact('category','parent','role'));
     }
 
     public function store(Request $request)
@@ -47,10 +49,11 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
+        $role = Auth::user()->level;
     	$category = Category::Find($id);
         $parent = Category::getParent()->orderBy('name','ASC')->get();
 
-        return view('categories.edit', compact('category','parent'));
+        return view('categories.edit', compact('category','parent','role'));
     }
 
     public function update(Request $request, $id)
@@ -58,7 +61,7 @@ class CategoryController extends Controller
     	$this->validate($request, [
             'name' => 'required|string|max:50|unique:categories'
         ]);
-        
+
         $category = Category::Find($id);
         $category->update([
             'name' => $request->name,

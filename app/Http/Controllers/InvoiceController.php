@@ -15,6 +15,7 @@ use App\customer;
 use App\Purchase;
 use DB;
 use PDF;
+use Auth;
 
 
 class InvoiceController extends Controller
@@ -27,12 +28,13 @@ class InvoiceController extends Controller
 
     public function index()
     {
-         return view('invoice.index');
+        $role = Auth::user()->level;
+         return view('invoice.index',compact('role'));
     }
 
     public function issuing(Request $request)
     {
-
+        $role = Auth::user()->level;
         $facture =$request->facture;
         $customer =$request->customer;
         $tgl1 =$request->date1;
@@ -43,26 +45,28 @@ class InvoiceController extends Controller
         if(count($datane) > 0)
         {
 
-            return view('invoice.index', compact('datane'));
+            return view('invoice.index', compact('datane','role'));
         }
         else
         {
-            return view ('invoice.index')->withMessage('No Details found. Try to search again !');
+            return view ('invoice.index', compact('role'))->withMessage('No Details found. Try to search again !');
         }
 
     }
 
     public function invis($issuing_facture)
     {
+        $role = Auth::user()->level;
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getbyid($issuing_facture);
 
-        return view('invoice.invis', compact('datane'));
+        return view('invoice.invis', compact('datane','role'));
 
     }
 
     public function print_invis($issuing_facture)
     {
+        $role = Auth::user()->level;
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getbyid($issuing_facture);
 
@@ -71,7 +75,7 @@ class InvoiceController extends Controller
 
         $header = ['StarCCTV'];
 
-        $pdf = PDF::loadview('invoice.invis',compact('header','datane','customer'));
+        $pdf = PDF::loadview('invoice.invis',compact('header','datane','customer','role'));
         return $pdf->stream('report-invoice-issuing-pdf');
 
     }
@@ -92,12 +96,13 @@ class InvoiceController extends Controller
 
     public function report_purchase()
     {
-
-        return view('invoice.report_purchase');
+        $role = Auth::user()->level;
+        return view('invoice.report_purchase',compact('role'));
     }
 
     public function purchase(Request $request)
     {
+        $role = Auth::user()->level;
         $facture =$request->facture;
         $suplier =$request->suplier;
         $tgl1 =$request->date1;
@@ -108,19 +113,20 @@ class InvoiceController extends Controller
         if(count($datane) > 0)
         {
 
-            return view('invoice.report_purchase', compact('datane'));
+            return view('invoice.report_purchase', compact('datane','role'));
         }
         else
         {
-            return view ('invoice.report_purchase')->withMessage('No Details found. Try to search again !');
+            return view ('invoice.report_purchase', compact('role'))->withMessage('No Details found. Try to search again !');
         }
     }
 
     public function inchase($purchase_facture)
     {
+        $role = Auth::user()->level;
         $purchaserepo =  new PurchaseRepository();
         $datane = $purchaserepo->getbyid($purchase_facture);
-        return view('invoice.inchase', compact('datane'));
+        return view('invoice.inchase', compact('datane','role'));
     }
 
     public function print_purchase($purchase_facture)
@@ -131,7 +137,7 @@ class InvoiceController extends Controller
 
         $header = ['StarCCTV'];
 
-        $pdf = PDF::loadview('invoice.inchase',compact('header','datane'));
+        $pdf = PDF::loadview('invoice.inchase',compact('header','datane','role'));
         return $pdf->stream('report-invoice-issuing-pdf');
     }
 }

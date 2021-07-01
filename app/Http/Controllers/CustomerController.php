@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use yajra\DataTables\Datatables;
 use App\Repository\CustomerRepository;
+use Auth;
 
 class CustomerController extends Controller
 {
@@ -12,22 +13,24 @@ class CustomerController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
+        $role = Auth::user()->level;
         $customerrepo =  new CustomerRepository();
         $cscode = $customerrepo->getcode();
 
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
-        return view('customer.index', compact('customer','cscode'));
+        return view('customer.index', compact('customer','cscode','role'));
     }
 
     public function create()
     {
+        $role = Auth::user()->level;
         $customerrepo =  new CustomerRepository();
         $code = $customerrepo->getcode();
-        return view('customer.create', compact('code'));
+        return view('customer.create', compact('code','role'));
     }
 
     public function store(Request $request)
@@ -46,7 +49,7 @@ class CustomerController extends Controller
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
-        }       
+        }
     }
 
     public function destroy($id)
@@ -58,9 +61,10 @@ class CustomerController extends Controller
 
     public function edit($id)
     {
+        $role = Auth::user()->level;
         $customerrepo = new CustomerRepository();
         $customer = $customerrepo->getid($id);
-        return view('customer.edit', compact('customer'));
+        return view('customer.edit', compact('customer','role'));
     }
 
     public function update(Request $request, $id)
@@ -79,7 +83,7 @@ class CustomerController extends Controller
         }catch(\Exception $e)
         {
             return redirect()->back()->with(['error'=>$e->getMessage()]);
-        }       
-        
+        }
+
     }
 }

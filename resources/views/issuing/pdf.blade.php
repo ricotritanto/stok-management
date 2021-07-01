@@ -50,18 +50,18 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 40%;">
-                @forelse($datane as $abc)    
-                
+                @forelse($datane as $abc)
+
                     @empty
                     @endforelse
                 <pre>
                     Code Customer :{{$abc->customer_code}}
-                    Name: {{$abc->name}}                   
+                    Name: {{$abc->name}}
                     Address: {{$abc->address}}
                     Hp: {{$abc->phone}}
 
                     <br /><br />
-                    
+
                     Nota : {{$abc->issuing_facture}}
                     Date: {{$abc->date}}
                 </pre>
@@ -108,7 +108,7 @@
             <td style="border: 1px solid; padding:12px;">{{$abc->qty}}</td>
             <td style="border: 1px solid; padding:12px;" align="left">Rp{{number_format($abc->sell_price,0,".",".")}}</td>
         </tr>
-        @endforeach 
+        @endforeach
         </tbody>
 
         <tfoot>
