@@ -66,10 +66,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(User $user)
     {
-        $role = Auth::user()->level;
-        print_r($role);exit();   
+
     }
 
     /**

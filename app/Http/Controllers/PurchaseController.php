@@ -22,12 +22,13 @@ class PurchaseController extends Controller
     public function index()
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $suplierrepo =  new SuplierRepository();
         $suplier = $suplierrepo->getsuplier();
 
         $purchaserepo =  new PurchaseRepository();
         $code = $purchaserepo->getfacture();
-        return view('purchase.index', compact('code','suplier','role'));
+        return view('purchase.index', compact('code','suplier','role','row'));
     }
 
     public function getproduct(Request $request)

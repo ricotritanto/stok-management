@@ -28,8 +28,8 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $role = Auth::user()->level;
-        // $user['rows'] = User::all();
+        $row = Auth::user()->id;
         // print_r($email);exit();
-        return view('home', compact('role'));
+        return view('home', compact('role','row'));
     }
 }

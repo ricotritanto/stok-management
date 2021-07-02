@@ -17,20 +17,22 @@ class CustomerController extends Controller
     public function index()
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $customerrepo =  new CustomerRepository();
         $cscode = $customerrepo->getcode();
 
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
-        return view('customer.index', compact('customer','cscode','role'));
+        return view('customer.index', compact('customer','cscode','role','row'));
     }
 
     public function create()
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $customerrepo =  new CustomerRepository();
         $code = $customerrepo->getcode();
-        return view('customer.create', compact('code','role'));
+        return view('customer.create', compact('code','role','row'));
     }
 
     public function store(Request $request)
@@ -62,9 +64,10 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $customerrepo = new CustomerRepository();
         $customer = $customerrepo->getid($id);
-        return view('customer.edit', compact('customer','role'));
+        return view('customer.edit', compact('customer','role','row'));
     }
 
     public function update(Request $request, $id)

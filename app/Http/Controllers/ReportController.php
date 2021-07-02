@@ -34,21 +34,24 @@ class ReportController extends Controller
     public function data_barang(Request $request)
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $product = Product::with(['category','satuan'])->orderBy('created_at', 'DESC');
         $category = Category::orderBy('name','DESC')->get();
         $product = $product->paginate(10);
-        return view('report.data_barang', compact('product','category','role'));
+        return view('report.data_barang', compact('product','category','role','row'));
     }
 
     public function initem(){
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $product = Purchase_detail::all();
-        return view('report.in_item', compact('product','role'));
+        return view('report.in_item', compact('product','role','row'));
     }
 
     public function outitem(){
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $product = Issuing_detail::all();
-        return view('report.out_item', compact('product','role'));
+        return view('report.out_item', compact('product','role','row'));
     }
 }

@@ -21,6 +21,7 @@ class IssuingController extends Controller
     public function index()
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
 
@@ -35,7 +36,7 @@ class IssuingController extends Controller
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
 
-        return view('issuing.index', compact('code','customer','cscode','datane','role'));
+        return view('issuing.index', compact('code','customer','cscode','datane','role','row'));
     }
 
     public function getproduct(Request $request)
@@ -139,28 +140,30 @@ class IssuingController extends Controller
     public function generatepdf(Request $request)
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $a = $request->all();
         $facture = $a['facture'];
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
-        
+
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
         if($datane->isEmpty()){
             echo '<script language="javascript">';
-            echo 'alert("Nota Tidak Ada.")'; 
+            echo 'alert("Nota Tidak Ada.")';
             echo '</script>';
             return view('issuing.print_nota',compact('role'));
         }else{
             $header = ['StarCCTV'];
-            $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer','role'));
-            return $pdf->download($facture.".pdf");  
+            $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer','role','row'));
+            return $pdf->download($facture.".pdf");
         }
     }
 
     public function printnota()
     {
         $role = Auth::user()->level;
-        return view('issuing.print_nota',compact('role'));
+        $row = Auth::user()->id;
+        return view('issuing.print_nota',compact('role','row'));
     }
 }

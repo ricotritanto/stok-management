@@ -18,9 +18,10 @@ class SatuanController extends Controller
 
     public function index(){
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $satuanrepo =  new SatuanRepository();
         $satuan = $satuanrepo->getsatuan();
-        return view('satuan.index', compact('satuan','role'));
+        return view('satuan.index', compact('satuan','role','row'));
     }
 
     public function create()
@@ -52,9 +53,10 @@ class SatuanController extends Controller
     public function edit($id)
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $satuanrepo = new SatuanRepository();
         $satuan = $satuanrepo->getid($id);
-        return view('satuan.edit', compact('satuan'.'role'));
+        return view('satuan.edit', compact('satuan','role','row'));
     }
 
     public function update(Request $request, $id)

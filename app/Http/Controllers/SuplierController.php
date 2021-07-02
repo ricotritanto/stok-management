@@ -17,17 +17,19 @@ class SuplierController extends Controller
     public function index()
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $suplierrepo =  new SuplierRepository();
         $suplier = $suplierrepo->getsuplier();
-        return view('suplier.index', compact('suplier','role'));
+        return view('suplier.index', compact('suplier','role','row'));
     }
 
     public function create()
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $suplierrepo =  new SuplierRepository();
         $code = $suplierrepo->getcode();
-        return view('suplier.create', compact('code','role'));
+        return view('suplier.create', compact('code','role','row'));
     }
 
     public function store(Request $request)
@@ -60,9 +62,10 @@ class SuplierController extends Controller
     public function edit($id)
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $suplierrepo = new SuplierRepository();
         $suplier = $suplierrepo->getid($id);
-        return view('suplier.edit', compact('suplier','role'));
+        return view('suplier.edit', compact('suplier','role','row'));
     }
 
     public function update(Request $request, $id)

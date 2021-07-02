@@ -16,13 +16,11 @@ class CategoryController extends Controller
 
     public function index()
     {
-    	// $categoryrepo=new CategoryRepository;
-	    // $category = $categoryrepo->GetCategory();
-        // return view('category.index', compact('category'));
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
         $category = Category::with(['parent'])->orderBy('created_at', 'DESC')->paginate(10);
         $parent = Category::getParent()->orderBy('name', 'ASC')->get();
-        return view('categories.index', compact('category','parent','role'));
+        return view('categories.index', compact('category','parent','role','row'));
     }
 
     public function store(Request $request)
@@ -50,10 +48,11 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $role = Auth::user()->level;
+        $row = Auth::user()->id;
     	$category = Category::Find($id);
         $parent = Category::getParent()->orderBy('name','ASC')->get();
 
-        return view('categories.edit', compact('category','parent','role'));
+        return view('categories.edit', compact('category','parent','role','row'));
     }
 
     public function update(Request $request, $id)
