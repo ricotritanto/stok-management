@@ -18,7 +18,7 @@
                         <div class="card-header">
                             <form class="form-inline">
                                 <div class="form-group mr-1">
-                                    <input class="form-control" type="text" name="q" value="{{ $q}}" placeholder="Pencarian..." />
+                                    <input class="form-control" type="text" name="q" value="{{ $cari}}" placeholder="Pencarian..." />
                                 </div>
                                 <div class="form-group mr-1">
                                     <button class="btn btn-success">Refresh</button>
@@ -41,7 +41,7 @@
                                     </tr>
                                 </thead>
                                 <?php $no = 1 ?>
-                                @foreach($rows as $row)
+                                @foreach($data as $row)
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $row->name }}</td>

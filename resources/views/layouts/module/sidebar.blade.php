@@ -65,7 +65,7 @@
             </ul>
         </li>
         @endif
-        @if($role =='user')
+        @if($role =='user' || $role =='admin')
         <li class="nav-title">MANAJEMEN ORDER</li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
@@ -150,6 +150,22 @@
                             <i class="nav-icon icon-puzzle"></i>Product Terlaris
                         </a>
                     </li> -->
+                </ul>
+            </li>
+        </li>
+        @endif
+        @if($role =='admin')
+        <li class="nav-title">Tools</li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="javascript">
+                    <i class="nav-icon icon-settings"></i> Setting
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.index') }}">
+                            <i class="nav-icon icon-puzzle"></i> User
+                        </a>
+                    </li>
                 </ul>
             </li>
         </li>

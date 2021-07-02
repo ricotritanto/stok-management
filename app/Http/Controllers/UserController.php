@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\User;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class UserController extends Controller
 {
@@ -15,10 +16,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $role = Auth::user()->level;
         $data['title'] = 'Data User';
-        $data['q'] = $request->q;
-        $data['rows'] = User::where('name', 'like', '%' . $request->q . '%')->get();
-        return view('user.index', $data);
+        $cari= $request->q;
+        $data = User::where('name', 'like', '%' . $request->q . '%')->get();
+        return view('user.index', compact('data','role', 'cari'));
     }
 
     /**
@@ -28,6 +30,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
+        $data['role'] = Auth::user()->level;
         $data['title'] = 'Tambah User';
         $data['levels'] = ['admin' => 'Admin', 'user' => 'User'];
         return view('user.create', $data);
@@ -63,9 +66,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Role $role)
     {
-        //
+        $role = Auth::user()->level;
+        print_r($role);exit();   
     }
 
     /**
@@ -76,6 +80,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $data['role'] = Auth::user()->level;
         $data['title'] = 'Ubah User';
         $data['row'] = $user;
         $data['levels'] = ['admin' => 'Admin', 'user' => 'User'];
@@ -115,6 +120,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('user')->with('success', 'Hapus Data Berhasil');
+        return redirect(route('user.index'))->with('success', 'Hapus Data Berhasil');
     }
 }

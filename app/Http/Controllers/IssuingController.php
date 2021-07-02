@@ -140,17 +140,22 @@ class IssuingController extends Controller
     {
         $role = Auth::user()->level;
         $a = $request->all();
-
         $facture = $a['facture'];
         $issuingrepo =  new IssuingRepository();
         $datane = $issuingrepo->getnota($facture);
-
+        
         $customerrepo =  new CustomerRepository();
         $customer = $customerrepo->getcustomer();
-
-        $header = ['StarCCTV'];
-        $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer','role'));
-        return $pdf->download($facture.".pdf");
+        if($datane->isEmpty()){
+            echo '<script language="javascript">';
+            echo 'alert("Nota Tidak Ada.")'; 
+            echo '</script>';
+            return view('issuing.print_nota',compact('role'));
+        }else{
+            $header = ['StarCCTV'];
+            $pdf = PDF::loadview('issuing.pdf',compact('header','datane','customer','role'));
+            return $pdf->download($facture.".pdf");  
+        }
     }
 
     public function printnota()

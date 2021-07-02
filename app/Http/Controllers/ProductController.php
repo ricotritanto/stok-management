@@ -14,6 +14,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Input;
 use PDF;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -24,22 +25,24 @@ class ProductController extends Controller
 
     public function index()
     {
+        $role = Auth::user()->level;
         $product = Product::with(['category','satuan'])->orderBy('created_at', 'DESC');
         if(request()->q != '') {
             $product = $product->where('name', 'like', '%'. request()->q.'%');
         }
         $product = $product->paginate(10);
-        return view('product.index', compact('product'));
+        return view('product.index', compact('product', 'role'));
     }
 
     public function create()
     {
+        $role = Auth::user()->level;
         $coderepo = new ProductRepository();
         $b_code = $coderepo->generatecode();
 
     	$category = Category::orderBy('name','DESC')->get();
         $satuan = Satuan::orderBy('name','DESC')->get();
-    	return view('product.create', compact('category','satuan', 'b_code'));
+    	return view('product.create', compact('category','satuan', 'b_code','role'));
     }
 
     public function store(Request $request)
@@ -96,11 +99,12 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        $role = Auth::user()->level;
         $product = Product::Find($id);
         $category = Category::orderBy('Name', 'DESC')->get();
         $satuan = Satuan::orderBy('name','DESC')->get();
 
-        return view('product.edit', compact('product', 'category','satuan'));
+        return view('product.edit', compact('product', 'category','satuan','role'));
     }
 
     public function update(Request $request, $id)
@@ -152,20 +156,22 @@ class ProductController extends Controller
 
     public function barcode(Request $request, $id)
     {
+        $role = Auth::user()->level;
         $product = Product::find($id);
         $category = Category::orderBy('Name', 'DESC')->get();
 
-        return view('product.barcode', compact('product', 'category'));
+        return view('product.barcode', compact('product', 'category','role'));
     }
 
     public function cetakbarcode($code)
     {
+        $role = Auth::user()->level;
         $productrepo =  new ProductRepository();
         $datane = $productrepo->getprocod($code);
 
         $header = ['StarCCTV'];
 
-        $pdf = PDF::loadview('product.printbarcode',compact('header', 'datane'));
+        $pdf = PDF::loadview('product.printbarcode',compact('header', 'datane','role'));
         // return $pdf->download('cetak-barcode');
         return $pdf->stream('cetak-barcode');
         // return  view('barcode.printbarcode', compact())
